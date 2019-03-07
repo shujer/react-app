@@ -1,0 +1,17 @@
+.loading-article {
+  background-image: url('../../assets/icon/article-loading.png');
+  background-repeat: no-repeat;
+  -moz-background-size: 100% 100%;
+  background-size: 100% 100%;
+  width: 100vw;
+  height: 100vh;
+}
+
+.loading-home {
+  background-image: url('../../assets/App.png');
+  background-repeat: no-repeat;
+  -moz-background-size: 100% 100%;
+  background-size: 100% 100%;
+  width: 100vw;
+  height: 100vh;
+}

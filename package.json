@@ -1,0 +1,50 @@
+{
+  "name": "react-juejin",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd-mobile": "^2.2.9",
+    "rc-form": "^2.4.3",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-loadable": "^5.5.0",
+    "react-redux": "^6.0.1",
+    "react-router-config": "^4.4.0-beta.6",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.8",
+    "redux": "^4.0.1"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "babel-plugin-import": "^1.11.0",
+    "customize-cra": "^0.2.12",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "react-app-rewired": "^2.1.0",
+    "redux-devtools": "^3.5.0",
+    "style-loader": "^0.23.1"
+  },
+  "theme": {
+    "@brand-primary": "#5cc3e8",
+    "@brand-primary-tap": "#314855",
+    "@brand-success": "#79ceb8",
+    "@brand-warning": "#ffdb00",
+    "@brand-error": "#e95f5c",
+    "@brand-important": "#ff5b05",
+    "@brand-wait": "#b7b7b7"
+  }
+}
