@@ -1,0 +1,49 @@
+@info-color: #68737f;
+.ellipsis {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.bar {
+    color: @info-color;
+    width: 100%;
+    font-size: 0.8rem;
+    overflow: hidden;
+}
+
+.avatar {
+    width: 2.4rem;
+    height: 2.4rem;
+    float: left;
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+}
+
+.commentStatus {
+    display: inline-flex;
+    width: 4rem;
+    align-items: flex-start;
+    justify-content: space-between;
+    float: left;
+}
+
+.userInfo {
+    float: left;
+    display: inline-flex;
+    flex-direction: column;
+    align-self: flex-end;
+    margin-left: 0.4rem;
+    width: calc(100% - 7rem);
+    .userOccupation {
+        .ellipsis;
+        flex: 1;
+    }
+    .userName {
+        flex: 1;
+        color: @brand-primary-tap;
+    }
+}

@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
+import './index.less'
+import '@assets/css/iconfont.css'
 import routes from './routes'
 import {renderRoutes} from 'react-router-config'
 import {BrowserRouter as Router, Switch} from 'react-router-dom'
