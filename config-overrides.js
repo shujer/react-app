@@ -2,7 +2,8 @@ const {
   override,
   fixBabelImports,
   addWebpackAlias,
-  addLessLoader
+  addLessLoader,
+  addDecoratorsLegacy
 } = require('customize-cra')
 const path = require('path')
 const theme = require('./package.json').theme
@@ -19,10 +20,14 @@ module.exports = override(
   fixBabelImports('import', {
     libraryName: 'antd-mobile',
     libraryDirectory: 'lib',
-    style: true
+    style: true,
+    legacy: true
   }),
   addLessLoader({
     javascriptEnabled: true,
     modifyVars: theme
+  }),
+  addDecoratorsLegacy({
+    legacy: true
   })
 )
