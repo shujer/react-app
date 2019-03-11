@@ -3,18 +3,21 @@ const {
   fixBabelImports,
   addWebpackAlias,
   addLessLoader,
-  addDecoratorsLegacy
+  addDecoratorsLegacy,
+  overrideDevServer,
+  watchAll
 } = require('customize-cra')
 const path = require('path')
 const theme = require('./package.json').theme
-module.exports = override(
+module.exports = {
+  webpack: override(
   addWebpackAlias({
     '@common': path.resolve(__dirname, 'src/common'),
     '@components': path.resolve(__dirname, 'src/components'),
     '@assets': path.resolve(__dirname, 'src/assets'),
     '@layouts': path.resolve(__dirname, 'src/layouts'),
     '@utils': path.resolve(__dirname, 'src/utils'),
-    '@redux': path.resolve(__dirname, 'src/redux'),
+    '@store': path.resolve(__dirname, 'src/store'),
     '@containers': path.resolve(__dirname, 'src/containers'),
   }),
   fixBabelImports('import', {
@@ -30,4 +33,8 @@ module.exports = override(
   addDecoratorsLegacy({
     legacy: true
   })
+),
+devServer: overrideDevServer(
+  watchAll()
 )
+}

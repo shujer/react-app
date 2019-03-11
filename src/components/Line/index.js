@@ -2,8 +2,10 @@ import React from 'react'
 const style = {
     margin: '0 auto',
     height: '1px',
-    background: 'radial-gradient(lightgray, white 100%)',
-    transform: 'scale(0.8, 0.8)'
+    width: '100%',
+    // background: 'radial-gradient(lightgray, white 100%)',
+    backgroundColor: 'lightgray',
+    // transform: 'scale(1, 0.5)'
 }
 const Line = (props) => {
     return (

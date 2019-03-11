@@ -427,7 +427,7 @@ const user = {
       idVerified: true,
       screenName: 'InfoQ',
       avatarUrl: 'http://p1-xg.bytecdn.cn/large/8224/7146712412',
-      biography: '有内容的技术社区媒体，每天早晨8点推送互联网技术干货',
+      occupation: '有内容的技术社区媒体，每天早晨8点推送互联网技术干货',
       likeCount: null,
       id: '5511688137_1570898092289025',
       viewCount: 0,

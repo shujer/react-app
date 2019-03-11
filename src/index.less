@@ -6,12 +6,18 @@ body {
     -moz-osx-font-smoothing: grayscale;
     width: 100%;
     height: 100%;
-    text-align: center;
-    display: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-top: 1rem
 }
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+::-webkit-scrollbar {
+    /*隐藏滚轮*/
+    display: none;
 }
 
 body,

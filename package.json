@@ -7,6 +7,7 @@
     "moment": "^2.24.0",
     "rc-form": "^2.4.3",
     "react": "^16.8.4",
+    "react-beautiful-dnd": "^10.0.4",
     "react-dom": "^16.8.4",
     "react-loadable": "^5.5.0",
     "react-moment": "^0.8.4",
@@ -34,6 +35,7 @@
   ],
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.3.0",
+    "@babel/polyfill": "^7.2.5",
     "babel-plugin-import": "^1.11.0",
     "customize-cra": "^0.2.12",
     "less": "^3.9.0",
@@ -43,12 +45,13 @@
     "style-loader": "^0.23.1"
   },
   "theme": {
-    "@brand-primary": "#5cc3e8",
-    "@brand-primary-tap": "#314855",
+    "@brand-primary": "#007FFE",
+    "@brand-primary-tap": "#0072E3",
     "@brand-success": "#79ceb8",
     "@brand-warning": "#ffdb00",
     "@brand-error": "#e95f5c",
     "@brand-important": "#ff5b05",
-    "@brand-wait": "#b7b7b7"
+    "@brand-wait": "#b7b7b7",
+    "@comment-text-bg": "#F4F6F5"
   }
 }

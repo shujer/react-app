@@ -1,35 +1,30 @@
 import React from 'react'
 import {List} from 'antd-mobile'
-import comment_data from '../../__mock__/comment'
-import user_data from '../../__mock__/user'
-import reply_data from '../../__mock__/reply'
-import Avatar from '@components/Avatar/Bar'
-import Line from '@components/Line'
+import AvatarBar from '@components/AvatarBar'
 import './style.less'
 
-const Reply = props => {
+const Reply = ({reply}) => {
   return (
     <>
       <div className="replyContent">
         <span className="replierScreenName">
-          {props.reply.replierScreenName}
+          {reply.replierScreenName}
         </span>
-        ：{props.reply.content}
+        ：{reply.content}
       </div>
-      {props.isEnd ? null : <Line key={1} />}
     </>
   )
 }
 
-const Comment = props => {
-  const len = props.replies.length - 1
+const Comment = ({userInfo, comment, replies}) => {
+  const len = replies.length - 1
   return (
     <List.Item wrap align="top">
-      <Avatar userInfo={props.userInfo} comment={props.comment} />
+      <AvatarBar userInfo={userInfo} comment={comment} isComment/>
       <div className="commentContent">
-      {props.comment.content}
+        {comment.content}
         <div className="replyBox">
-          {props.replies.map((val, index) => {
+          {replies.map((val, index) => {
             return <Reply key={index} reply={val} isEnd={index === len} />
           })}
         </div>
@@ -38,30 +33,23 @@ const Comment = props => {
   )
 }
 
-const CommentList = props => {
-  let comments = comment_data['data']
-  let users = {},
-    replys = {}
-  user_data['data'].forEach(val => {
-    let id = val['id'].split('_')[0]
-    users[id] = val
-  })
-  reply_data['data'].forEach(val => {
-    let id = val['referId']
-    replys[id] = replys[id] ? [...replys[id], val] : [val]
-  })
+const CommentList = ({comments, users, replies}) => {
   const commentlist = comments.map(val => {
-    let replies = replys[val['id']] || []
+    let reply = replies[val['id']] || []
     return (
       <Comment
         comment={val}
         userInfo={users[val['commenterId']]}
-        replies={replies}
+        replies={reply}
         key={val['id']}
       />
     )
   })
-  return <div className="commentList">{commentlist}</div>
+  return (
+    <div className="commentList">
+      {commentlist}
+    </div>
+  )
 }
 
 export default CommentList
