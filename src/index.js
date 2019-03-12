@@ -5,13 +5,12 @@ import './index.less'
 import '@assets/css/iconfont.css'
 import routes from './routes'
 import {renderRoutes} from 'react-router-config'
-import {BrowserRouter as Router, history} from 'react-router-dom'
+import {HashRouter as Router, Switch} from 'react-router-dom'
 import * as serviceWorker from './serviceWorker'
-
 
 const RouterConfig = () => (
   <Router>
-    {renderRoutes(routes)}
+    <Switch>{renderRoutes(routes)}</Switch>
   </Router>
 )
 

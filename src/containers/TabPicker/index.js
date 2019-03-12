@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {List, Switch} from 'antd-mobile'
-import NavBar from '@components/NavBar'
+import withNavBarBasicLayout from '@layouts/withNavBarBasicLayout'
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
 const reorder = (list, startIndex, endIndex) => {
@@ -35,7 +35,7 @@ const TabItem = ({item, onToggleShow}) => {
   )
 }
 
-
+@withNavBarBasicLayout('首页特别展示')
 class TabPicker extends Component {
   constructor(props) {
     super(props)
@@ -91,40 +91,34 @@ class TabPicker extends Component {
   render() {
     let items = this.state.tabs
     return (
-      <>
-        <NavBar title="首页特别展示" {...this.props}/>
-        <List id="picker">
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="droppable">
-              {(provided, snapshot) => (
-                <div ref={provided.innerRef}>
-                  {items.map((item, index) => (
-                    <Draggable
-                      key={`item-${index}`}
-                      draggableId={`item-${index}`}
-                      index={index}
-                    >
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <TabItem
-                            item={item}
-                            onToggleShow={this.onToggleShow}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-        </List>
-      </>
+      <List id="picker">
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef}>
+                {items.map((item, index) => (
+                  <Draggable
+                    key={`item-${index}`}
+                    draggableId={`item-${index}`}
+                    index={index}
+                  >
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <TabItem item={item} onToggleShow={this.onToggleShow} />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </List>
     )
   }
 }

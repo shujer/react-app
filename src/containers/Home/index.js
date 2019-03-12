@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import TabNav from '@components/TabNav'
+import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 
+@withTabBarBasicLayout('home')
 class HomeContainer extends Component {
   shouldComponentUpdate() {
     return false

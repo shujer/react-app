@@ -1,8 +1,7 @@
 import React from 'react'
 
 const style = {
-    width: '100vw',
-    height: '100vh' 
+    textAlign: 'center'
 }
 
 const Loading = (props) => {

@@ -11,6 +11,7 @@ const TabNav = ({tabs, renderContents}) => {
         tabBarTextStyle={{color: 'white',fontSize:'1rem'}}
         tabBarActiveTextColor="#fff"
         tabBarInactiveTextColor="rgba(255,255,255,0.7)"
+        mode="dark"
         tabs={tabs}
         renderTabBar={props => <Tabs.DefaultTabBar {...props} page={4} />}
       >
