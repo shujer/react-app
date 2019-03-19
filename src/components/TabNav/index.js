@@ -1,14 +1,17 @@
 import React from 'react'
 import {Tabs} from 'antd-mobile'
 import './style.less'
+import CaretImage from '../../assets/caret.png'
 
-const TabNav = ({tabs, renderContents}) => {
+const TabNav = props => {
+  let {tabs, renderContents, onCaretClick, showCaret} = props
+  console.log(showCaret)
   return (
-    <div>
+    <div className={showCaret === true ? 'withCaret' : null}>
       <Tabs
         tabBarUnderlineStyle={{borderColor: 'white', borderWidth: '1.5px'}}
         tabBarBackgroundColor="#007FFE"
-        tabBarTextStyle={{color: 'white',fontSize:'1rem'}}
+        tabBarTextStyle={{color: 'white', fontSize: '1rem'}}
         tabBarActiveTextColor="#fff"
         tabBarInactiveTextColor="rgba(255,255,255,0.7)"
         mode="dark"
@@ -17,6 +20,11 @@ const TabNav = ({tabs, renderContents}) => {
       >
         {renderContents}
       </Tabs>
+      {showCaret ? (
+        <div className="appendTab" onClick={onCaretClick}>
+          <img src={CaretImage} alt="🔽" />
+        </div>
+      ) : null}
     </div>
   )
 }

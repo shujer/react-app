@@ -1,4 +1,5 @@
 export default {
+  namespace: 'home',
   state: {
     tabList: [
       {title: '首页', show: true},
@@ -24,6 +25,7 @@ export default {
     }
   },
   effects: {
-
+    *fetchTabListByUser(state, {uid}) {
+    }
   }
 }

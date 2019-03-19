@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import TabNav from '@components/TabNav'
+import TabNavWithCaret from '@components/TabNav'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 
 const mapState = state => ({
@@ -12,11 +12,14 @@ const mapDispatch = ({home: {resetTabList}}) => ({
   resetTabList
 })
 
-@connect(mapState, mapDispatch)
+@connect(
+  mapState,
+  mapDispatch
+)
 @withTabBarBasicLayout('home')
 class HomeContainer extends Component {
-    static propTypes = {
-      tabList: PropTypes.array.isRequired
+  static propTypes = {
+    tabList: PropTypes.array.isRequired
   }
   render() {
     const {tabList} = this.props
@@ -40,14 +43,19 @@ class HomeContainer extends Component {
 
     return (
       <div>
-        <TabNav tabs={tabs} renderContents={renderContents} /><span>dd</span>
+        <TabNavWithCaret
+          tabs={tabs}
+          renderContents={renderContents}
+          onCaretClick={this.goToTab}
+          showCaret={true}
+        />
       </div>
     )
   }
 
-  goToItem = () => {
+  goToTab = () => {
     this.props.history.push({
-      pathname: '/post'
+      pathname: 'tabs'
     })
   }
 }

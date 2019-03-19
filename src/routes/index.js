@@ -36,19 +36,14 @@ const Profile = Loadable({
 })
 
 const routes = [
-  {
-    path: '/',
-    component: Home,
-    routes: [
-      {path: '/home', exact: true, component: Home},
-      {path: '/post', exact: true, component: Post},
-      {path: '/tabs', exact: true, component: TabPicker},
-      {path: '/activity', exact: true, component: Activity},
-      {path: '/explore', exact: true, component: Explore},
-      {path: '/xiaoce', exact: true, component: Xiaoce},
-      {path: '/profile', exact: true, component: Profile}
-    ]
-  }
+  {path: '/', exact: true, component: Home},
+  {path: '/home', exact: true, component: Home},
+  {path: '/post', exact: true, component: Post},
+  {path: '/tabs', exact: true, component: TabPicker},
+  {path: '/activity', exact: true, component: Activity},
+  {path: '/explore', exact: true, component: Explore},
+  {path: '/xiaoce', exact: true, component: Xiaoce},
+  {path: '/profile', exact: true, component: Profile}
 ]
 
 export default routes
