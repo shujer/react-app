@@ -1,13 +1,25 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 import TabNav from '@components/TabNav'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 
+const mapState = state => ({
+  tabList: state.home.tabList
+})
+
+const mapDispatch = ({home: {resetTabList}}) => ({
+  resetTabList
+})
+
+@connect(mapState, mapDispatch)
 @withTabBarBasicLayout('home')
 class HomeContainer extends Component {
-  shouldComponentUpdate() {
-    return false
+    static propTypes = {
+      tabList: PropTypes.array.isRequired
   }
   render() {
+    const {tabList} = this.props
     const renderContents = Array(9)
       .fill(0)
       .map(val => tab => (
@@ -24,23 +36,11 @@ class HomeContainer extends Component {
         </div>
       ))
 
-    const tabs = [
-      {title: '首页', show: true},
-      {title: '关注', show: true},
-      {title: '前端', show: true},
-      {title: '设计', show: true},
-      {title: '后端', show: true},
-      {title: '人工智能', show: false},
-      {title: '运维', show: false},
-      {title: 'Android', show: false},
-      {title: 'iOS', show: false},
-      {title: '产品', show: false},
-      {title: '工具资源', show: false}
-    ].filter(val => val.show === true)
-    
+    const tabs = tabList.filter(val => val.show === true)
+
     return (
       <div>
-        <TabNav tabs={tabs} renderContents={renderContents} />
+        <TabNav tabs={tabs} renderContents={renderContents} /><span>dd</span>
       </div>
     )
   }

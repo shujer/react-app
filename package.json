@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.2.9",
+    "immutable": "^4.0.0-rc.12",
     "moment": "^2.24.0",
     "rc-form": "^2.4.3",
     "react": "^16.8.4",
     "react-beautiful-dnd": "^10.0.4",
     "react-dom": "^16.8.4",
+    "react-intl": "^2.8.0",
     "react-loadable": "^5.5.0",
     "react-moment": "^0.8.4",
     "react-redux": "^6.0.1",
@@ -16,7 +18,9 @@
     "react-router-dom": "^4.3.1",
     "react-router-page-transition": "^3.1.0",
     "react-scripts": "2.1.8",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-async-connect": "^1.0.0-rc4",
+    "redux-saga": "^1.0.2"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -36,12 +40,14 @@
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.3.0",
     "@babel/polyfill": "^7.2.5",
+    "@rematch/core": "^1.1.0",
     "babel-plugin-import": "^1.11.0",
     "customize-cra": "^0.2.12",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "react-app-rewired": "^2.1.0",
     "redux-devtools": "^3.5.0",
+    "redux-logger": "^3.0.6",
     "style-loader": "^0.23.1"
   },
   "theme": {
@@ -53,10 +59,10 @@
     "@brand-important": "#ff5b05",
     "@brand-wait": "#b7b7b7",
     "@comment-text-bg": "#F4F6F5",
-    "@tab-bar-fill":"@brand-primary",    
-    "@nav-bar-fill":"@brand-primary",  
+    "@tab-bar-fill": "@brand-primary",
+    "@nav-bar-fill": "@brand-primary",
     "@fill-body": "#fff",
-    "@fill-tap": "@brand-primary-tap",           
+    "@fill-tap": "@brand-primary-tap",
     "@fill-grey": "#f7f7f7"
   }
 }

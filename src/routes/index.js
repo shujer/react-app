@@ -2,6 +2,7 @@ import React from 'react'
 import Loadable from 'react-loadable'
 import HomeLoading from '@components/Loading/Home'
 import PostLoading from '@components/Loading/Post'
+import TabLoading from '@components/Loading/Tab'
 import TabPicker from '@containers/TabPicker'
 
 const Home = Loadable({
@@ -16,34 +17,38 @@ const Post = Loadable({
 
 const Activity = Loadable({
   loader: () => import('@containers/Activity'),
-  loading: () => <PostLoading />
+  loading: () => <TabLoading />
 })
 
 const Explore = Loadable({
   loader: () => import('@containers/Explore'),
-  loading: () => <PostLoading />
+  loading: () => <TabLoading />
 })
 
 const Xiaoce = Loadable({
   loader: () => import('@containers/Xiaoce'),
-  loading: () => <PostLoading />
+  loading: () => <TabLoading />
 })
 
 const Profile = Loadable({
   loader: () => import('@containers/Profile'),
-  loading: () => <PostLoading />
+  loading: () => <TabLoading />
 })
 
-
 const routes = [
-  {path: '/', exact: true, component: Home},
-  {path: '/home', exact: true, component: Home},
-  {path: '/post', component: Post},
-  {path: '/tabs', component: TabPicker},
-  {path: '/activity', component: Activity},
-  {path: '/explore', component: Explore},
-  {path: '/xiaoce', component: Xiaoce},
-  {path: '/profile', component: Profile}
+  {
+    path: '/',
+    component: Home,
+    routes: [
+      {path: '/home', exact: true, component: Home},
+      {path: '/post', exact: true, component: Post},
+      {path: '/tabs', exact: true, component: TabPicker},
+      {path: '/activity', exact: true, component: Activity},
+      {path: '/explore', exact: true, component: Explore},
+      {path: '/xiaoce', exact: true, component: Xiaoce},
+      {path: '/profile', exact: true, component: Profile}
+    ]
+  }
 ]
 
-export default routes;
+export default routes

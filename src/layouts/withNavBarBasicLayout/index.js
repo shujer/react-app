@@ -6,7 +6,7 @@ const withNavBarBasicLayout = title => {
     return class extends Component {
       render() {
         return (
-          <div className="transition-item">
+          <div>
             <NavBar
               mode="dark"
               icon={<Icon type="left" />}

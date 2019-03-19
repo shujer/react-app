@@ -14,6 +14,34 @@ const withTabBarBasicLayout = title => {
         }
       }
 
+      items = [
+        {
+          title: 'home',
+          iconUrl: require('../../assets/icons/tab/tab_home_normal.png'),
+          selectedIconUrl: require('../../assets/icons/tab/tab_home.png')
+        },
+        {
+          title: 'activity',
+          iconUrl: require('../../assets/icons/tab/tab_activity.png'),
+          selectedIconUrl: require('../../assets/icons/tab/tab_activity_press.png')
+        },
+        {
+          title: 'explore',
+          iconUrl: require('../../assets/icons/tab/tab_explore_normal.png'),
+          selectedIconUrl: require('../../assets/icons/tab/tab_explore.png')
+        },
+        {
+          title: 'xiaoce',
+          iconUrl: require('../../assets/icons/tab/tab_xiaoce_normal.png'),
+          selectedIconUrl: require('../../assets/icons/tab/tab_xiaoce.png')
+        },
+        {
+          title: 'profile',
+          iconUrl: require('../../assets/icons/tab/tab_profile_normal.png'),
+          selectedIconUrl: require('../../assets/icons/tab/tab_profile.png')
+        }
+      ]
+
       renderContent(pageText) {
         return (
           <div
@@ -34,36 +62,14 @@ const withTabBarBasicLayout = title => {
       }
 
       render() {
-        let items = [
-          {
-            title: 'home',
-            iconUrl: require('../../assets/icons/tab/tab_home_normal.png'),
-            selectedIconUrl: require('../../assets/icons/tab/tab_home.png')
-          },
-          {
-            title: 'activity',
-            iconUrl: require('../../assets/icons/tab/tab_activity.png'),
-            selectedIconUrl: require('../../assets/icons/tab/tab_activity_press.png')
-          },
-          {
-            title: 'explore',
-            iconUrl: require('../../assets/icons/tab/tab_explore_normal.png'),
-            selectedIconUrl: require('../../assets/icons/tab/tab_explore.png')
-          },
-          {
-            title: 'xiaoce',
-            iconUrl: require('../../assets/icons/tab/tab_xiaoce_normal.png'),
-            selectedIconUrl: require('../../assets/icons/tab/tab_xiaoce.png')
-          },
-          {
-            title: 'profile',
-            iconUrl: require('../../assets/icons/tab/tab_profile_normal.png'),
-            selectedIconUrl: require('../../assets/icons/tab/tab_profile.png')
-          }
-        ]
         return (
           <div
-            style={{position: 'fixed', height: '100%', width: '100%', top: 0}}
+            style={{
+              position: 'fixed',
+              height: '100%',
+              width: '100%',
+              bottom: 0
+            }}
             className="transition-item"
           >
             <TabBar
@@ -71,7 +77,7 @@ const withTabBarBasicLayout = title => {
               tintColor="#33A3F4"
               barTintColor="white"
             >
-              {items.map(item => (
+              {this.items.map(item => (
                 <TabBar.Item
                   key={item.title}
                   icon={

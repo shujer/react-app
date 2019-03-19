@@ -1,16 +1,21 @@
 import '@babel/polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.less'
-import '@assets/css/iconfont.css'
 import routes from './routes'
 import {renderRoutes} from 'react-router-config'
-import {HashRouter as Router, Switch} from 'react-router-dom'
+import {HashRouter as Router} from 'react-router-dom'
+
+import store from './store'
+import { Provider} from 'react-redux'
+
+import './index.less'
+import '@assets/css/iconfont.css'
 import * as serviceWorker from './serviceWorker'
+
 
 const RouterConfig = () => (
   <Router>
-    <Switch>{renderRoutes(routes)}</Switch>
+    <Provider store={store}>{renderRoutes(routes)}</Provider>
   </Router>
 )
 

@@ -26,8 +26,8 @@ const TabItem = ({item, onToggleShow}) => {
     >
       <div style={{lineHeight: '3rem', height: '3rem'}}>
         <i
-          className="iconfont icon-bars2"
-          style={{color: 'lightgray', marginRight: '1rem'}}
+          className="iconfont icon-bar"
+          style={{color: 'lightgray', marginRight: '1rem', fontSize: '1.5rem'}}
         />
         <span>{item.title}</span>
       </div>
