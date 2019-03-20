@@ -12,10 +12,7 @@ const mapDispatch = ({home: {resetTabList}}) => ({
   resetTabList
 })
 
-@connect(
-  mapState,
-  mapDispatch
-)
+@connect(mapState,mapDispatch)
 @withTabBarBasicLayout('home')
 class HomeContainer extends Component {
   static propTypes = {
@@ -55,7 +52,7 @@ class HomeContainer extends Component {
 
   goToTab = () => {
     this.props.history.push({
-      pathname: 'tabs'
+      pathname: '/recommended'
     })
   }
 }

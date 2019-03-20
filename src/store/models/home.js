@@ -26,6 +26,7 @@ export default {
   },
   effects: {
     *fetchTabListByUser(state, {uid}) {
+      
     }
   }
 }

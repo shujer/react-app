@@ -2,7 +2,8 @@ import '@babel/polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import routes from './routes'
-import {HashRouter as Router, Switch, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Switch} from 'react-router-dom'
+import {RouteWithSubRoutes} from './routes/RouteWithSubRoutes'
 
 import store from './store'
 import {Provider} from 'react-redux'
@@ -15,9 +16,9 @@ const RouterConfig = () => (
   <Router>
     <Provider store={store}>
       <Switch>
-        {routes.map((route, index) => {
-          return <Route {...route} key={index} />
-        })}
+        {routes.map((route, i) => (
+          <RouteWithSubRoutes key={i} {...route} />
+        ))}
       </Switch>
     </Provider>
   </Router>
