@@ -6,7 +6,7 @@ const withNavBarBasicLayout = title => {
     return class extends Component {
       render() {
         return (
-          <div>
+          <div style={{minHeight: '100vh', height: '100%', display: 'flex', flexDirection:'column'}}>
             <NavBar
               mode="dark"
               icon={<Icon type="left" />}
@@ -14,7 +14,7 @@ const withNavBarBasicLayout = title => {
             >
               {title}
             </NavBar>
-            <WrappedComponent {...this.props} />
+            <WrappedComponent {...this.props}/>
           </div>
         )
       }

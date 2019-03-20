@@ -35,9 +35,15 @@ const Profile = Loadable({
   loading: () => <TabLoading />
 })
 
+const Auth = Loadable({
+  loader: () => import('@containers/Auth'),
+  loading: () => <TabLoading />
+})
+
 const routes = [
   {path: '/', exact: true, component: Home},
   {path: '/home', exact: true, component: Home},
+  {path: '/auth', exact: true, component: Auth},
   {path: '/post/:id', component: Post},
   {path: '/recommended', component: TabPicker},
   {path: '/activity', component: Activity},

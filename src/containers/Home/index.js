@@ -10,7 +10,7 @@ class HomeContainer extends Component {
   static propTypes = {
     tabList: PropTypes.array.isRequired
   }
-  componentDidMount() {
+  componentWillMount() {
     this.props.getTabListAsync()
   }
   render() {
