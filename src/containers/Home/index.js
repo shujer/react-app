@@ -4,19 +4,14 @@ import PropTypes from 'prop-types'
 import TabNavWithCaret from '@components/TabNav'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 
-const mapState = state => ({
-  tabList: state.home.tabList
-})
 
-const mapDispatch = ({home: {resetTabList}}) => ({
-  resetTabList
-})
-
-@connect(mapState,mapDispatch)
 @withTabBarBasicLayout('home')
 class HomeContainer extends Component {
   static propTypes = {
     tabList: PropTypes.array.isRequired
+  }
+  componentDidMount() {
+    this.props.getTabListAsync()
   }
   render() {
     const {tabList} = this.props
@@ -36,7 +31,11 @@ class HomeContainer extends Component {
         </div>
       ))
 
-    const tabs = tabList.filter(val => val.show === true)
+    const tabs = [
+      {title: '推荐', show: true},
+      {title: '关注', show: true},
+      ...tabList.filter(val => val.show === true)
+    ]
 
     return (
       <div>
@@ -57,4 +56,13 @@ class HomeContainer extends Component {
   }
 }
 
-export default HomeContainer
+
+const mapState = state => ({
+  tabList: state.home.tabList
+})
+
+const mapDispatch = ({home: {getTabListAsync}}) => ({
+  getTabListAsync: () => getTabListAsync()
+})
+
+export default connect(mapState,mapDispatch)(HomeContainer)

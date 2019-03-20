@@ -5,7 +5,6 @@ import CaretImage from '../../assets/caret.png'
 
 const TabNav = props => {
   let {tabs, renderContents, onCaretClick, showCaret} = props
-  console.log(showCaret)
   return (
     <div className={showCaret === true ? 'withCaret' : null}>
       <Tabs

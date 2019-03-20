@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {List, Switch} from 'antd-mobile'
+import {connect} from 'react-redux'
 import withNavBarBasicLayout from '@layouts/withNavBarBasicLayout'
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
@@ -29,7 +30,7 @@ const TabItem = ({item, onToggleShow}) => {
           className="iconfont icon-bar"
           style={{color: 'lightgray', marginRight: '1rem', fontSize: '1.5rem'}}
         />
-        <span>{item.title}</span>
+        {item.title}
       </div>
     </List.Item>
   )
@@ -39,57 +40,58 @@ const TabItem = ({item, onToggleShow}) => {
 class TabPicker extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
-      tabs: [
-        {title: '前端', show: true},
-        {title: '设计', show: true},
-        {title: '后端', show: true},
-        {title: '人工智能', show: false},
-        {title: '运维', show: false},
-        {title: 'Android', show: false},
-        {title: 'iOS', show: false},
-        {title: '产品', show: true},
-        {title: '工具资源', show: false}
-      ]
+      tabList: this.props.tabList
     }
   }
-
   componentWillMount() {
-    let tabs = this.state.tabs,
-      len = tabs.length,
-      tmp = []
-    for (let i = len - 1; i >= 0; i--) {
-      if (tabs[i]['show'] === false) {
-        tmp.unshift(...tabs.splice(i, 1))
-      }
-    }
-    this.setState({
-      tabs: [...tabs, ...tmp]
+    this.props.getTabListAsync().then(res=> {
+      this.setState({
+        tabList: this.sortList(this.props.tabList)
+      })
     })
   }
+
+  sortList = tabList => {
+    let len = tabList.length,
+      tmp = []
+    for (let i = len - 1; i >= 0; i--) {
+      if (tabList[i]['show'] === false) {
+        tmp.unshift(...tabList.splice(i, 1))
+      }
+    }
+    return [...tabList, ...tmp]
+  }
+
   onDragEnd = result => {
     // dropped outside the list
     if (!result.destination) {
       return
     }
     const items = reorder(
-      this.state.tabs,
+      this.state.tabList,
       result.source.index,
       result.destination.index
     )
-    this.setState({
-      tabs: items
-    })
+    this.setState(
+      {
+        tabList: items
+      },
+      () => {
+        this.props.resetTabListAsync(this.state.tabList)
+      }
+    )
   }
 
   onToggleShow = item => {
     item.show = !item.show
-    this.setState({})
+    this.setState({}, () => {
+      this.props.resetTabListAsync(this.state.tabList)
+    })
   }
 
   render() {
-    let items = this.state.tabs
+    let items = this.state.tabList
     return (
       <List id="picker">
         <DragDropContext onDragEnd={this.onDragEnd}>
@@ -123,4 +125,16 @@ class TabPicker extends Component {
   }
 }
 
-export default TabPicker
+const mapState = state => ({
+  tabList: state.home.tabList
+})
+
+const mapDispatch = ({home: {getTabListAsync,resetTabListAsync,getTabList}}) => ({
+  getTabListAsync: () => getTabListAsync(),
+  resetTabListAsync: (tabList) => resetTabListAsync({tabList: tabList})
+})
+
+export default connect(
+  mapState,
+  mapDispatch
+)(TabPicker)
