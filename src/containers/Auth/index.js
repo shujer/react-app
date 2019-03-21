@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {InputItem} from 'antd-mobile'
+import {InputItem, Toast} from 'antd-mobile'
 import {createForm} from 'rc-form'
 import GithubIcon from '@assets/icons/icon_github.png'
 import WechatIcon from '@assets/icons/icon_wechat.png'
@@ -8,10 +8,31 @@ import Logo from '@assets/icons/ic_login_logo.png'
 import './style.less'
 import withNavBarBasicLayout from '@layouts/withNavBarBasicLayout'
 
+let inputPattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9]{2,})+$|^1[34578]\d{9}$/
+
 @withNavBarBasicLayout('')
 class Auth extends Component {
   handleClick = () => {
     this.inputRef.focus()
+  }
+  submit = () => {
+    this.props.form.validateFields((error, value) => {
+      if (!error) {
+        //await
+        Toast.success('submit sucess', 1)
+      } else {
+        if (error['verifyText']) {
+          Toast.info('请输入正确的手机号或邮箱', 2)
+        } else {
+          Toast.info('输入错误', 2)
+        }
+      }
+    })
+  }
+  goRegisterPage = () =>{
+    this.props.history.push({
+      pathname: '/register'
+    })
   }
   render() {
     const {getFieldProps} = this.props.form
@@ -23,20 +44,26 @@ class Auth extends Component {
           </div>
           <div className="form">
             <InputItem
-              {...getFieldProps('verifyText')}
+              {...getFieldProps('verifyText', {
+                rules: [{required: true, pattern: inputPattern}]
+              })}
               placeholder="手机号/邮箱"
               ref={el => (this.inputRef = el)}
             />
             <InputItem
-              {...getFieldProps('password')}
+              {...getFieldProps('password', {
+                rules: [{required: true}]
+              })}
               type="password"
               placeholder="密码"
               ref={el => (this.inputRef = el)}
             />
-            <div className="submitButton">登录</div>
+            <div className="submitButton" onClick={this.submit}>
+              登录
+            </div>
             <div className="info">
               <span>忘记密码？</span>
-              <span>注册账号</span>
+              <span onClick={this.goRegisterPage}>注册账号</span>
             </div>
           </div>
         </main>
@@ -51,11 +78,11 @@ class Auth extends Component {
               <span>微博</span>
             </div>
             <div>
-              <img src={WechatIcon} alt="weibo" />
+              <img src={WechatIcon} alt="wechat" />
               <span>微信</span>
             </div>
             <div>
-              <img src={GithubIcon} alt="weibo" />
+              <img src={GithubIcon} alt="github" />
               <span>Github</span>
             </div>
           </div>

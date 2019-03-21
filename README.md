@@ -39,3 +39,7 @@
     - `/profile/subscribe` 标签管理
         - `/subscribed` 已关注标签
         - `/all` 所有标签
+
+#### 已完成页面
+![](/doc/效果图/localhost_3000_(iPhone 5_SE).png)
+![](/doc/效果图/localhost_3000_auth(iPhone 5_SE).png) ![](/doc/效果图/localhost_3000_(iPhone 5_register).png)

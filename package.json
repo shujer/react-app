@@ -5,6 +5,7 @@
   "dependencies": {
     "antd-mobile": "^2.2.9",
     "immutable": "^4.0.0-rc.12",
+    "koa": "^2.7.0",
     "moment": "^2.24.0",
     "rc-form": "^2.4.3",
     "react": "^16.8.4",

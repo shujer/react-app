@@ -40,10 +40,16 @@ const Auth = Loadable({
   loading: () => <TabLoading />
 })
 
+const Register = Loadable({
+  loader: () => import('@containers/Register'),
+  loading: () => <TabLoading />
+})
+
 const routes = [
   {path: '/', exact: true, component: Home},
   {path: '/home', exact: true, component: Home},
   {path: '/auth', exact: true, component: Auth},
+  {path: '/register', exact: true, component: Register},
   {path: '/post/:id', component: Post},
   {path: '/recommended', component: TabPicker},
   {path: '/activity', component: Activity},
