@@ -41,6 +41,6 @@
         - `/all` 所有标签
 
 #### 已完成页面
-![](./doc/效果图/localhost_3000_(iPhone 5_SE).png)
-![](./doc/效果图/localhost_3000_auth(iPhone 5_SE).png) 
-![](./doc/效果图/localhost_3000_(iPhone 5_register).png)
+![](https://github.com/SusieChang/react-app/blob/master/doc/%E6%95%88%E6%9E%9C%E5%9B%BE/localhost_3000_(iPhone%205_SE).png)
+![](https://github.com/SusieChang/react-app/blob/master/doc/%E6%95%88%E6%9E%9C%E5%9B%BE/localhost_3000_auth(iPhone%205_SE).png) 
+![](https://github.com/SusieChang/react-app/blob/master/doc/%E6%95%88%E6%9E%9C%E5%9B%BE/localhost_3000_register(iPhone%205_SE).png)
