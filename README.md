@@ -41,6 +41,6 @@
         - `/all` 所有标签
 
 #### 已完成页面
-<img src="https://github.com/SusieChang/react-app/blob/master/doc/%E6%95%88%E6%9E%9C%E5%9B%BE/localhost_3000_(iPhone%205_SE).png" width="320" height="568">
-<img src="https://github.com/SusieChang/react-app/blob/master/doc/%E6%95%88%E6%9E%9C%E5%9B%BE/localhost_3000_auth(iPhone%205_SE).png" width="320" height="568">
-<img src="https://github.com/SusieChang/react-app/blob/master/doc/%E6%95%88%E6%9E%9C%E5%9B%BE/localhost_3000_register(iPhone%205_SE).png" width="320" height="568">
+<img src="https://github.com/SusieChang/react-app/blob/master/doc/%E6%95%88%E6%9E%9C%E5%9B%BE/localhost_3000_(iPhone%205_SE).png" width="320" height="568" style="float: left">
+<img src="https://github.com/SusieChang/react-app/blob/master/doc/%E6%95%88%E6%9E%9C%E5%9B%BE/localhost_3000_auth(iPhone%205_SE).png" width="320" height="568" style="float: left">
+<img src="https://github.com/SusieChang/react-app/blob/master/doc/%E6%95%88%E6%9E%9C%E5%9B%BE/localhost_3000_register(iPhone%205_SE).png" width="320" height="568" style="float: left">
