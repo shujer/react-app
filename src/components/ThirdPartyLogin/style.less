@@ -1,0 +1,34 @@
+.thirdParty {
+    width: 90%;
+    margin: 0 auto;
+    display: inline-flex;
+    justify-content: space-around;
+    div {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        img {
+            width: 42px;
+            height: 42px;
+            margin: 10px 10px;
+        }
+    }
+}
+.splitLine {
+    font-size: 14px;
+    height: 14px;
+    position: relative;
+    .line {
+        height: 1px;
+        line-height: 14px;
+        transform: scale(.9, 0.6);
+        background-color: @brand-primary-tap;
+    }
+    .detail {
+        transform: translate(0,-7px);
+        display: inline-block;
+        padding: 0 10px;
+        color: @brand-primary-tap;
+        background-color: @brand-primary;
+    }
+}

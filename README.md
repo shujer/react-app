@@ -5,6 +5,8 @@
 - `/activity` 活动
 - `/xiaoce` 小册
 - `/explore` 搜索
+- `/auth` 登录
+- `/register` 注册
 - `/recommended` 首页特别推荐 - 本地缓存
 - `/user/:id` 个人主页
     - `/user/:id/following` 关注的人

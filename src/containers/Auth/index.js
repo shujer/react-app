@@ -1,96 +1,85 @@
 import React, {Component} from 'react'
-import {InputItem, Toast} from 'antd-mobile'
-import {createForm} from 'rc-form'
-import GithubIcon from '@assets/icons/icon_github.png'
-import WechatIcon from '@assets/icons/icon_wechat.png'
-import WeiboIcon from '@assets/icons/icon_weibo.png'
-import Logo from '@assets/icons/ic_login_logo.png'
+import {Toast, ActivityIndicator} from 'antd-mobile'
+import {Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
+import LoginForm from '@components/LoginForm'
+import ThirdPartyLogin from '@components/ThirdPartyLogin'
 import './style.less'
 import withNavBarBasicLayout from '@layouts/withNavBarBasicLayout'
 
-let inputPattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9]{2,})+$|^1[34578]\d{9}$/
-
 @withNavBarBasicLayout('')
 class Auth extends Component {
-  handleClick = () => {
-    this.inputRef.focus()
+  state = {
+    animating: true
   }
-  submit = () => {
-    this.props.form.validateFields((error, value) => {
-      if (!error) {
-        //await
-        Toast.success('submit sucess', 1)
-      } else {
-        if (error['verifyText']) {
-          Toast.info('请输入正确的手机号或邮箱', 2)
-        } else {
-          Toast.info('输入错误', 2)
-        }
-      }
-    })
+
+  submit = form => {
+    let {loginByPhoneNumber, loginByEmail} = this.props
+    let {verifyText, password} = form;
+    if(/^1[34578]\d{9}$/.test(verifyText)) {
+      loginByPhoneNumber({phoneNumber: verifyText, password})
+    } else {
+      loginByEmail({email: verifyText, password})
+    }
   }
-  goRegisterPage = () =>{
+
+  handleRegister = () => {
     this.props.history.push({
       pathname: '/register'
     })
   }
+
   render() {
-    const {getFieldProps} = this.props.form
+    let {currentState} = this.props
     return (
-      <div className="authContainer">
-        <main>
-          <div className="logo">
-            <img src={Logo} alt="logo" />
-          </div>
-          <div className="form">
-            <InputItem
-              {...getFieldProps('verifyText', {
-                rules: [{required: true, pattern: inputPattern}]
-              })}
-              placeholder="手机号/邮箱"
-              ref={el => (this.inputRef = el)}
-            />
-            <InputItem
-              {...getFieldProps('password', {
-                rules: [{required: true}]
-              })}
-              type="password"
-              placeholder="密码"
-              ref={el => (this.inputRef = el)}
-            />
-            <div className="submitButton" onClick={this.submit}>
-              登录
-            </div>
-            <div className="info">
-              <span>忘记密码？</span>
-              <span onClick={this.goRegisterPage}>注册账号</span>
-            </div>
-          </div>
-        </main>
-        <footer>
-          <div className="splitLine">
-            <div className="line" />
-            <div className="detail">其他账号登录</div>
-          </div>
-          <div className="thirdAuth">
-            <div>
-              <img src={WeiboIcon} alt="weibo" />
-              <span>微博</span>
-            </div>
-            <div>
-              <img src={WechatIcon} alt="wechat" />
-              <span>微信</span>
-            </div>
-            <div>
-              <img src={GithubIcon} alt="github" />
-              <span>Github</span>
-            </div>
-          </div>
-          掘金·juejin.im
-        </footer>
-      </div>
+      <>
+        {(() => {
+          switch (currentState) {
+            case 'loading':
+              return (
+                <div className="authContainer">
+                  <ActivityIndicator
+                    toast
+                    text="登录中..."
+                    animating={this.state.animating}
+                  />
+                </div>
+              )
+            case 'profile':
+              return <Redirect to={'/'} />
+            default:
+              return (
+                <div className="authContainer">
+                  <LoginForm
+                    className="loginForm"
+                    handleLogin={this.submit}
+                    handleRegister={this.handleRegister}
+                  />
+                  <ThirdPartyLogin className="thirdPartyLogin" />
+                  <footer> 掘金·juejin.im </footer>
+                </div>
+              )
+          }
+        })()}
+      </>
     )
   }
 }
 
-export default createForm()(Auth)
+const mapState = state => ({
+  currentState: state.auth.currentState
+})
+
+const mapDispatch = ({auth: {loginByPhoneNumber, loginByEmail}}) => ({
+  loginByPhoneNumber: playload => loginByPhoneNumber(playload),
+  loginByEmail: playload => loginByEmail(playload)
+})
+export default connect(
+  mapState,
+  mapDispatch
+)(Auth)
+
+Auth.propTypes = {
+  currentState: PropTypes.string.isRequired
+}

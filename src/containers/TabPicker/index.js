@@ -45,11 +45,11 @@ class TabPicker extends Component {
     }
   }
   componentWillMount() {
-    this.props.getTabListAsync().then(res=> {
+    // this.props.getTabListAsync().then(res=> {
       this.setState({
         tabList: this.sortList(this.props.tabList)
       })
-    })
+    // })
   }
 
   sortList = tabList => {
@@ -73,11 +73,7 @@ class TabPicker extends Component {
       result.source.index,
       result.destination.index
     )
-    this.setState(
-      {
-        tabList: items
-      },
-      () => {
+    this.setState({tabList: items},() => {
         this.props.resetTabListAsync(this.state.tabList)
       }
     )
@@ -129,8 +125,7 @@ const mapState = state => ({
   tabList: state.home.tabList
 })
 
-const mapDispatch = ({home: {getTabListAsync,resetTabListAsync,getTabList}}) => ({
-  getTabListAsync: () => getTabListAsync(),
+const mapDispatch = ({home: {resetTabListAsync}}) => ({
   resetTabListAsync: (tabList) => resetTabListAsync({tabList: tabList})
 })
 

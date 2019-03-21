@@ -4,8 +4,11 @@
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.2.9",
+    "co-body": "^6.0.0",
+    "http-proxy-middleware": "^0.19.1",
     "immutable": "^4.0.0-rc.12",
     "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
     "moment": "^2.24.0",
     "rc-form": "^2.4.3",
     "react": "^16.8.4",
@@ -24,6 +27,7 @@
     "redux-saga": "^1.0.2"
   },
   "scripts": {
+    "dev:server": "cross-env NODE_ENV=development nodemon server/app.js",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-scripts test",
@@ -43,9 +47,11 @@
     "@babel/polyfill": "^7.2.5",
     "@rematch/core": "^1.1.0",
     "babel-plugin-import": "^1.11.0",
+    "cross-env": "^5.2.0",
     "customize-cra": "^0.2.12",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
+    "nodemon": "^1.18.10",
     "react-app-rewired": "^2.1.0",
     "redux-devtools": "^3.5.0",
     "redux-logger": "^3.0.6",

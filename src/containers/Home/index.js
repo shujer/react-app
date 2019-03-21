@@ -7,9 +7,6 @@ import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 
 @withTabBarBasicLayout('home')
 class HomeContainer extends Component {
-  static propTypes = {
-    tabList: PropTypes.array.isRequired
-  }
   componentWillMount() {
     this.props.getTabListAsync()
   }
@@ -57,6 +54,8 @@ class HomeContainer extends Component {
 }
 
 
+
+
 const mapState = state => ({
   tabList: state.home.tabList
 })
@@ -66,3 +65,8 @@ const mapDispatch = ({home: {getTabListAsync}}) => ({
 })
 
 export default connect(mapState,mapDispatch)(HomeContainer)
+
+HomeContainer.propTypes = {
+  tabList: PropTypes.array.isRequired,
+  getTabListAsync: PropTypes.func.isRequired
+}
