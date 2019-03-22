@@ -1,4 +1,5 @@
 import * as api from '@services/user'
+import {Toast} from 'antd-mobile'
 const machine = {
   states: {
     'login form': {
@@ -48,6 +49,7 @@ export default {
         this.stateChanger({stepUp: 'success'})
       } else {
         this.stateChanger({stepUp: 'failure'})
+        Toast.info('用户名或密码错误', 2)
       }
     },
     async loginByEmail(playload, state) {
@@ -57,7 +59,11 @@ export default {
         this.stateChanger({stepUp: 'success'})
       } else {
         this.stateChanger({stepUp: 'failure'})
+        Toast.info('用户名或密码错误', 2)
       }
+    },
+    async logout(playload, state) {
+      this.stateChanger({stepUp: 'logout'})
     }
   }
 }

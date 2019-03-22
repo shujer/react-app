@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Toast, ActivityIndicator} from 'antd-mobile'
+import {ActivityIndicator} from 'antd-mobile'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'

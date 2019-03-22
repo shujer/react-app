@@ -1,19 +1,55 @@
 import React, {Component} from 'react'
-import {NavBar} from 'antd-mobile'
+import {NavBar, WhiteSpace} from 'antd-mobile'
+import ProfileAvatarBar from '@components/ProfileAvatarBar'
+import ProfileList from '@components/ProfileList'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
+import UnAuth from './UnAuth'
+
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
+
+let userInfo = {
+  uid: '57726622165abd005492ee87',
+  username: '稀土掘金',
+  avatarLarge:
+    'https://user-gold-cdn.xitu.io/2017/8/4/ad5ffaa6dc9e5ee11e31ebb3031c903e',
+  selfDescription: '',
+  jobTitle: '攻城狮',
+  company: '稀土星球'
+}
 
 @withTabBarBasicLayout('profile')
-class ActivityContainer extends Component {
-  shouldComponentUpdate() {
-    return false
-  }
+class ProfileContainer extends Component {
   render() {
+    let {currentState} = this.props
     return (
-      <div>
-        <NavBar mode="dark">我</NavBar>
-      </div>
+      <>
+        {currentState === 'profile' ? (
+          <div>
+            <NavBar mode="dark">我</NavBar>
+            <WhiteSpace />
+            <ProfileAvatarBar userInfo={userInfo} />
+            <WhiteSpace />
+            <ProfileList {...this.props}/>
+          </div>
+        ) : (
+          <UnAuth {...this.props} />
+        )}
+      </>
     )
   }
 }
 
-export default ActivityContainer
+const mapState = state => ({
+  currentState: state.auth.currentState
+})
+
+const mapDispatch = ({auth: {logout}}) => ({
+  logout: () => logout()
+})
+
+export default connect(mapState, mapDispatch)(ProfileContainer)
+
+ProfileContainer.propTypes = {
+  currentState: PropTypes.string.isRequired
+}

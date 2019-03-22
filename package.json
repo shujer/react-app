@@ -68,7 +68,6 @@
     "@comment-text-bg": "#F4F6F5",
     "@tab-bar-fill": "@brand-primary",
     "@nav-bar-fill": "@brand-primary",
-    "@fill-body": "#fff",
     "@fill-tap": "@brand-primary-tap",
     "@fill-grey": "#f7f7f7"
   }

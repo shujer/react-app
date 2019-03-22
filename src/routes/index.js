@@ -45,15 +45,28 @@ const Register = Loadable({
   loading: () => <TabLoading />
 })
 
+const Settings = Loadable({
+  loader: () => import('@containers/Settings'),
+  loading: () => <TabLoading />
+})
+
+const Feedback = Loadable({
+  loader: () => import('@containers/Feedback'),
+  loading: () => <TabLoading />
+})
+
+
 const routes = [
   {path: '/', exact: true, component: Home},
   {path: '/home', exact: true, component: Home},
   {path: '/auth', exact: true, component: Auth},
   {path: '/register', exact: true, component: Register},
+  {path: '/settings', exact: true, component: Settings},
   {path: '/post/:id', component: Post},
   {path: '/recommended', component: TabPicker},
   {path: '/activity', component: Activity},
   {path: '/explore', component: Explore},
+  {path: '/feedback', component: Feedback},
   {path: '/xiaoce', component: Xiaoce},
   {
     path: '/collection/:id',

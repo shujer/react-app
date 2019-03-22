@@ -23,20 +23,17 @@ const AvatarBar = ({userInfo, comment, isComment}) => {
           {isComment ? <Moment date={comment.publishDateStr} /> : null}
         </div>
       </div>
-
-      <div className="commentStatus">
-        {isComment ? (
-          <>
-            <small className="like">
-              <i className="iconfont icon-dianzan" />
-              {comment.likeCount}
-            </small>
-            <small className="count">
-              <i className="iconfont icon-reply1" />
-            </small>
-          </>
-        ) : null}
-      </div>
+      {isComment ? (
+        <div className="commentStatus">
+          <small className="like">
+            <i className="iconfont icon-dianzan" />
+            {comment.likeCount}
+          </small>
+          <small className="count">
+            <i className="iconfont icon-reply1" />
+          </small>
+        </div>
+      ) : null}
     </div>
   )
 }
