@@ -5,11 +5,13 @@
   "dependencies": {
     "antd-mobile": "^2.2.9",
     "co-body": "^6.0.0",
+    "crypto": "^1.0.1",
     "http-proxy-middleware": "^0.19.1",
     "immutable": "^4.0.0-rc.12",
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",
     "moment": "^2.24.0",
+    "node-fetch": "^2.3.0",
     "rc-form": "^2.4.3",
     "react": "^16.8.4",
     "react-beautiful-dnd": "^10.0.4",
