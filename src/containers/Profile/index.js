@@ -12,7 +12,7 @@ let userInfo = {
   uid: '57726622165abd005492ee87',
   username: '稀土掘金',
   avatarLarge:
-    'https://user-gold-cdn.xitu.io/2017/8/4/ad5ffaa6dc9e5ee11e31ebb3031c903e',
+    require('@assets/icons/profile/empty_avatar_user.png'),
   selfDescription: '',
   jobTitle: '攻城狮',
   company: '稀土星球'
