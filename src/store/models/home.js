@@ -1,19 +1,10 @@
 import {loadData, saveData} from '@utils/localstorageHelper'
+import api from '@services/api'
 
 export default {
   namespace: 'home',
   state: {
-    tabList: [
-      {title: '前端', show: true},
-      {title: '设计', show: true},
-      {title: '后端', show: true},
-      {title: '人工智能', show: true},
-      {title: '运维', show: true},
-      {title: 'Android', show: true},
-      {title: 'iOS', show: true},
-      {title: '产品', show: true},
-      {title: '工具资源', show: true}
-    ]
+    tabList: []
   },
   reducers: {
     //resetTabList
@@ -24,9 +15,40 @@ export default {
       }
     }
   },
-  effects:{
+  effects: {
+    async initialTabList() {
+      try {
+        let tabList = loadData('tabList')
+        console.log(tabList)
+        if (tabList) {
+          this.resetTabList({tabList})
+          return
+        } else {
+          let response = await api.category.getCategories()
+          if ('err' in response) {
+            throw response['err']
+          }
+          let {data} = response
+          tabList = data.d['categoryList']
+          tabList = tabList
+            .map(val => {
+              return {
+                ...val,
+                title: val['name'],
+                name: val['title'],
+                show: true
+              }
+            })
+            .filter(val => val.isSubscribe === true)
+          await saveData('tabList', tabList)
+          this.resetTabList({tabList})
+        }
+      } catch (err) {
+        // this.resetTabList({})
+      }
+    },
     async getTabListAsync(playload, state) {
-      let tabList = await loadData('tabList')
+      let tabList = loadData('tabList')
       this.resetTabList({tabList})
     },
     async resetTabListAsync(playload, state) {

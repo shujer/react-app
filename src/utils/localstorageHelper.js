@@ -17,3 +17,12 @@ export function saveData(key, data) {
     return false
   }
 }
+
+//删除
+export function removeData(key) {
+  try {
+    return window.localStorage.removeItem(key)
+  } catch (e) {
+    return null
+  }
+}

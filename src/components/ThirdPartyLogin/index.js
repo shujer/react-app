@@ -12,7 +12,7 @@ const ThirdPartyLogin = props => {
         <div className="detail">其他账号登录</div>
       </div>
       <div className="thirdParty">
-        <div>
+        <div >
           <img src={WeiboIcon} alt="weibo" />
           <span>微博</span>
         </div>
@@ -20,7 +20,7 @@ const ThirdPartyLogin = props => {
           <img src={WechatIcon} alt="wechat" />
           <span>微信</span>
         </div>
-        <div>
+        <div onClick={props.handleGithubLogin}>
           <img src={GithubIcon} alt="github" />
           <span>Github</span>
         </div>

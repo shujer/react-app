@@ -1,11 +1,13 @@
 const Koa = require('koa')
 const router = require('./router')
-// const bodyParser = require('koa-bodyparser')
+const proxy = require('koa-server-http-proxy')
+const proxyTable = require('./proxy')
 
 const app = new Koa()
 
-// 调用路由中间件
-app.use(router.routes())
+app.use(proxy('/api',proxyTable));
+
+app.use(router.routes()).use(router.allowedMethods())
 
 app.listen(8989, () => {
   console.log('server is running at http://localhost:8989')

@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import LoginForm from '@components/LoginForm'
+
 import ThirdPartyLogin from '@components/ThirdPartyLogin'
 import './style.less'
 import withNavBarBasicLayout from '@layouts/withNavBarBasicLayout'
@@ -16,8 +17,8 @@ class Auth extends Component {
 
   submit = form => {
     let {loginByPhoneNumber, loginByEmail} = this.props
-    let {verifyText, password} = form;
-    if(/^1[34578]\d{9}$/.test(verifyText)) {
+    let {verifyText, password} = form
+    if (/^1[34578]\d{9}$/.test(verifyText)) {
       loginByPhoneNumber({phoneNumber: verifyText, password})
     } else {
       loginByEmail({email: verifyText, password})
@@ -29,6 +30,16 @@ class Auth extends Component {
       pathname: '/register'
     })
   }
+
+  handleGithubLogin = () => {
+    let {loginByGithub, history} = this.props
+    loginByGithub({history})
+  }
+
+  // componentDidMount() {
+  //   let {checkGithubOauth} = this.props;
+  //   checkGithubOauth({search: window.location.search})
+  // }
 
   render() {
     let {currentState} = this.props
@@ -56,7 +67,10 @@ class Auth extends Component {
                     handleLogin={this.submit}
                     handleRegister={this.handleRegister}
                   />
-                  <ThirdPartyLogin className="thirdPartyLogin" />
+                  <ThirdPartyLogin
+                    className="thirdPartyLogin"
+                    handleGithubLogin={this.handleGithubLogin}
+                  />
                   <footer> 掘金·juejin.im </footer>
                 </div>
               )
@@ -71,9 +85,13 @@ const mapState = state => ({
   currentState: state.auth.currentState
 })
 
-const mapDispatch = ({auth: {loginByPhoneNumber, loginByEmail}}) => ({
+const mapDispatch = ({
+  auth: {loginByPhoneNumber, loginByEmail, loginByGithub, checkGithubOauth}
+}) => ({
   loginByPhoneNumber: playload => loginByPhoneNumber(playload),
-  loginByEmail: playload => loginByEmail(playload)
+  loginByEmail: playload => loginByEmail(playload),
+  loginByGithub: playload => loginByGithub(playload),
+  checkGithubOauth: playload => checkGithubOauth(playload)
 })
 export default connect(
   mapState,
