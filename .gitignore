@@ -6,7 +6,9 @@
 .pnp.js
 
 #config
-/server/config.js
+*/server/config.js
+
+/src/__mock__/*
 
 # testing
 /coverage
