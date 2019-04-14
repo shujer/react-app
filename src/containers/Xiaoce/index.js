@@ -1,37 +1,28 @@
 import React, {Component} from 'react'
-import TabNav from '@components/TabNav'
+import NavList from '@components/NavList'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 
 @withTabBarBasicLayout('xiaoce')
 class XiaoceContainer extends Component {
-  shouldComponentUpdate() {
-    return false
+  state = {
+    selectedTab: 0
+  }
+  handleTabChange = index => {
+    this.setState({
+      selectedTab: index
+    })
   }
   render() {
-    const renderContents = Array(2)
-      .fill(0)
-      .map(val => tab => (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flex: 'auto 1',
-            backgroundColor: '#fff'
-          }}
-        >
-          <p>Content of {tab.title}</p>
-        </div>
-      ))
+    const tabs = [{title: '全部', show: true}, {title: '已购', show: true}]
 
-    const tabs = [
-      {title: '全部', show: true},
-      {title: '已购', show: true}
-    ]
-    
     return (
       <div>
-        <TabNav tabs={tabs} renderContents={renderContents} />
+        <NavList
+          tabs={tabs}
+          selectedTab={this.state.selectedTab}
+          onTabChange={this.handleTabChange}
+          page={2}
+        />
       </div>
     )
   }

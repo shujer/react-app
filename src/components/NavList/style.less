@@ -1,0 +1,53 @@
+.tabListBar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    z-index: 999;
+
+    .tabList {
+        height: 43px;
+        white-space: nowrap;
+        overflow: auto;
+        color: #fff;
+        font-size: 14px;
+        background: url('../../assets/profile_bg.jpg') 0 0 repeat;
+        position: relative;
+
+        .tabChange {
+            position: absolute;
+            width: 25%;
+            height: 2px;
+            top: 41px;
+            background-color: #fff;
+            transition: .3s left ease-in-out;
+        }
+
+        .tabItem {
+            display: inline-block;
+            width: 25%;
+            height: 42px;
+            line-height: 42px;
+            text-align: center;
+        }
+
+        &::-webkit-scrollbar {
+            display: none;
+            height: 0;
+            width: 0;
+        }
+    }
+
+
+    .caretTab {
+        width: 20%;
+        height: 43px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 0;
+        top: 0;
+        background: url('../../assets/profile_bg.jpg') 0 0 repeat;
+    }
+}

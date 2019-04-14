@@ -1,29 +1,22 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import TabNavWithCaret from '@components/TabNav'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
+import PullToRefreshList from '@components/PullToRefreshList'
+import NavList from '@components/NavList'
 
 @withTabBarBasicLayout('home')
 class HomeContainer extends Component {
+  state = {
+    selectedTab: 0
+  }
+  handleTabChange = index => {
+    this.setState({
+      selectedTab: index
+    })
+  }
   render() {
     const {tabList} = this.props
-    const renderContents = Array(9)
-      .fill(0)
-      .map(val => tab => (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flex: 'auto 1',
-            backgroundColor: '#fff'
-          }}
-        >
-          <p>Content of {tab.title}</p>
-        </div>
-      ))
-
     const tabs = [
       {title: '推荐', show: true},
       {title: '关注', show: true},
@@ -32,11 +25,12 @@ class HomeContainer extends Component {
 
     return (
       <div>
-        <TabNavWithCaret
+        <NavList
           tabs={tabs}
-          renderContents={renderContents}
           onCaretClick={this.goToTab}
           showCaret={true}
+          selectedTab={this.state.selectedTab}
+          onTabChange={this.handleTabChange}
         />
       </div>
     )
