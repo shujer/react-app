@@ -1,5 +1,4 @@
 import React from 'react'
-import Moment from '@components/Moment'
 import Avatar from '@components/Avatar'
 import './style.less'
 

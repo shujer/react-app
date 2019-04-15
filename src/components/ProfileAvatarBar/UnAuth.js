@@ -22,7 +22,7 @@ const ProfileAvatarBar = props => {
           </div>
         </div>
         <div className="arrow">
-          <img src={Arrow} />
+          <img src={Arrow} alt=""/>
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-import {stringify} from 'qs'
 import {get, put} from '@utils/request'
 
 export async function getCategories() {

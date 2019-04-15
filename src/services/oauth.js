@@ -1,5 +1,4 @@
-import {stringify} from 'qs'
-import {get, post} from '@utils/request'
+import {get} from '@utils/request'
 
 export async function getGithubOauth() {
   return get('/api/oauth/github/authorize')

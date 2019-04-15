@@ -1,5 +1,4 @@
-import {stringify} from 'qs'
-import {get, post, request} from '@utils/request'
+import {post, request} from '@utils/request'
 
 export async function register({phoneNumber, username, password}) {
   return post('/api/register', {

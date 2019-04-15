@@ -19,7 +19,6 @@ export default {
     async initialTabList() {
       try {
         let tabList = loadData('tabList')
-        console.log(tabList)
         if (tabList) {
           this.resetTabList({tabList})
           return
