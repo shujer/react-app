@@ -3,37 +3,18 @@ import Moment from '@components/Moment'
 import Avatar from '@components/Avatar'
 import './style.less'
 
-const AvatarBar = ({userInfo, comment, isComment}) => {
+const AvatarBar = ({user, appendContent, extraContent}) => {
   return (
-    <div id={userInfo.id} className="bar">
-      {/* 头像 */}
-      <div className="avatar">
-        <Avatar userInfo={userInfo} />
-      </div>
-      {/* 用户信息 */}
-      <div className="userInfo">
-        <div className="userName">{userInfo.screenName}</div>
-        <div className="userOccupation">
-          {userInfo.occupation ? (
-            <>
-              <span className="occupation">{userInfo.occupation}</span>
-              {` · `}
-            </>
-          ) : null}
-          {isComment ? <Moment date={comment.publishDateStr} /> : null}
+    <div className="avatarBar">
+      <div className="append">
+        <div className="avatarContainer">
+          <Avatar {...user} />
+        </div>
+        <div className="userlinkContainer">
+          {appendContent}
         </div>
       </div>
-      {isComment ? (
-        <div className="commentStatus">
-          <small className="like">
-            <i className="iconfont icon-dianzan" />
-            {comment.likeCount}
-          </small>
-          <small className="count">
-            <i className="iconfont icon-reply1" />
-          </small>
-        </div>
-      ) : null}
+      <div className="extra">{extraContent}</div>
     </div>
   )
 }

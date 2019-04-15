@@ -2,13 +2,13 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import './style.less'
 
-const Avatar = ({userInfo}) => {
+const Avatar = ({objectId, avatarLarge, username}) => {
   return (
-    <Link to={`/user/${userInfo.uid}`} className="avatar">
+    <Link to={`/user/${objectId}`} className="avatar">
       <img
-        src={userInfo.avatarLarge}
+        src={avatarLarge}
         alt="userAvatar"
-        title={`/user/${userInfo.username}`}
+        title={`/user/${username}`}
       />
     </Link>
   )
