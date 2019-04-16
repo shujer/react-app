@@ -19,13 +19,13 @@ const Item = ({item}) => {
         />
       </div>
       <div className="entryBox">
-        <div>
+        <div className="text">
           <div className="title">{title}</div>
-          <div className="content">{content}</div>
+          {content}
         </div>
         {screenshot ? (
           <div className="screenshot">
-            <img src={screenshot} alt="screenshot" align="right" />
+            <img src={screenshot} alt="screenshot"/>
           </div>
         ) : null}
       </div>

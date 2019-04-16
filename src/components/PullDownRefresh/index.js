@@ -13,12 +13,10 @@ class PullDownRefresh extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    // console.log(nextProps)
     if (nextProps.dataSource !== this.props.dataSource) {
-      console.log(nextProps)
-      //   this.setState({
-      //     // dataSource: this.state.dataSource.cloneWithRows(nextProps.dataSource)
-      //   })
+      this.setState({
+        dataSource: nextProps.dataSource
+      })
     }
   }
   componentDidMount() {
@@ -30,18 +28,20 @@ class PullDownRefresh extends Component {
     })
   }
   handleTouchStart = e => {
+    console.log('start')
     this.setState({
       startPos: e.touches[0].pageY
     })
   }
 
   handleTouchMove = e => {
+    console.log('move')
     let _movePos = e.touches[0].pageY
     let _pullHeight = _movePos - this.state.startPos
     let offsetTop = e.target.offsetTop
     if (offsetTop < this.state.height) {
       if (_pullHeight > 60 && this.state.pullHeight < 60) {
-        this.ptr.style.top = '40px'
+        this.ptr.style.top = '30px'
         this.setState({
           loadingContent: <RefreshLoading />,
           pullHeight: _pullHeight
@@ -51,13 +51,14 @@ class PullDownRefresh extends Component {
   }
 
   handleTouchEnd = e => {
-    this.ptr.style.top = '0px'
-    setTimeout(() => {
+    console.log('end')
+    this.props.onRefresh().then(() => {
+      this.ptr.style.top = '0px'
       this.setState({
         loadingContent: null,
         pullHeight: 0
       })
-    }, 2000)
+    })
   }
 
   render() {

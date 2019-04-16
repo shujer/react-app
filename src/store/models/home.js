@@ -1,10 +1,12 @@
 import {loadData, saveData} from '@utils/localstorageHelper'
 import api from '@services/api'
+import {getUniqueItemById} from '@utils/listHelper'
 
 export default {
   namespace: 'home',
   state: {
-    tabList: []
+    tabList: [],
+    entryList: []
   },
   reducers: {
     //resetTabList
@@ -13,9 +15,15 @@ export default {
         ...state,
         tabList: tabList || state.tabList
       }
+    },
+    resetEntryList(state, {entryList}) {
+      return {
+        ...state,
+        entryList: getUniqueItemById([...entryList,...state.entryList])
+      }
     }
   },
-  effects: {
+  effects: dispatch => ({
     async initialTabList() {
       try {
         let tabList = loadData('tabList')
@@ -40,7 +48,7 @@ export default {
             })
             .filter(val => val.isSubscribe === true)
           await saveData('tabList', tabList)
-          this.resetTabList({tabList})
+          dispatch.home.resetTabList({tabList})
         }
       } catch (err) {
         // this.resetTabList({})
@@ -48,11 +56,16 @@ export default {
     },
     async getTabListAsync(playload, state) {
       let tabList = loadData('tabList')
-      this.resetTabList({tabList})
+      dispatch.home.resetTabList({tabList})
     },
     async resetTabListAsync(playload, state) {
       await saveData('tabList', playload.tabList)
-      this.resetTabList(playload)
+      dispatch.home.resetTabList(playload)
+    },
+    async getEntryByList(playload, state) {
+      let {data} = await api.entry.getEntryByTimeline({ limit:20, category:'all'})
+      dispatch.home.resetEntryList({entryList:data.d.entrylist})
+      console.log(data)
     }
-  }
+  })
 }

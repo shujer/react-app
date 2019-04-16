@@ -6,7 +6,6 @@ import UserCollectionset from '@assets/icons/profile/user_collectionset.png'
 import UserBuy from '@assets/icons/profile/user_buy.png'
 import UserDataRead from '@assets/icons/profile/ic_user_data_read.png'
 import TagIcon from '@assets/icons/profile/ic_dynamic_tag.png'
-import NightIcon from '@assets/icons/profile/ic_night.png'
 import FeedBackIcon from '@assets/icons/profile/icon_feed_back.png'
 import SettingsIcon from '@assets/icons/profile/settings.png'
 let Item = List.Item
