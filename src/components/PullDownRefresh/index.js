@@ -19,31 +19,23 @@ class PullDownRefresh extends Component {
       })
     }
   }
-  componentDidMount() {
-    const hei =
-      document.documentElement.clientHeight -
-      ReactDOM.findDOMNode(this.ptr).offsetTop
-    this.setState({
-      height: hei
-    })
-  }
   handleTouchStart = e => {
-    console.log('start')
+    // console.log('start')
     this.setState({
       startPos: e.touches[0].pageY
     })
   }
 
   handleTouchMove = e => {
-    console.log('move')
+    // console.log('move')
     let _movePos = e.touches[0].pageY
     let _pullHeight = _movePos - this.state.startPos
     let offsetTop = e.target.offsetTop
-    if (offsetTop < this.state.height) {
+    if (offsetTop < this.ptr.clientHeight) {
       if (_pullHeight > 60 && this.state.pullHeight < 60) {
         this.ptr.style.top = '30px'
         this.setState({
-          loadingContent: <RefreshLoading />,
+          loadingContent: <RefreshLoading orient="up" />,
           pullHeight: _pullHeight
         })
       }
@@ -51,14 +43,22 @@ class PullDownRefresh extends Component {
   }
 
   handleTouchEnd = e => {
-    console.log('end')
-    this.props.onRefresh().then(() => {
-      this.ptr.style.top = '0px'
-      this.setState({
-        loadingContent: null,
-        pullHeight: 0
-      })
-    })
+    // console.log('end')
+    if (this.state.pullHeight !== 0) {
+      this.props
+        .onRefresh()
+        .then(() => {})
+        .catch(e => {
+          console.error(e)
+        })
+        .finally(() => {
+          this.ptr.style.top = '0px'
+          this.setState({
+            loadingContent: null,
+            pullHeight: 0
+          })
+        })
+    }
   }
 
   render() {

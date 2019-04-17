@@ -1,72 +1,89 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
-import {PullToRefresh, Button} from 'antd-mobile'
+import RefreshLoading from '@components/RefreshLoading'
 
-function genData() {
-  const dataArr = []
-  for (let i = 0; i < 20; i++) {
-    dataArr.push(i)
-  }
-  return dataArr
-}
-
-class Demo extends Component {
+class PullUpRefresh extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      refreshing: false,
-      down: true,
-      height: document.documentElement.clientHeight,
-      data: []
+      startPos: 0,
+      pullHeight: 0,
+      loadingContent: null,
+      dataSource: this.props.dataSource || []
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.dataSource !== this.props.dataSource) {
+      this.setState({
+        dataSource: nextProps.dataSource
+      })
+    }
+  }
+  handleTouchStart = e => {
+    // console.log('start')
+    console.log(this.ptr.offsetHeight)
+    this.setState({
+      startPos: e.touches[0].pageY
+    })
+  }
+
+  handleTouchMove = e => {
+    if (this.state.pullHeight === 0) {
+      let offset = this.ptr.offsetHeight - e.target.offsetTop
+      if (offset < this.ptr.clientHeight) {
+        this.setState({
+          loadingContent: <RefreshLoading />,
+          pullHeight: offset
+        })
+      }
     }
   }
 
-  componentDidMount() {
-    const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop
-    setTimeout(
-      () =>
-        this.setState({
-          height: hei,
-          data: genData()
-        }),
-      0
-    )
+  handleTouchEnd = e => {
+    if (this.state.pullHeight !== 0) {
+      // console.log('end')
+      this.props
+        .onRefresh()
+        .then(() => {})
+        .catch(e => {
+          console.error(e)
+        })
+        .finally(() => {
+          this.setState({
+            loadingContent: null,
+            pullHeight: 0
+          })
+        })
+    }
   }
 
   render() {
     return (
-      <div>
-        <Button
-          style={{marginBottom: 15}}
-          onClick={() => this.setState({down: !this.state.down})}
-        >
-          direction: {this.state.down ? 'down' : 'up'}
-        </Button>
-        <PullToRefresh
-          damping={60}
+      <>
+        <div
           ref={el => (this.ptr = el)}
           style={{
-            height: this.state.height,
-            overflow: 'auto'
+            overflowY: 'auto',
+            position: 'relative',
+            transition: 'top .5s ease-in-out',
+            top: '0px',
+            width: '100%'
           }}
-          indicator={this.state.down ? {} : {deactivate: '上拉可以刷新'}}
-          direction={this.state.down ? 'down' : 'up'}
-          refreshing={this.state.refreshing}
-          onRefresh={() => {
-            this.setState({refreshing: true})
-            setTimeout(() => {
-              this.setState({refreshing: false})
-            }, 1000)
+          onTouchStart={this.handleTouchStart}
+          onTouchMove={this.handleTouchMove}
+          onTouchEnd={this.handleTouchEnd}
+        >
+          {this.state.dataSource}
+        </div>
+        <div
+          ref={el => {
+            this.rload = el
           }}
         >
-          {this.state.data.map(i => (
-            <div key={i} style={{textAlign: 'center', padding: 20}}>
-              {this.state.down ? 'pull down' : 'pull up'} {i}
-            </div>
-          ))}
-        </PullToRefresh>
-      </div>
+          {this.state.loadingContent}
+        </div>
+      </>
     )
   }
 }
-export default Demo
+
+export default PullUpRefresh

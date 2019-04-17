@@ -1,12 +1,15 @@
 import {loadData, saveData} from '@utils/localstorageHelper'
 import api from '@services/api'
+import {Toast} from 'antd-mobile'
 import {getUniqueItemById} from '@utils/listHelper'
 
 export default {
   namespace: 'home',
   state: {
     tabList: [],
-    entryList: []
+    entryList: [],
+    after: '',
+    hasNextPage: false
   },
   reducers: {
     //resetTabList
@@ -16,10 +19,17 @@ export default {
         tabList: tabList || state.tabList
       }
     },
-    resetEntryList(state, {entryList}) {
+    resetEntryList(state, {articleFeed, more=false}) {
+      let items = articleFeed.items
+      let entryList = items.edges.map(val => val.node)
+      let pageInfo = items.pageInfo
       return {
         ...state,
-        entryList: getUniqueItemById([...entryList,...state.entryList])
+        entryList: more
+          ? getUniqueItemById([...state.entryList, ...entryList], 'id')
+          : [...entryList],
+        after: pageInfo.endCursor,
+        hasNextPage: pageInfo.hasNextPage
       }
     }
   },
@@ -62,10 +72,20 @@ export default {
       await saveData('tabList', playload.tabList)
       dispatch.home.resetTabList(playload)
     },
-    async getEntryByList(playload, state) {
-      let {data} = await api.entry.getEntryByTimeline({ limit:20, category:'all'})
-      dispatch.home.resetEntryList({entryList:data.d.entrylist})
-      console.log(data)
+    async getEntryByListAsync(playload, state) {
+      try {
+        let more = playload && playload.more ? true : false
+        if (more && !state.home.hasNextPage) {
+          Toast.info('没有更多了', 1.5)
+        } else {
+          let {data} = await api.entry.getArticleAfter({
+            after: state.home.after
+          })
+          dispatch.home.resetEntryList({...data.data, more})
+        }
+      } catch (e) {
+        console.error(e)
+      }
     }
   })
 }

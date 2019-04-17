@@ -1,4 +1,4 @@
-.RefreshLoading {
+.refreshTop {
     position: absolute;
     height: 40px;
     width: 100%;
@@ -13,6 +13,23 @@
     background: none;
 }
 
+.refreshDown {
+    height: 6rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        height: 5rem;
+        // width: 5rem;
+    }
+
+    animation: proRotate .4s;
+    -moz-animation: proRotate .4s;
+    -webkit-animation: proRotate .4s;
+    -o-animation: proRotate .4s;
+}
 
 @-webkit-keyframes load {
 
@@ -43,5 +60,37 @@
     100% {
         transform: scale(1.0, 1.0);
         -webkit-transform: scale(1.0, 1.0)
+    }
+}
+
+
+@-webkit-keyframes proRotate {
+    0% {
+        -webkit-transform: perspective(400px) rotateX(90deg);
+    }
+
+    40% {
+        -webkit-transform: perspective(400px) rotateX(60deg);
+    }
+
+    100% {
+        -webkit-transform: perspective(400px) rotateX(0deg);
+    }
+}
+
+@keyframes proRotate {
+    0% {
+        -webkit-transform: perspective(400px) rotateX(90deg);
+        transform: perspective(400px) rotateX(90deg);
+    }
+
+    40% {
+        -webkit-transform: perspective(400px) rotateX(60deg);
+        transform: perspective(400px) rotateX(60deg);
+    }
+
+    100% {
+        -webkit-transform: perspective(400px) rotateX(0deg);
+        transform: perspective(400px) rotateX(0deg);
     }
 }

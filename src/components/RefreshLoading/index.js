@@ -1,11 +1,21 @@
 import React from 'react'
 import {Icon} from 'antd-mobile'
+import entryDefault from '@assets/icons/post/entry_image_default.png'
 import './style.less'
-const Loading = () => {
+const Loading = props => {
+  let {orient} = props
   return (
-    <div className="RefreshLoading">
-      <Icon type="loading"/>
-    </div>
+    <>
+      {orient === 'up' ? (
+        <div className="refreshTop">
+          <Icon type="loading" />
+        </div>
+      ) : (
+        <div className="refreshDown">
+          <img src={entryDefault} alt="loading" />
+        </div>
+      )}
+    </>
   )
 }
 

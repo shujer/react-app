@@ -20,5 +20,3 @@ const store = init({
 
 
 export default store
-
-store.dispatch.home.initialTabList()

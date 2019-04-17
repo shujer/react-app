@@ -4,7 +4,7 @@ import AvatarBar from '@components/AvatarBar'
 import UserLink from '@components/AvatarBar/UserLink'
 import './style.less'
 const Item = ({item}) => {
-  let {title, content, commentsCount, objectId, screenshot, tags, user} = item
+  let {title, content, commentsCount,likeCount, id, screenshot, tags, user} = item
   let extraContent = tags
     .slice(0, 2)
     .map(val => val.title)
@@ -30,7 +30,7 @@ const Item = ({item}) => {
         ) : null}
       </div>
       <div className="info">
-        <EntryInfo likeCount={0} commentsCount={commentsCount} />
+        <EntryInfo likeCount={likeCount} commentsCount={commentsCount} />
       </div>
     </div>
   )

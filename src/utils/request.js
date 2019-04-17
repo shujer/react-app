@@ -37,13 +37,14 @@ export function get(url, options) {
     .catch(err => ({err}))
 }
 
-export function post(url, options={}) {
+export function post(url, options={body: {}, headers:{}}) {
   return fetch(url, {
     ...options,
     method: 'POST',
     body: JSON.stringify(options.body),
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      ...options.headers
     }
   })
     .then(checkStatus)

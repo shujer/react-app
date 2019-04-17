@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: flex-start;
     background-color: #fff;
-    width: 100vw;
+    width: 100%;
     margin-top: .4rem;
     padding: 0 .5rem .5rem .5rem;
     min-height: 6rem;
@@ -16,6 +16,7 @@
 
     .entryBox {
         flex-grow: 1;
+        width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
@@ -27,14 +28,11 @@
             width: 5rem;
             margin-left: .4rem;
             img {
-                width: 100%;
-                height: 100%;
                 height: 5rem;
                 width: 5rem;
             }
         }
         .text {
-            flex-grow: 1;
             color: gray;
             font-size: smaller;
             overflow: hidden;
@@ -56,7 +54,7 @@
     }
 
     .info {
-        min-width: 30%;
+        min-width: 25%;
         height: 1.5rem;
         line-height: 1.5rem;
     }

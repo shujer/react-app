@@ -5,7 +5,8 @@ import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import EntryItem from '@components/EntryItem'
 import NavList from '@components/NavList'
 import './style.less'
-import PullDownRefresh from '@components/PullDownRefresh'
+import PullDownRefresh from '@components/PullUpRefresh'
+import RefreshLoading from '@components/RefreshLoading'
 
 @withTabBarBasicLayout('home')
 class HomeContainer extends Component {
@@ -18,11 +19,12 @@ class HomeContainer extends Component {
       selectedTab: index
     })
   }
-  componentWillMount() {
-    this.props.getEntryByList()
+  componentDidMount() {
+    this.props.getEntryByListAsync()
+    this.props.getTabListAsync()
   }
   onRefresh = () => {
-    return this.props.getEntryByList()
+    return this.props.getEntryByListAsync({more: true})
   }
   render() {
     const {tabList, entryList} = this.props
@@ -44,9 +46,16 @@ class HomeContainer extends Component {
           selectedTab={this.state.selectedTab}
           onTabChange={this.handleTabChange}
         />
-        <div className="entryList" style={{marginTop: '43px'}}>
-          <PullDownRefresh dataSource={dataSource} onRefresh={this.onRefresh} />
-        </div>
+        {entryList.length === 0 ? (
+          <RefreshLoading orient="up" />
+        ) : (
+          <div className="entryList" style={{marginTop: '43px'}}>
+            <PullDownRefresh
+              dataSource={dataSource}
+              onRefresh={this.onRefresh}
+            />
+          </div>
+        )}
       </div>
     )
   }
@@ -63,9 +72,11 @@ const mapState = state => ({
   entryList: state.home.entryList
 })
 
-const mapDispatch = ({home: {getTabListAsync, getEntryByList}}) => ({
+const mapDispatch = ({
+  home: {getTabListAsync, getEntryByListAsync, getEntryNextAsync}
+}) => ({
   getTabListAsync: () => getTabListAsync(),
-  getEntryByList: () => getEntryByList()
+  getEntryByListAsync: playload => getEntryByListAsync(playload)
 })
 
 export default connect(

@@ -1,5 +1,5 @@
-export function getUniqueItemById(list) {
+export function getUniqueItemById(list, name) {
     let tmp = new Map()
-    let result = list.filter(val => !tmp.has(val.objectId)&&tmp.set(val.objectId,val))
+    let result = list.filter(val => !tmp.has(val[name])&&tmp.set(val[name],val))
     return result
 }
