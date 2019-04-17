@@ -29,7 +29,7 @@ class PullUpRefresh extends Component {
   handleTouchMove = e => {
     if (this.state.pullHeight === 0) {
       let offset = this.ptr.offsetHeight - e.target.offsetTop
-      if (offset < this.ptr.clientHeight) {
+      if (offset < this.ptr.clientHeight/2) {
         this.setState({
           loadingContent: <RefreshLoading />,
           pullHeight: offset
@@ -42,7 +42,7 @@ class PullUpRefresh extends Component {
     if (this.state.pullHeight !== 0) {
       // console.log('end')
       this.props
-        .onRefresh()
+        .onRefresh({more: true})
         .then(() => {})
         .catch(e => {
           console.error(e)

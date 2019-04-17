@@ -12,14 +12,13 @@ export default {
     hasNextPage: false
   },
   reducers: {
-    //resetTabList
     resetTabList(state, {tabList}) {
       return {
         ...state,
         tabList: tabList || state.tabList
       }
     },
-    resetEntryList(state, {articleFeed, more=false}) {
+    resetEntryList(state, {articleFeed, more = false}) {
       let items = articleFeed.items
       let entryList = items.edges.map(val => val.node)
       let pageInfo = items.pageInfo
@@ -72,16 +71,26 @@ export default {
       await saveData('tabList', playload.tabList)
       dispatch.home.resetTabList(playload)
     },
+    /**
+     * @description 加载首页的文章列表
+     * @param {object} playload : more 判断是上拉加载下一页 或者 下拉刷新；category； all/id
+     */
     async getEntryByListAsync(playload, state) {
       try {
         let more = playload && playload.more ? true : false
         if (more && !state.home.hasNextPage) {
           Toast.info('没有更多了', 1.5)
         } else {
-          let {data} = await api.entry.getArticleAfter({
-            after: state.home.after
-          })
-          dispatch.home.resetEntryList({...data.data, more})
+          let after = more ? state.home.after : ''
+          let {data} = await api.entry.getArticleAfter({after})
+          if (
+            data &&
+            data.data.articleFeed.items.pageInfo.endCursor - state.home.after < Number.EPSILON
+          ) {
+            Toast.info('已经是最新的', 1.5)
+          } else {
+            dispatch.home.resetEntryList({...data.data, more})
+          }
         }
       } catch (e) {
         console.error(e)

@@ -1,5 +1,5 @@
 import {stringify} from 'qs'
-import {get, post, request} from '@utils/request'
+import {get, post} from '@utils/request'
 
 export async function getHot() {
   return get('/api/xiaoce/getHot')

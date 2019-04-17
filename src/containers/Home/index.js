@@ -5,7 +5,7 @@ import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import EntryItem from '@components/EntryItem'
 import NavList from '@components/NavList'
 import './style.less'
-import PullDownRefresh from '@components/PullUpRefresh'
+import PullDownRefresh from '@components/PullDownRefresh'
 import RefreshLoading from '@components/RefreshLoading'
 
 @withTabBarBasicLayout('home')
@@ -23,8 +23,8 @@ class HomeContainer extends Component {
     this.props.getEntryByListAsync()
     this.props.getTabListAsync()
   }
-  onRefresh = () => {
-    return this.props.getEntryByListAsync({more: true})
+  onRefresh = ({more=false}) => {
+    return this.props.getEntryByListAsync({more:more})
   }
   render() {
     const {tabList, entryList} = this.props

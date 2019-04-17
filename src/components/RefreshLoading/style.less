@@ -6,11 +6,12 @@
     top: 50px;
     text-align: center;
     z-index: 999;
-    animation: load .5s;
-    -moz-animation: load .5s;
-    -webkit-animation: load .5s;
-    -o-animation: load .5s;
+    animation: load .3s;
+    -moz-animation: load .3s;
+    -webkit-animation: load .3s;
+    -o-animation: load .3s;
     background: none;
+    transition: all .1s ease-in-out;
 }
 
 .refreshDown {
@@ -19,16 +20,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     img {
         height: 5rem;
-        // width: 5rem;
     }
-
-    animation: proRotate .4s;
-    -moz-animation: proRotate .4s;
-    -webkit-animation: proRotate .4s;
-    -o-animation: proRotate .4s;
+    animation: proRotate .5s;
+    -moz-animation: proRotate .5s;
+    -webkit-animation: proRotate .5s;
+    -o-animation: proRotate .5s;
 }
 
 @-webkit-keyframes load {
@@ -38,7 +36,7 @@
     }
 
     40% {
-        -webkit-transform: scale(0.5, 0.5)
+        -webkit-transform: scale(0.6, 0.6)
     }
 
     100% {
@@ -53,8 +51,8 @@
     }
 
     40% {
-        transform: scale(0.5, 0.5);
-        -webkit-transform: scale(0.5, 0.5)
+        transform: scale(0.6, 0.6);
+        -webkit-transform: scale(0.6, 0.6)
     }
 
     100% {
@@ -69,10 +67,6 @@
         -webkit-transform: perspective(400px) rotateX(90deg);
     }
 
-    40% {
-        -webkit-transform: perspective(400px) rotateX(60deg);
-    }
-
     100% {
         -webkit-transform: perspective(400px) rotateX(0deg);
     }
@@ -82,11 +76,6 @@
     0% {
         -webkit-transform: perspective(400px) rotateX(90deg);
         transform: perspective(400px) rotateX(90deg);
-    }
-
-    40% {
-        -webkit-transform: perspective(400px) rotateX(60deg);
-        transform: perspective(400px) rotateX(60deg);
     }
 
     100% {

@@ -19,6 +19,13 @@ class PullDownRefresh extends Component {
       })
     }
   }
+
+  componentDidMount() {
+    this.setState({
+      offsetTop: ReactDOM.findDOMNode(this.ptr).offsetTop
+    })
+  }
+
   handleTouchStart = e => {
     // console.log('start')
     this.setState({
@@ -28,11 +35,10 @@ class PullDownRefresh extends Component {
 
   handleTouchMove = e => {
     // console.log('move')
-    let _movePos = e.touches[0].pageY
-    let _pullHeight = _movePos - this.state.startPos
-    let offsetTop = e.target.offsetTop
-    if (offsetTop < this.ptr.clientHeight) {
-      if (_pullHeight > 60 && this.state.pullHeight < 60) {
+    let top = ReactDOM.findDOMNode(this.ptr).getBoundingClientRect().top
+    if (top >= this.state.offsetTop) {
+      let _pullHeight = e.touches[0].pageY - this.state.startPos
+      if (_pullHeight > 60 && this.state.pullHeight === 0) {
         this.ptr.style.top = '30px'
         this.setState({
           loadingContent: <RefreshLoading orient="up" />,
@@ -46,7 +52,7 @@ class PullDownRefresh extends Component {
     // console.log('end')
     if (this.state.pullHeight !== 0) {
       this.props
-        .onRefresh()
+        .onRefresh({more: false})
         .then(() => {})
         .catch(e => {
           console.error(e)
@@ -68,9 +74,9 @@ class PullDownRefresh extends Component {
         <div
           ref={el => (this.ptr = el)}
           style={{
-            overflowY: 'scroll',
+            overflowY: 'auto',
             position: 'relative',
-            transition: 'top .5s ease-in-out',
+            transition: 'top .4s ease-in-out',
             top: '0px',
             width: '100%'
           }}
