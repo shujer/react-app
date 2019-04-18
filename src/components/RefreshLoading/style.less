@@ -23,10 +23,11 @@
     img {
         height: 5rem;
     }
-    animation: proRotate .5s;
-    -moz-animation: proRotate .5s;
-    -webkit-animation: proRotate .5s;
-    -o-animation: proRotate .5s;
+    animation: proRotate .3s;
+    -moz-animation: proRotate .3s;
+    -webkit-animation: proRotate .3s;
+    -o-animation: proRotate .3s;
+    transition: all .1s ease-in-out;
 }
 
 @-webkit-keyframes load {
@@ -64,7 +65,7 @@
 
 @-webkit-keyframes proRotate {
     0% {
-        -webkit-transform: perspective(400px) rotateX(90deg);
+        -webkit-transform: perspective(400px) rotateX(180deg);
     }
 
     100% {
@@ -74,8 +75,8 @@
 
 @keyframes proRotate {
     0% {
-        -webkit-transform: perspective(400px) rotateX(90deg);
-        transform: perspective(400px) rotateX(90deg);
+        -webkit-transform: perspective(400px) rotateX(180deg);
+        transform: perspective(400px) rotateX(180deg);
     }
 
     100% {

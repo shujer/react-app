@@ -13,7 +13,7 @@ class XiaoceContainer extends Component {
     })
   }
   render() {
-    const tabs = [{title: '全部', show: true}, {title: '已购', show: true}]
+    const tabs = [{name: '全部', show: true}, {name: '已购', show: true}]
 
     return (
       <div>

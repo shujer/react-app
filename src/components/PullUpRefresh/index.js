@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import RefreshLoading from '@components/RefreshLoading'
+import ReactDOM from 'react-dom'
 
 class PullUpRefresh extends Component {
   constructor(props) {
@@ -7,31 +8,37 @@ class PullUpRefresh extends Component {
     this.state = {
       startPos: 0,
       pullHeight: 0,
-      loadingContent: null,
-      dataSource: this.props.dataSource || []
+      refreshing: false
     }
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.dataSource !== this.props.dataSource) {
-      this.setState({
-        dataSource: nextProps.dataSource
-      })
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.dataSource !== this.props.dataSource) {
+  //     this.setState({
+  //       dataSource: nextProps.dataSource
+  //     })
+  //   }
+  // }
   handleTouchStart = e => {
     // console.log('start')
-    console.log(this.ptr.offsetHeight)
+    // this.setState({
+    //   startPos: e.touches[0].pageY
+    // })
+  }
+
+  componentDidMount() {
     this.setState({
-      startPos: e.touches[0].pageY
+      hei:
+        document.documentElement.clientHeight -
+        ReactDOM.findDOMNode(this.ptr).offsetTop
     })
   }
 
   handleTouchMove = e => {
     if (this.state.pullHeight === 0) {
       let offset = this.ptr.offsetHeight - e.target.offsetTop
-      if (offset < this.ptr.clientHeight/2) {
+      if (offset < this.state.hei + 100) {
         this.setState({
-          loadingContent: <RefreshLoading />,
+          refreshing: true,
           pullHeight: offset
         })
       }
@@ -40,19 +47,13 @@ class PullUpRefresh extends Component {
 
   handleTouchEnd = e => {
     if (this.state.pullHeight !== 0) {
-      // console.log('end')
-      this.props
-        .onRefresh({more: true})
-        .then(() => {})
-        .catch(e => {
-          console.error(e)
+      this.props.onRefresh()
+      setTimeout(() => {
+        this.setState({
+          refreshing: false,
+          pullHeight: 0
         })
-        .finally(() => {
-          this.setState({
-            loadingContent: null,
-            pullHeight: 0
-          })
-        })
+      }, 800)
     }
   }
 
@@ -64,23 +65,18 @@ class PullUpRefresh extends Component {
           style={{
             overflowY: 'auto',
             position: 'relative',
-            transition: 'top .5s ease-in-out',
+            transition: 'top .3s ease-in-out',
             top: '0px',
-            width: '100%'
+            width: '100%',
+            height: '100%'
           }}
           onTouchStart={this.handleTouchStart}
           onTouchMove={this.handleTouchMove}
           onTouchEnd={this.handleTouchEnd}
         >
-          {this.state.dataSource}
+          {this.props.children}
         </div>
-        <div
-          ref={el => {
-            this.rload = el
-          }}
-        >
-          {this.state.loadingContent}
-        </div>
+        {this.state.refreshing ? <RefreshLoading orient="down" /> : null}
       </>
     )
   }

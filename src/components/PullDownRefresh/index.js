@@ -3,21 +3,11 @@ import ReactDOM from 'react-dom'
 import RefreshLoading from '@components/RefreshLoading'
 
 class PullDownRefresh extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      startPos: 0,
-      pullHeight: 0,
-      loadingContent: null,
-      dataSource: this.props.dataSource || []
-    }
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.dataSource !== this.props.dataSource) {
-      this.setState({
-        dataSource: nextProps.dataSource
-      })
-    }
+  state = {
+    startPos: 0,
+    pullHeight: 0,
+    dataSource: this.props.dataSource || [],
+    refreshing: false
   }
 
   componentDidMount() {
@@ -27,64 +17,57 @@ class PullDownRefresh extends Component {
   }
 
   handleTouchStart = e => {
-    // console.log('start')
     this.setState({
       startPos: e.touches[0].pageY
     })
   }
 
   handleTouchMove = e => {
-    // console.log('move')
-    let top = ReactDOM.findDOMNode(this.ptr).getBoundingClientRect().top
-    if (top >= this.state.offsetTop) {
-      let _pullHeight = e.touches[0].pageY - this.state.startPos
-      if (_pullHeight > 60 && this.state.pullHeight === 0) {
-        this.ptr.style.top = '30px'
-        this.setState({
-          loadingContent: <RefreshLoading orient="up" />,
-          pullHeight: _pullHeight
-        })
+    if (this.state.pullHeight === 0) {
+      let top = ReactDOM.findDOMNode(this.ptr).getBoundingClientRect().top
+      if (top >= this.state.offsetTop) {
+        let _pullHeight = e.touches[0].pageY - this.state.startPos
+        if (_pullHeight > 60) {
+          // console.log('move')
+          this.setState({
+            refreshing: true,
+            pullHeight: _pullHeight
+          })
+        }
       }
     }
   }
 
   handleTouchEnd = e => {
-    // console.log('end')
     if (this.state.pullHeight !== 0) {
-      this.props
-        .onRefresh({more: false})
-        .then(() => {})
-        .catch(e => {
-          console.error(e)
+      this.props.onRefresh()
+      setTimeout(() => {
+        this.setState({
+          refreshing: false,
+          pullHeight: 0
         })
-        .finally(() => {
-          this.ptr.style.top = '0px'
-          this.setState({
-            loadingContent: null,
-            pullHeight: 0
-          })
-        })
+      }, 800)
     }
   }
 
   render() {
     return (
       <>
-        <div>{this.state.loadingContent}</div>
+        {this.state.refreshing ? <RefreshLoading orient="up" /> : null}
         <div
           ref={el => (this.ptr = el)}
           style={{
             overflowY: 'auto',
             position: 'relative',
             transition: 'top .4s ease-in-out',
-            top: '0px',
+            top: this.state.refreshing ? '30px' : '0px',
             width: '100%'
           }}
           onTouchStart={this.handleTouchStart}
           onTouchMove={this.handleTouchMove}
           onTouchEnd={this.handleTouchEnd}
         >
-          {this.state.dataSource}
+          {this.props.children}
         </div>
       </>
     )

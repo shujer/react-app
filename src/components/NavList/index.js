@@ -3,7 +3,7 @@ import './style.less'
 import CaretImage from '../../assets/caret.png'
 
 const NavList = props => {
-  let {tabs, onCaretClick, showCaret, selectedTab, onTabChange, page} = props
+  let {tabs, onCaretClick, showCaret, selectedIndex, onTabChange, page} = props
   let width = 25
   if (page) {
     width = 100 / page
@@ -21,13 +21,14 @@ const NavList = props => {
               }}
               style={{width: width + '%'}}
             >
-              {element.title}
+              {element.name}
             </div>
           )
         })}
+
         <div
           className="tabChange"
-          style={{left: selectedTab * width + '%', width: width + '%'}}
+          style={{left: selectedIndex * width + '%', width: width + '%'}}
         />
       </div>
       {showCaret ? (

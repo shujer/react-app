@@ -9,7 +9,7 @@
     .tabList {
         height: 43px;
         white-space: nowrap;
-        overflow: auto;
+        overflow-x: auto;
         color: #fff;
         background: inherit;
         position: relative;
@@ -46,6 +46,12 @@
             height: 0;
             width: 0;
         }
+
+        &::after {
+            width: 18%;
+            padding-right: 18%;
+            content: ""
+        }
     }
 
 
@@ -59,5 +65,8 @@
         right: 0;
         top: 0;
         background: url('../../assets/profile_bg.jpg') 0 0 repeat;
+        img {
+            max-width: 45%;
+        }
     }
 }

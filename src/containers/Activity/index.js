@@ -16,9 +16,9 @@ class ActivityContainer extends Component {
 
   render() {
     const tabs = [
-      {title: '推荐', show: true},
-      {title: '综合', show: true},
-      {title: '沸点', show: true}
+      {name: '推荐', show: true},
+      {name: '综合', show: true},
+      {name: '沸点', show: true}
     ]
 
     return (

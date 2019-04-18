@@ -1,12 +1,13 @@
 import {get, put} from '@utils/request'
 
-export async function getCategories({clientId = '', token = '', uid = ''}) {
+export async function getCategories(info={}) {
+  let {clientId, token, uid} = info
   return get('/api/tag/categories', {
     headers: {
-      'X-Juejin-Client': clientId,
+      'X-Juejin-Client': clientId || '',
       'X-Juejin-Src': 'mobile',
-      'X-Juejin-Token': token,
-      'X-Juejin-Uid': uid
+      'X-Juejin-Token': token || '',
+      'X-Juejin-Uid': uid || ''
     }
   })
 }
