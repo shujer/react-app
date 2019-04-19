@@ -5,12 +5,12 @@ import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 @withTabBarBasicLayout('activity')
 class ActivityContainer extends Component {
   state = {
-    selectedTab: 0
+    selectedIndex: 0
   }
 
   handleTabChange = index => {
     this.setState({
-      selectedTab: index
+      selectedIndex: index
     })
   }
 
@@ -25,7 +25,7 @@ class ActivityContainer extends Component {
       <div>
         <NavList
           tabs={tabs}
-          selectedTab={this.state.selectedTab}
+          selectedIndex={this.state.selectedIndex}
           onTabChange={this.handleTabChange}
           page={4}
         />

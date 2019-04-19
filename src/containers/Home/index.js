@@ -20,12 +20,7 @@ class HomeContainer extends Component {
   }
 
   shouldComponentUpdate(nextProps, nexState) {
-    if (
-      (nextProps.entryList && nextProps.entryList.length === 0) ||
-      (nextProps.tabList &&
-        nextProps.tabList.length === 0 &&
-        this.state.tabList.length === 2)
-    ) {
+    if (nextProps.entryList && nextProps.entryList.length === 0) {
       return false
     } else {
       return true
@@ -40,6 +35,7 @@ class HomeContainer extends Component {
   }
 
   _onRefreshUp = () => {
+    console.log(this.state.selectedIndex)
     this.props.getEntryByListAsync({
       more: true,
       category: this.state.tabList[this.state.selectedIndex].title
@@ -47,6 +43,7 @@ class HomeContainer extends Component {
   }
 
   _onRefreshDown = () => {
+    console.log(this.state.selectedIndex)
     this.props.getEntryByListAsync({
       more: false,
       category: this.state.tabList[this.state.selectedIndex].title

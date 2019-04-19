@@ -102,7 +102,10 @@ export default {
           }
         }
       } catch (e) {
-        console.error(e)
+        // console.error(e)
+        setTimeout(() => {
+          dispatch.home.getEntryByListAsync(playload)
+        }, 3000)
       }
     }
   })

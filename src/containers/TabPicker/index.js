@@ -30,7 +30,7 @@ const TabItem = ({item, onToggleShow}) => {
           className="iconfont icon-bar"
           style={{color: 'lightgray', marginRight: '1rem', fontSize: '1.5rem'}}
         />
-        {item.title}
+        {item.name}
       </div>
     </List.Item>
   )
