@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 
-@withTabBarBasicLayout('explore')
+@withTabBarBasicLayout
 class ActivityContainer extends Component {
   render() {
     return <div>search</div>

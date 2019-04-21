@@ -11,18 +11,8 @@ class PullUpRefresh extends Component {
       refreshing: false
     }
   }
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.dataSource !== this.props.dataSource) {
-  //     this.setState({
-  //       dataSource: nextProps.dataSource
-  //     })
-  //   }
-  // }
   handleTouchStart = e => {
     // console.log('start')
-    // this.setState({
-    //   startPos: e.touches[0].pageY
-    // })
   }
 
   componentDidMount() {

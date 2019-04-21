@@ -8,8 +8,7 @@ export default {
   state: {
     tabList: [],
     entryList: [],
-    after: '',
-    hasNextPage: false
+    before: ''
   },
   reducers: {
     resetTabList(state, {tabList}) {
@@ -18,39 +17,35 @@ export default {
         tabList: tabList || state.tabList
       }
     },
-    resetEntryList(state, {articleFeed, more = false}) {
-      let items = articleFeed.items
-      let entryList = items.edges.map(val => val.node)
-      let pageInfo = items.pageInfo
+    resetEntryList(state, {entryList=[], more = false}) {
       return {
         ...state,
-        entryList: more
-          ? getUniqueItemById([...state.entryList, ...entryList], 'id')
-          : [...entryList],
-        after: pageInfo.endCursor,
-        hasNextPage: pageInfo.hasNextPage
+        before: entryList.map(val => val.rankIndex).sort()[0],
+        entryList:
+          more === false
+            ? [...entryList]
+            : getUniqueItemById([...state.entryList, ...entryList], 'objectId')
       }
     },
     emptyEntryList(state) {
       return {
         ...state,
         entryList: [],
-        after: '',
-        hasNextPage: false
+        before: ''
       }
     }
   },
+
   effects: dispatch => ({
-    async queryTabList() {
+    async queryTabList(playload, state) {
+      clearTimeout(this.timer)
       try {
         let info = loadData('juejin_userInfo') || {}
         let response = await api.category.getCategories(info)
         if ('err' in response) {
           throw response['err']
         }
-        let {data} = response
-        let tabList = data.d['categoryList']
-        console.log(tabList)
+        let tabList = response.data.d['categoryList']
         tabList = tabList
           .map(val => {
             return {
@@ -62,50 +57,41 @@ export default {
         await saveData('tabList', tabList)
         dispatch.home.resetTabList({tabList})
       } catch (err) {
-        console.error(err)
+        this.timer = setTimeout(() => {
+         dispatch.home.queryTabList(playload)
+        }, 1500)
       }
     },
+
     async getTabListAsync(playload, state) {
       let tabList = loadData('tabList')
-      // console.log(tabList)
       if (tabList === null) {
         dispatch.home.queryTabList()
       } else {
         dispatch.home.resetTabList({tabList})
       }
     },
+
     async resetTabListAsync(playload, state) {
       await saveData('tabList', playload.tabList)
       dispatch.home.resetTabList(playload)
     },
-    /**
-     * @description 加载首页的文章列表
-     * @param {object} playload : more 判断是上拉加载下一页 或者 下拉刷新；category； all/id
-     */
-    async getEntryByListAsync(playload, state) {
+
+    async getEntryByListAsync({more = false, category = 'all'}, state) {
+      clearTimeout(this.timer)
       try {
-        let more = playload && playload.more ? true : false
-        if (more && !state.home.hasNextPage) {
-          Toast.info('没有更多了', 1.5)
-        } else {
-          let after = more ? state.home.after : ''            
-          let {data} = await api.entry.getArticleAfter({after, category: playload.category})
-          if (
-            !more &&
-            data &&
-            data.data.articleFeed.items.pageInfo.endCursor - state.home.after <
-              Number.EPSILON
-          ) {
-            Toast.info('已经是最新的', 1.5)
-          } else {
-            dispatch.home.resetEntryList({...data.data, more})
-          }
-        }
+        category = category === '' ? 'all': category
+        let response = await api.entry.getEntryByRank({
+          category,
+          before: state.home.before
+        })
+        if ('err' in response) throw response['err']
+        let entryList = response.data.d['entrylist']
+        dispatch.home.resetEntryList({entryList, more})
       } catch (e) {
-        // console.error(e)
-        setTimeout(() => {
-          dispatch.home.getEntryByListAsync(playload)
-        }, 3000)
+        this.timer = setTimeout(() => {
+          dispatch.home.getEntryByListAsync({more, category})
+        }, 1500)
       }
     }
   })

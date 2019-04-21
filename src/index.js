@@ -2,7 +2,7 @@ import '@babel/polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import routes from './routes'
-import {Router, Switch} from 'react-router-dom'
+import {Router, Switch, Redirect} from 'react-router-dom'
 import {RouteWithSubRoutes} from './routes/RouteWithSubRoutes'
 
 import store, {history} from './store'
@@ -19,6 +19,8 @@ const RouterConfig = () => (
         {routes.map((route, i) => (
           <RouteWithSubRoutes key={i} {...route} />
         ))}
+        <Redirect from="/" to="/timeline/all"/>
+        <Redirect from="/timeline/" to="/timeline/all"/>
       </Switch>
     </Router>
   </Provider>

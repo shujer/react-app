@@ -2,13 +2,13 @@ import {stringify} from 'qs'
 import {get, post} from '@utils/request'
 
 const queryIds = {
-  recommended: '21207e9ddb1de777adeaca7a2fb38030',
+  all: '21207e9ddb1de777adeaca7a2fb38030',
   following: '504f6ca050625a4270ba11eebe696b3c',
   category: '653b587c5c7c8a00ddf67fc66f989d42'
 }
 
 const categoryIds = {
-  recommended: '',
+  all: 'all',
   following: '',
   backend: '5562b419e4b00c57d9b94ae2',
   frontend: '5562b415e4b00c57d9b94ac8',
@@ -28,34 +28,42 @@ export async function getListByLastTime() {
   return get('/api/xiaoce/getListByLastTime')
 }
 
-export async function getEntryByTimeline({limit = 20, category = 'recommended'}) {
+export async function getEntryByRank({
+  limit = 15,
+  category = 'all',
+  before = ''
+}) {
+  let categoryId = categoryIds[category]
   let params = {
     src: 'mobile',
-    limit: 20,
-    category
+    limit,
+    category:categoryId,
+    before
   }
-  return get(`/api/timeline/get_entry_by_timeline?${stringify(params)}`)
+  console.log(params)
+  return get(`/api/timeline/get_entry_by_rank?${stringify(params)}`)
 }
 
 export async function getArticleAfter({after = '',category = 'recommended',tags = []}) {
   let categoryId = categoryIds[category]
+  console.log(queryIds[categoryId === '' ? "category" : category])
+  let body =  {
+    operationName: '',
+    query: '',
+    variables: {
+      first: 20,
+      after,
+      order: 'POPULAR',
+      category: categoryId,
+      tags
+    },
+    extensions: {query: {id: '653b587c5c7c8a00ddf67fc66f989d42'}}
+  }
+
   return post(`/api/webapi/query`, {
     headers: {
       'X-Agent': 'Juejin/Web'
     },
-    body: {
-      operationName: '',
-      query: '',
-      variables: {first: 20, after, order: 'POPULAR', category:categoryId, tags},
-      extensions: {query: {id: queryIds[category]}}
-    }
+    body
   })
 }
-
-export async function getEntryByIds() {
-  return get('/api/timeline/get_entry_by_ids')
-}
-
-// export async function getEntryByRank() {
-//   return get('/api/timeline/get_entry_by_rank')
-// }

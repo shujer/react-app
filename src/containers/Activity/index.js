@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import NavList from '@components/NavList'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 
-@withTabBarBasicLayout('activity')
+@withTabBarBasicLayout
 class ActivityContainer extends Component {
   state = {
     selectedIndex: 0

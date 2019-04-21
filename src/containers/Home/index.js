@@ -9,67 +9,72 @@ import PullDownRefresh from '@components/PullDownRefresh'
 import PullUpRefresh from '@components/PullUpRefresh'
 import RefreshLoading from '@components/RefreshLoading'
 
-@withTabBarBasicLayout('home')
+@withTabBarBasicLayout
 class HomeContainer extends Component {
   state = {
-    selectedIndex: 0,
-    tabList: [
-      {name: '推荐', title: 'recommended', show: true},
-      {name: '关注', title: 'following', show: true}
-    ]
+    selectedTitle: 'all',
+    isSecond: 0
   }
 
-  shouldComponentUpdate(nextProps, nexState) {
-    if (nextProps.entryList && nextProps.entryList.length === 0) {
-      return false
-    } else {
-      return true
+  componentWillReceiveProps(nextProps) {
+    let category = nextProps.match.params.category
+    if (category !== this.props.match.params.category) {
+      this.setState(
+        {
+          selectedTitle: category
+        },
+        () => {
+          this._onRefreshDown()
+        }
+      )
     }
   }
 
-  componentDidMount() {
-    this.props.getEntryByListAsync({
-      category: this.state.tabList[this.state.selectedIndex].title
-    })
-    this.props.getTabListAsync()
+  shouldComponentUpdate(nextProps, nexState) {
+    if (
+      (nextProps.entryList && nextProps.entryList.length === 0) ||
+      (nextProps.tabList && nextProps.tabList.length === 0)
+    ) {
+      return false
+    }
+    return true
   }
 
   _onRefreshUp = () => {
-    console.log(this.state.selectedIndex)
     this.props.getEntryByListAsync({
       more: true,
-      category: this.state.tabList[this.state.selectedIndex].title
+      category: this.state.selectedTitle
     })
   }
 
   _onRefreshDown = () => {
-    console.log(this.state.selectedIndex)
+    this.props.emptyEntryList()
     this.props.getEntryByListAsync({
       more: false,
-      category: this.state.tabList[this.state.selectedIndex].title
+      category: this.state.selectedTitle
     })
   }
 
-  _handleTabChange = index => {
-    this.setState({
-      selectedIndex: index
+  goToTab = () => {
+    this.props.history.push({
+      pathname: '/recommended'
     })
   }
 
   render() {
-    let {tabList, entryList} = this.props
-    let {selectedIndex} = this.state
-    const tabs = [...this.state.tabList, ...tabList].filter(
-      val => val.show === true
-    )
+    let {entryList, tabList} = this.props
+    const tabs = [
+      {name: '推荐', title: 'all', show: true},
+      {name: '关注', title: 'following', show: true},
+      ...tabList
+    ].filter(val => val.show === true)
     return (
-      <div>
+      <>
         <NavList
           tabs={tabs}
           onCaretClick={this.goToTab}
           showCaret={true}
-          selectedIndex={selectedIndex}
-          onTabChange={this._handleTabChange}
+          selectedTitle={this.state.selectedTitle}
         />
         {entryList.length === 0 ? <RefreshLoading orient="up" /> : null}
         <div className="entryList" style={{marginTop: '43px'}}>
@@ -81,14 +86,8 @@ class HomeContainer extends Component {
             </PullUpRefresh>
           </PullDownRefresh>
         </div>
-      </div>
+      </>
     )
-  }
-
-  goToTab = () => {
-    this.props.history.push({
-      pathname: '/recommended'
-    })
   }
 }
 
@@ -97,10 +96,15 @@ const mapState = state => ({
   entryList: state.home.entryList
 })
 
-const mapDispatch = ({home: {getTabListAsync, getEntryByListAsync}}) => ({
+const mapDispatch = ({
+  home: {getTabListAsync, getEntryByListAsync, emptyEntryList}
+}) => ({
   getTabListAsync: () => getTabListAsync(),
-  getEntryByListAsync: playload => getEntryByListAsync(playload)
+  getEntryByListAsync: playload => getEntryByListAsync(playload),
+  emptyEntryList: () => emptyEntryList()
 })
+
+// export default (HomeContainer)
 
 export default connect(
   mapState,

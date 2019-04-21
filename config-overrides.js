@@ -5,7 +5,8 @@ const {
   addLessLoader,
   addDecoratorsLegacy,
   overrideDevServer,
-  watchAll
+  watchAll,
+  useBabelRc
 } = require('customize-cra')
 const path = require('path')
 const theme = require('./package.json').theme
@@ -20,6 +21,7 @@ module.exports = {
       '@containers': path.resolve(__dirname, 'src/containers'),
       '@services': path.resolve(__dirname, 'src/services')
     }),
+    useBabelRc(),
     fixBabelImports('import', {
       libraryName: 'antd-mobile',
       libraryDirectory: 'lib',

@@ -4,7 +4,7 @@ import ProfileAvatarBar from '@components/ProfileAvatarBar/UnAuth'
 import ProfileList from '@components/ProfileList/UnAuth'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 
-@withTabBarBasicLayout('profile')
+@withTabBarBasicLayout
 class ActivityContainer extends Component {
   render() {
 

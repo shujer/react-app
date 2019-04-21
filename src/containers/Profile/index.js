@@ -18,7 +18,7 @@ let userInfo = {
   company: '稀土星球'
 }
 
-@withTabBarBasicLayout('profile')
+@withTabBarBasicLayout
 class ProfileContainer extends Component {
   render() {
     let {currentState} = this.props
