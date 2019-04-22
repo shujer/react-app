@@ -20,15 +20,7 @@ const categoryIds = {
   article: '5562b428e4b00c57d9b94b9d'
 }
 
-export async function getHot() {
-  return get('/api/xiaoce/getHot')
-}
-
-export async function getListByLastTime() {
-  return get('/api/xiaoce/getListByLastTime')
-}
-
-export async function getEntryByRank({
+export async function getEntry({
   limit = 15,
   category = 'all',
   before = ''
@@ -37,17 +29,21 @@ export async function getEntryByRank({
   let params = {
     src: 'mobile',
     limit,
-    category:categoryId,
+    category: categoryId,
     before
   }
   console.log(params)
   return get(`/api/timeline/get_entry_by_rank?${stringify(params)}`)
 }
 
-export async function getArticleAfter({after = '',category = 'recommended',tags = []}) {
+export async function getEntryByQuery({
+  after = '',
+  category = 'all',
+  tags = []
+}) {
   let categoryId = categoryIds[category]
-  console.log(queryIds[categoryId === '' ? "category" : category])
-  let body =  {
+  let id = categoryId === '' ? 'category' : category
+  let body = {
     operationName: '',
     query: '',
     variables: {
@@ -57,12 +53,11 @@ export async function getArticleAfter({after = '',category = 'recommended',tags 
       category: categoryId,
       tags
     },
-    extensions: {query: {id: '653b587c5c7c8a00ddf67fc66f989d42'}}
+    extensions: {query: {id:queryIds[id]}}
   }
-
   return post(`/api/webapi/query`, {
     headers: {
-      'X-Agent': 'Juejin/Web'
+      'X-Agent': 'Juejin/Mobile'
     },
     body
   })

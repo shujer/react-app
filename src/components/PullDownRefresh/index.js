@@ -1,18 +1,18 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
 import RefreshLoading from '@components/RefreshLoading'
 
 class PullDownRefresh extends Component {
   state = {
     startPos: 0,
-    pullHeight: 0,
-    dataSource: this.props.dataSource || [],
-    refreshing: false
+    refreshing: true
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
+    /**
+     * 接收到新数据则停止加载状态
+     */
     this.setState({
-      offsetTop: ReactDOM.findDOMNode(this.ptr).offsetTop
+      refreshing: false
     })
   }
 
@@ -23,15 +23,13 @@ class PullDownRefresh extends Component {
   }
 
   handleTouchMove = e => {
-    if (this.state.pullHeight === 0) {
-      let top = ReactDOM.findDOMNode(this.ptr).getBoundingClientRect().top
-      if (top >= this.state.offsetTop) {
+    if (this.state.refreshing === false) {
+      let doc = document.documentElement || document.body
+      if (doc.scrollTop === doc.offsetTop) {
         let _pullHeight = e.touches[0].pageY - this.state.startPos
         if (_pullHeight > 60) {
-          // console.log('move')
           this.setState({
             refreshing: true,
-            pullHeight: _pullHeight
           })
         }
       }
@@ -39,14 +37,8 @@ class PullDownRefresh extends Component {
   }
 
   handleTouchEnd = e => {
-    if (this.state.pullHeight !== 0) {
+    if (this.state.refreshing) {
       this.props.onRefresh()
-      setTimeout(() => {
-        this.setState({
-          refreshing: false,
-          pullHeight: 0
-        })
-      }, 800)
     }
   }
 
@@ -60,7 +52,7 @@ class PullDownRefresh extends Component {
             overflowY: 'auto',
             position: 'relative',
             transition: 'top .4s ease-in-out',
-            top: this.state.refreshing ? '30px' : '0px',
+            top: this.state.refreshing ? '35px' : '0px',
             width: '100%'
           }}
           onTouchStart={this.handleTouchStart}

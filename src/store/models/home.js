@@ -3,12 +3,15 @@ import api from '@services/api'
 import {Toast} from 'antd-mobile'
 import {getUniqueItemById} from '@utils/listHelper'
 
+function getBeforeRank(list) {
+  return list.map(val=>val.rankIndex).sort((a, b)=>(a-b))[0]
+}
+
 export default {
   namespace: 'home',
   state: {
     tabList: [],
-    entryList: [],
-    before: ''
+    entryList: []
   },
   reducers: {
     resetTabList(state, {tabList}) {
@@ -20,7 +23,6 @@ export default {
     resetEntryList(state, {entryList=[], more = false}) {
       return {
         ...state,
-        before: entryList.map(val => val.rankIndex).sort()[0],
         entryList:
           more === false
             ? [...entryList]
@@ -30,16 +32,15 @@ export default {
     emptyEntryList(state) {
       return {
         ...state,
-        entryList: [],
-        before: ''
+        entryList: []
       }
     }
   },
 
   effects: dispatch => ({
     async queryTabList(playload, state) {
-      clearTimeout(this.timer)
       try {
+        clearTimeout(this.timer)
         let info = loadData('juejin_userInfo') || {}
         let response = await api.category.getCategories(info)
         if ('err' in response) {
@@ -78,16 +79,19 @@ export default {
     },
 
     async getEntryByListAsync({more = false, category = 'all'}, state) {
-      clearTimeout(this.timer)
       try {
+        clearTimeout(this.timer)
+
         category = category === '' ? 'all': category
-        let response = await api.entry.getEntryByRank({
-          category,
-          before: state.home.before
-        })
+        let before = more ? getBeforeRank(state.home.entryList) : ''
+        let response = await api.entry.getEntry({category,before})
+
         if ('err' in response) throw response['err']
-        let entryList = response.data.d['entrylist']
+
+        let entryList = response.data.d["entrylist"]
+
         dispatch.home.resetEntryList({entryList, more})
+
       } catch (e) {
         this.timer = setTimeout(() => {
           dispatch.home.getEntryByListAsync({more, category})

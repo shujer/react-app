@@ -1,49 +1,42 @@
 import React, {Component} from 'react'
 import RefreshLoading from '@components/RefreshLoading'
-import ReactDOM from 'react-dom'
 
 class PullUpRefresh extends Component {
   constructor(props) {
     super(props)
     this.state = {
       startPos: 0,
-      pullHeight: 0,
       refreshing: false
     }
   }
-  handleTouchStart = e => {
-    // console.log('start')
+
+  componentDidMount(nextProps) {
+    this.setState({
+      hei:document.documentElement.clientHeight
+    })
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      hei:
-        document.documentElement.clientHeight -
-        ReactDOM.findDOMNode(this.ptr).offsetTop
+      refreshing: false
     })
   }
 
   handleTouchMove = e => {
-    if (this.state.pullHeight === 0) {
-      let offset = this.ptr.offsetHeight - e.target.offsetTop
-      if (offset < this.state.hei + 100) {
+    if (this.state.refreshing === false) {
+      let doc = document.documentElement || document.body
+      let offset = doc.scrollHeight - this.state.hei - doc.scrollTop;
+      if (offset < 300) {
         this.setState({
-          refreshing: true,
-          pullHeight: offset
+          refreshing: true
         })
       }
     }
   }
 
   handleTouchEnd = e => {
-    if (this.state.pullHeight !== 0) {
+    if (this.state.refreshing) {
       this.props.onRefresh()
-      setTimeout(() => {
-        this.setState({
-          refreshing: false,
-          pullHeight: 0
-        })
-      }, 800)
     }
   }
 

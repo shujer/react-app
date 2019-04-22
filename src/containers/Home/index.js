@@ -12,8 +12,11 @@ import RefreshLoading from '@components/RefreshLoading'
 @withTabBarBasicLayout
 class HomeContainer extends Component {
   state = {
-    selectedTitle: 'all',
-    isSecond: 0
+    selectedTitle: this.props.match.params.category
+  }
+
+  componentWillMount() {
+    this._onRefreshDown()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,7 +58,7 @@ class HomeContainer extends Component {
     })
   }
 
-  goToTab = () => {
+  _goToTab = () => {
     this.props.history.push({
       pathname: '/recommended'
     })
@@ -72,11 +75,10 @@ class HomeContainer extends Component {
       <>
         <NavList
           tabs={tabs}
-          onCaretClick={this.goToTab}
+          onCaretClick={this._goToTab}
           showCaret={true}
           selectedTitle={this.state.selectedTitle}
         />
-        {entryList.length === 0 ? <RefreshLoading orient="up" /> : null}
         <div className="entryList" style={{marginTop: '43px'}}>
           <PullDownRefresh onRefresh={this._onRefreshDown}>
             <PullUpRefresh onRefresh={this._onRefreshUp}>

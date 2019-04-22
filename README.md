@@ -5,14 +5,13 @@
 #### Restful API 设计
 
 - `/` 首页
-- `/home` 首页
-  - `['recommended', 'following', 'android', 'frontend', 'ios', 'backend', 'design', 'product', 'freebie', 'article', 'ai', 'devops']`
+- `/timeline/:category` 首页
 - `/activity` 活动
 - `/xiaoce` 小册
 - `/explore` 搜索
 - `/auth` 登录
 - `/register` 注册
-- `/recommended` 首页特别推荐 - 本地缓存
+- `/recommended` 首页特别推荐
 - `/user/:id` 个人主页
   - `/user/:id/following` 关注的人
   - `/user/:id/followers` 关注者
@@ -48,7 +47,7 @@
     - `/subscribed` 已关注标签
     - `/all` 所有标签
 
-#### [已完成页面]((https://github.com/SusieChang/react-app/tree/master./doc/%E6%95%88%E6%9E%9C%E5%9B%BE))
+#### [已完成页面](<(https://github.com/SusieChang/react-app/tree/master./doc/%E6%95%88%E6%9E%9C%E5%9B%BE)>)
 
 <table width="100%">
     <tr>

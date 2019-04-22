@@ -3,7 +3,7 @@ import {TabBar} from 'antd-mobile'
 import './style.less'
 
 const withTabBarBasicLayout = WrappedComponent => props => {
-  let pathname = props.location.pathname.split('/')[1]
+  let pathname = props.match.path.split('/')[1]
   let items = [
     {
       title: 'timeline',

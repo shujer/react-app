@@ -20,7 +20,7 @@ const store = init({
 
 export default store
 
-store.dispatch.home.getEntryByListAsync({
-  category: 'all'
-})
+// store.dispatch.home.getEntryByListAsync({
+//   category: 'all'
+// })
 store.dispatch.home.getTabListAsync()
