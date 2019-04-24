@@ -57,7 +57,6 @@ const Feedback = Loadable({
 
 
 const routes = [
-  // {path: '/timeline', exact: true, component: Home},
   {path: '/timeline/:category', exact: true, component: Home},
   {path: '/auth', exact: true, component: Auth},
   {path: '/register', exact: true, component: Register},

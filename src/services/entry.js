@@ -20,11 +20,7 @@ const categoryIds = {
   article: '5562b428e4b00c57d9b94b9d'
 }
 
-export async function getEntry({
-  limit = 20,
-  category = 'all',
-  before = ''
-}) {
+export async function getEntry({limit = 20, category = 'all', before = ''}) {
   let categoryId = categoryIds[category]
   let params = {
     src: 'mobile',
@@ -53,7 +49,7 @@ export async function getEntryByQuery({
       category: categoryId,
       tags
     },
-    extensions: {query: {id:queryIds[id]}}
+    extensions: {query: {id: queryIds[id]}}
   }
   return post(`/api/webapi/query`, {
     headers: {
@@ -61,4 +57,14 @@ export async function getEntryByQuery({
     },
     body
   })
+}
+
+export async function getPostDetail(postId, type = 'entryView') {
+  let params = {
+    src: 'mobile',
+    postId,
+    type
+  }
+  console.log(params)
+  return get(`/api/post/getDetailData?${stringify(params)}`)
 }

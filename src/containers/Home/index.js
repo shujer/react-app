@@ -19,6 +19,13 @@ class HomeContainer extends Component {
     this._onRefreshDown()
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if(nextProps.tabList.length === 0) {
+      return false;
+    }
+    return true
+  }
+
   componentWillReceiveProps(nextProps) {
     let category = nextProps.match.params.category
     if (category !== this.props.match.params.category) {
@@ -32,16 +39,6 @@ class HomeContainer extends Component {
         }
       )
     }
-  }
-
-  shouldComponentUpdate(nextProps, nexState) {
-    if (
-      (nextProps.entryList && nextProps.entryList.length === 0) ||
-      (nextProps.tabList && nextProps.tabList.length === 0)
-    ) {
-      return false
-    }
-    return true
   }
 
   _onRefreshUp = () => {
