@@ -8,12 +8,11 @@ class PullDownRefresh extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    /**
-     * 接收到新数据则停止加载状态
-     */
-    this.setState({
-      refreshing: false
-    })
+    if (nextProps.refreshing !== this.state.refreshing) {
+      this.setState({
+        refreshing: nextProps.refreshing
+      })
+    }
   }
 
   handleTouchStart = e => {
@@ -29,7 +28,7 @@ class PullDownRefresh extends Component {
         let _pullHeight = e.touches[0].pageY - this.state.startPos
         if (_pullHeight > 60) {
           this.setState({
-            refreshing: true,
+            refreshing: true
           })
         }
       }
@@ -43,16 +42,15 @@ class PullDownRefresh extends Component {
   }
 
   render() {
+    let refreshing = this.state.refreshing
     return (
       <>
-        {this.state.refreshing ? <RefreshLoading orient="up" /> : null}
+        {refreshing ? <RefreshLoading orient="up" /> : null}
         <div
           ref={el => (this.ptr = el)}
           style={{
             overflowY: 'auto',
             position: 'relative',
-            transition: 'top .4s ease-in-out',
-            top: this.state.refreshing ? '35px' : '0px',
             width: '100%'
           }}
           onTouchStart={this.handleTouchStart}

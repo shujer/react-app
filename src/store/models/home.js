@@ -1,7 +1,7 @@
 import {loadData, saveData} from '@utils/localstorageHelper'
 import api from '@services/api'
 import {Toast} from 'antd-mobile'
-import {getUniqueItemById} from '@utils/listHelper'
+import {getUniqueList} from '@utils/listHelper'
 
 function getBeforeRank(list) {
   return list.map(val=>val.rankIndex).sort((a, b)=>(a-b))[0]
@@ -26,7 +26,7 @@ export default {
         entryList:
           more === false
             ? [...entryList]
-            : getUniqueItemById([...state.entryList, ...entryList], 'objectId')
+            : getUniqueList([...state.entryList, ...entryList], 'objectId')
       }
     },
     emptyEntryList(state) {
@@ -58,6 +58,7 @@ export default {
         await saveData('tabList', tabList)
         dispatch.home.resetTabList({tabList})
       } catch (err) {
+        clearTimeout(this.timer)
         this.timer = setTimeout(() => {
          dispatch.home.queryTabList(playload)
         }, 1500)
@@ -93,6 +94,7 @@ export default {
         dispatch.home.resetEntryList({entryList, more})
 
       } catch (e) {
+        clearTimeout(this.timer)
         this.timer = setTimeout(() => {
           dispatch.home.getEntryByListAsync({more, category})
         }, 1500)

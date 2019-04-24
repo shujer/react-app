@@ -7,12 +7,12 @@ import NavList from '@components/NavList'
 import './style.less'
 import PullDownRefresh from '@components/PullDownRefresh'
 import PullUpRefresh from '@components/PullUpRefresh'
-import RefreshLoading from '@components/RefreshLoading'
 
 @withTabBarBasicLayout
 class HomeContainer extends Component {
   state = {
-    selectedTitle: this.props.match.params.category
+    selectedTitle: this.props.match.params.category,
+    refreshing: true
   }
 
   componentWillMount() {
@@ -24,7 +24,8 @@ class HomeContainer extends Component {
     if (category !== this.props.match.params.category) {
       this.setState(
         {
-          selectedTitle: category
+          selectedTitle: category,
+          refreshing: true
         },
         () => {
           this._onRefreshDown()
@@ -52,10 +53,17 @@ class HomeContainer extends Component {
 
   _onRefreshDown = () => {
     this.props.emptyEntryList()
-    this.props.getEntryByListAsync({
-      more: false,
-      category: this.state.selectedTitle
-    })
+    this.props
+      .getEntryByListAsync({
+        more: false,
+        category: this.state.selectedTitle
+      })
+      .then(() => {
+        this.setState({
+          refreshing: false
+        })
+      })
+      .catch(err => {})
   }
 
   _goToTab = () => {
@@ -80,7 +88,10 @@ class HomeContainer extends Component {
           selectedTitle={this.state.selectedTitle}
         />
         <div className="entryList" style={{marginTop: '43px'}}>
-          <PullDownRefresh onRefresh={this._onRefreshDown}>
+          <PullDownRefresh
+            onRefresh={this._onRefreshDown}
+            refreshing={this.state.refreshing}
+          >
             <PullUpRefresh onRefresh={this._onRefreshUp}>
               {entryList.map((element, index) => {
                 return <EntryItem item={element} key={index} />
@@ -106,7 +117,6 @@ const mapDispatch = ({
   emptyEntryList: () => emptyEntryList()
 })
 
-// export default (HomeContainer)
 
 export default connect(
   mapState,

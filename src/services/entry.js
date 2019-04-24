@@ -9,7 +9,7 @@ const queryIds = {
 
 const categoryIds = {
   all: 'all',
-  following: '',
+  following: 'following',
   backend: '5562b419e4b00c57d9b94ae2',
   frontend: '5562b415e4b00c57d9b94ac8',
   android: '5562b410e4b00c57d9b94a92',
@@ -21,7 +21,7 @@ const categoryIds = {
 }
 
 export async function getEntry({
-  limit = 15,
+  limit = 20,
   category = 'all',
   before = ''
 }) {

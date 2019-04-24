@@ -12,7 +12,7 @@ class PullUpRefresh extends Component {
 
   componentDidMount(nextProps) {
     this.setState({
-      hei:document.documentElement.clientHeight
+      hei: document.documentElement.clientHeight
     })
   }
 
@@ -25,7 +25,7 @@ class PullUpRefresh extends Component {
   handleTouchMove = e => {
     if (this.state.refreshing === false) {
       let doc = document.documentElement || document.body
-      let offset = doc.scrollHeight - this.state.hei - doc.scrollTop;
+      let offset = doc.scrollHeight - this.state.hei - doc.scrollTop
       if (offset < 300) {
         this.setState({
           refreshing: true
