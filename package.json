@@ -5,6 +5,7 @@
   "dependencies": {
     "@koa/cors": "^3.0.0",
     "antd-mobile": "^2.2.9",
+    "axios": "^0.18.0",
     "co-body": "^6.0.0",
     "connected-react-router": "^6.3.2",
     "crypto": "^1.0.1",

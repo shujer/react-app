@@ -4,9 +4,11 @@ import PropTypes from 'prop-types'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import EntryItem from '@components/EntryItem'
 import NavList from '@components/NavList'
-import './style.less'
+import HotPost from '@components/HotPost'
 import PullDownRefresh from '@components/PullDownRefresh'
 import PullUpRefresh from '@components/PullUpRefresh'
+import {sortByKey} from '@utils/listHelper'
+import './style.less'
 
 @withTabBarBasicLayout
 class HomeContainer extends Component {
@@ -20,8 +22,8 @@ class HomeContainer extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if(nextProps.tabList.length === 0) {
-      return false;
+    if (nextProps.tabList.length === 0) {
+      return false
     }
     return true
   }
@@ -35,6 +37,7 @@ class HomeContainer extends Component {
           refreshing: true
         },
         () => {
+          this.props.emptyEntryList()
           this._onRefreshDown()
         }
       )
@@ -49,7 +52,6 @@ class HomeContainer extends Component {
   }
 
   _onRefreshDown = () => {
-    this.props.emptyEntryList()
     this.props
       .getEntryByListAsync({
         more: false,
@@ -90,6 +92,7 @@ class HomeContainer extends Component {
             refreshing={this.state.refreshing}
           >
             <PullUpRefresh onRefresh={this._onRefreshUp}>
+              <HotPost items={entryList.filter(val => val.hot === true)} />
               {entryList.map((element, index) => {
                 return <EntryItem item={element} key={index} />
               })}
@@ -113,7 +116,6 @@ const mapDispatch = ({
   getEntryByListAsync: playload => getEntryByListAsync(playload),
   emptyEntryList: () => emptyEntryList()
 })
-
 
 export default connect(
   mapState,

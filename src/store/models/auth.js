@@ -47,12 +47,9 @@ export default {
   effects: dispatch => ({
     async loginByPhoneNumber(playload, state) {
       dispatch.auth.stateChanger({stepUp: 'submit'})
-      try {
-        let response = await api.auth.loginByPhoneNumber(playload)
-        if ('err' in response) {
-          throw response.err
-        } else {
-          let {data} = response
+      await api.auth
+        .loginByPhoneNumber(playload)
+        .then((data) => {
           let userInfo = {
             token: data.token,
             clientId: data.clientId,
@@ -61,15 +58,16 @@ export default {
           Cookies.set('userInfo', userInfo, {expires: 7, path: '/'})
           saveData('juejin_userInfo', userInfo)
           dispatch.auth.stateChanger({stepUp: 'success'})
-        }
-      } catch (err) {
-        dispatch.auth.stateChanger({stepUp: 'failure'})
-        if (err.response.status === 401) {
-          Toast.info('用户名或密码错误', 1.5)
-        } else {
-          Toast.info('未知错误，请稍后重试', 1.5)
-        }
-      }
+        })
+        .catch(err => {
+          dispatch.auth.stateChanger({stepUp: 'failure'})
+          console.log(err)
+          // if (err.response.status === 401) {
+          //   Toast.info('用户名或密码错误', 1.5)
+          // } else {
+          //   Toast.info('未知错误，请稍后重试', 1.5)
+          // }
+        })
     },
 
     async loginByEmail(playload, state) {

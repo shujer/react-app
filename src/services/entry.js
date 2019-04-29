@@ -1,4 +1,3 @@
-import {stringify} from 'qs'
 import {get, post} from '@utils/request'
 
 const queryIds = {
@@ -22,14 +21,14 @@ const categoryIds = {
 
 export async function getEntry({limit = 20, category = 'all', before = ''}) {
   let categoryId = categoryIds[category]
-  let params = {
-    src: 'mobile',
-    limit,
-    category: categoryId,
-    before
-  }
-  console.log(params)
-  return get(`/api/timeline/get_entry_by_rank?${stringify(params)}`)
+  return get(`/timeline/get_entry_by_rank`, {
+    params: {
+      src: 'mobile',
+      limit,
+      category: categoryId,
+      before
+    }
+  })
 }
 
 export async function getEntryByQuery({
@@ -38,33 +37,33 @@ export async function getEntryByQuery({
   tags = []
 }) {
   let categoryId = categoryIds[category]
-  let id = categoryId === '' ? 'category' : category
-  let body = {
-    operationName: '',
-    query: '',
-    variables: {
-      first: 20,
-      after,
-      order: 'POPULAR',
-      category: categoryId,
-      tags
+  let id =
+    categoryId !== 'all' && categoryId !== 'following' ? 'category' : category
+  return post(`/webapi/query`, {
+    data: {
+      operationName: '',
+      query: '',
+      variables: {
+        first: 20,
+        after,
+        order: 'POPULAR',
+        category: categoryId,
+        tags
+      },
+      extensions: {query: {id: queryIds[id]}}
     },
-    extensions: {query: {id: queryIds[id]}}
-  }
-  return post(`/api/webapi/query`, {
     headers: {
       'X-Agent': 'Juejin/Mobile'
-    },
-    body
+    }
   })
 }
 
 export async function getPostDetail(postId, type = 'entryView') {
-  let params = {
-    src: 'mobile',
-    postId,
-    type
-  }
-  console.log(params)
-  return get(`/api/post/getDetailData?${stringify(params)}`)
+  return get(`/post/getDetailData`, {
+    params: {
+      src: 'mobile',
+      postId,
+      type
+    }
+  })
 }

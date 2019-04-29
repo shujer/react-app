@@ -1,8 +1,8 @@
 import {post, request} from '@utils/request'
 
 export async function register({phoneNumber, username, password}) {
-  return post('/api/register', {
-    body: {
+  return post('/register', {
+    data: {
       phoneNumber,
       username,
       password
@@ -11,8 +11,8 @@ export async function register({phoneNumber, username, password}) {
 }
 
 export async function loginByPhoneNumber({phoneNumber, password}) {
-  return post('/api/juejin/auth/type/phoneNumber', {
-    body: {
+  return post('/juejin/auth/type/phoneNumber', {
+    data: {
       phoneNumber,
       password
     }
@@ -20,8 +20,8 @@ export async function loginByPhoneNumber({phoneNumber, password}) {
 }
 
 export async function loginByEmail({email, password}) {
-  return post('/api/juejin/auth/type/email', {
-    body: {
+  return post('/juejin/auth/type/email', {
+    data: {
       email,
       password
     }
@@ -29,5 +29,5 @@ export async function loginByEmail({email, password}) {
 }
 
 export async function logout() {
-  return request('/api/juejin/auth',{method:'DELETE'})
+  return request('/juejin/auth',{method:'DELETE'})
 }

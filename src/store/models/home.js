@@ -4,7 +4,8 @@ import {Toast} from 'antd-mobile'
 import {getUniqueList} from '@utils/listHelper'
 
 function getBeforeRank(list) {
-  return list.map(val => val.rankIndex).sort((a, b) => a - b)[0]
+  let len = list.length
+  return len >= 1 ? list[len - 1].rankIndex : ''
 }
 
 export default {
@@ -43,22 +44,18 @@ export default {
       let info = loadData('juejin_userInfo') || {}
       await api.category
         .getCategories(info)
-        .then(({data}) => {
+        .then((data) => {
           if (data.s !== 1) throw Error
-          let tabList = data.d['categoryList']
-            .map(val => {
-              return {
-                ...val,
-                show: true
-              }
-            })
+          let tabList = data.d['categoryList'].map(val => {
+            return {
+              ...val,
+              show: true
+            }
+          })
           saveData('tabList', tabList)
           dispatch.home.resetTabList({tabList})
         })
         .catch(err => {
-          this.timer = setTimeout(() => {
-            dispatch.home.queryTabList(playload)
-          }, 1500)
         })
     },
 
@@ -82,16 +79,11 @@ export default {
       let before = more ? getBeforeRank(state.home.entryList) : ''
       await api.entry
         .getEntry({category, before})
-        .then(({data}) => {
+        .then(data => {
           if (data.s !== 1) throw Error
           dispatch.home.resetEntryList({entryList: data.d['entrylist'], more})
         })
-        .catch(err => {
-          this.timer = setTimeout(() => {
-            console.log('time')
-            dispatch.home.getEntryByListAsync({more, category})
-          }, 1500)
-        })
+        .catch(err => {})
     }
   })
 }

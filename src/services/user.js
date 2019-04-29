@@ -13,41 +13,42 @@ export async function getUserInfo({uid, token}) {
     current_uid: uid,
     token: token
   }
-  return get(`/api/user/getUserInfo${stringify(params)}`)
+  return get(`/user/getUserInfo${stringify(params)}`)
 }
 /**
  * 获取系统未读通知
  */
 export async function getUnreadSystemNotificationNum({uid, token}) {
-  let params = {
-    uid,
-    token,
-    src: 'mobile'
-  }
-  return get(
-    `/api/notification/getUnreadSystemNotificationNum${stringify(params)}`
-  )
+  return get(`/notification/getUnreadSystemNotificationNum`, {
+    params: {
+      uid,
+      token,
+      src: 'mobile'
+    }
+  })
 }
 /**
  * 获取其他用户的信息
  */
 export async function getMultiUser({uid, token, ids, cols = COLS}) {
-  let params = {
-    uid,
-    token,
-    src: 'mobile',
-    ids,
-    cols
-  }
-  return get(`/api/lccro/get_multi_user${stringify(params)}`)
+  return get(`/api/lccro/get_multi_user`, {
+    params: {
+      uid,
+      token,
+      src: 'mobile',
+      ids,
+      cols
+    }
+  })
 }
 /**
  * 获取关注者
  */
 export async function getUserFollowInfo(uid) {
-  let params = {
-    src: 'mobile',
-    uid
-  }
-  return get(`/api/follow/getUserFollowInfo${stringify(params)}`)
+  return get(`/api/follow/getUserFollowInfo`, {
+    params: {
+      src: 'mobile',
+      uid
+    }
+  })
 }

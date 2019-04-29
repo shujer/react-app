@@ -16,9 +16,10 @@ export default {
   effects: dispatch => ({
     async getPostDetailAsync(playload, state) {
       await api.entry.getPostDetail(playload.id)
-      .then(({data}) => {
+      .then((data) => {
         if(data.s !== 1) throw Error
-        dispatch.post.resetPostDetail({postDetail: data.d})
+        let {d: postDetail} = data
+        dispatch.post.resetPostDetail({postDetail})
       }).catch(err => {
         console.log(err)
       })

@@ -21,7 +21,7 @@ const NavList = props => {
   }
   let selectedIndex = getSelectedIndex(tabs, selectedTitle)
   return (
-    <div className="tabListBar">
+    <div className="tabListBar" >
       <div className="tabList">
         {tabs.map((element, index) => {
           return (
@@ -35,7 +35,6 @@ const NavList = props => {
             </Link>
           )
         })}
-
         <div
           className="tabChange"
           style={{left: selectedIndex * width + '%', width: width + '%'}}
