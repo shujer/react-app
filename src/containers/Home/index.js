@@ -7,7 +7,7 @@ import NavList from '@components/NavList'
 import HotPost from '@components/HotPost'
 import PullDownRefresh from '@components/PullDownRefresh'
 import PullUpRefresh from '@components/PullUpRefresh'
-import {sortByKey} from '@utils/listHelper'
+// import {sortByKey} from '@utils/listHelper'
 import './style.less'
 
 @withTabBarBasicLayout

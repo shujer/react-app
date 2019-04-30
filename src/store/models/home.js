@@ -2,6 +2,7 @@ import {loadData, saveData} from '@utils/localstorageHelper'
 import api from '@services/api'
 import {Toast} from 'antd-mobile'
 import {getUniqueList} from '@utils/listHelper'
+import {retry} from '@utils/retry'
 
 function getBeforeRank(list) {
   let len = list.length
