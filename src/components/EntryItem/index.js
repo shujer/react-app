@@ -5,7 +5,7 @@ import AvatarBar from '@components/AvatarBar'
 import UserLink from '@components/AvatarBar/UserLink'
 import './style.less'
 
-const Item = ({item, ...props}) => {
+const PostItem = ({item, ...props}) => {
   let {title, content, commentsCount,likeCount, originalUrl, screenshot, tags, user} = item
   let extraContent = tags
     .slice(0, 2)
@@ -23,8 +23,8 @@ const Item = ({item, ...props}) => {
       </div>
       <Link className="entryBox" to={url || '#'}>
         <div className="text">
-          <div className="title">{title}</div>
-          {content}
+          <h3 className="title">{title}</h3>
+          <small className="content">{content}</small>
         </div>
         {screenshot ? (
           <div className="screenshot">
@@ -39,4 +39,6 @@ const Item = ({item, ...props}) => {
   )
 }
 
-export default Item
+
+
+export default PostItem

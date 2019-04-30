@@ -36,11 +36,6 @@ class Auth extends Component {
     loginByGithub({history})
   }
 
-  // componentDidMount() {
-  //   let {checkGithubOauth} = this.props;
-  //   checkGithubOauth({search: window.location.search})
-  // }
-
   render() {
     let {currentState} = this.props
     return (

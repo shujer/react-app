@@ -21,6 +21,7 @@ const NavList = props => {
   }
   let selectedIndex = getSelectedIndex(tabs, selectedTitle)
   return (
+    <>
     <div className="tabListBar" >
       <div className="tabList">
         {tabs.map((element, index) => {
@@ -46,6 +47,8 @@ const NavList = props => {
         </div>
       ) : null}
     </div>
+    <div style={{paddingTop:"42px"}}></div>
+    </>
   )
 }
 

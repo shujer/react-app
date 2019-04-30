@@ -2,7 +2,6 @@ import {loadData, saveData} from '@utils/localstorageHelper'
 import api from '@services/api'
 import {Toast} from 'antd-mobile'
 import {getUniqueList} from '@utils/listHelper'
-import {retry} from '@utils/retry'
 
 function getBeforeRank(list) {
   let len = list.length
@@ -45,7 +44,7 @@ export default {
       let info = loadData('juejin_userInfo') || {}
       await api.category
         .getCategories(info)
-        .then((data) => {
+        .then(data => {
           if (data.s !== 1) throw Error
           let tabList = data.d['categoryList'].map(val => {
             return {
@@ -57,6 +56,7 @@ export default {
           dispatch.home.resetTabList({tabList})
         })
         .catch(err => {
+          Toast.info('网络似乎出现了点问题', 1.5)
         })
     },
 
@@ -84,7 +84,9 @@ export default {
           if (data.s !== 1) throw Error
           dispatch.home.resetEntryList({entryList: data.d['entrylist'], more})
         })
-        .catch(err => {})
+        .catch(err => {
+          Toast.info('网络似乎出现了点问题', 1.5)
+        })
     }
   })
 }

@@ -6,8 +6,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 /**
  * 超时请求方案：https://github.com/axios/axios/issues/164#issuecomment-327837467
  */
-axios.defaults.retry = 4;
-axios.defaults.retryDelay = 2000;
+axios.defaults.retry = 3;
+axios.defaults.retryDelay = 1500;
 axios.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
   var config = err.config;
   // If config does not exist or the retry option is not set, reject
@@ -66,6 +66,7 @@ export function post(url, {data={}, ...res}={}, retry=false) {
     url,
     method:'post',
     data,
+    retry:0,
     ...res
   })
     .then(checkStatus)

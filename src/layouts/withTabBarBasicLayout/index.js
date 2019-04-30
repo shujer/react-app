@@ -33,9 +33,8 @@ const withTabBarBasicLayout = WrappedComponent => props => {
   ]
 
   return (
-    <div style={{height: '100%'}}>
+    <div style={{height: '100%',paddingBottom:"43px"}}>
       <WrappedComponent {...props} />
-      <div style={{height:"42px"}}></div>
       <div
         style={{
           position: 'fixed',
@@ -76,7 +75,7 @@ const withTabBarBasicLayout = WrappedComponent => props => {
                 />
               }
               selected={pathname === item.title}
-              onPress={() => {
+              onPress={(e) => {
                 props.history.push('/' + item.title)
               }}
               data-seed="logId"

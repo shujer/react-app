@@ -13,7 +13,7 @@ const AvatarBar = ({user, appendContent, extraContent}) => {
           {appendContent}
         </div>
       </div>
-      <div className="extra">{extraContent}</div>
+      <small className="extra">{extraContent}</small>
     </div>
   )
 }

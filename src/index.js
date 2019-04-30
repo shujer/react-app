@@ -9,6 +9,7 @@ import store, {history} from './store'
 import {Provider} from 'react-redux'
 
 import './index.less'
+import './common.less'
 import '@assets/css/iconfont.css'
 import * as serviceWorker from './serviceWorker'
 
@@ -32,4 +33,4 @@ ReactDOM.render(<RouterConfig />, document.getElementById('root'))
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
-serviceWorker.register()
+serviceWorker.unregister()

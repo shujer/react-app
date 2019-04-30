@@ -1,28 +1,60 @@
 import api from '@services/api'
+import {Toast} from 'antd-mobile'
 export default {
   namespace: 'post',
   state: {
     name: 'post',
-    postDetail:{}
+    content: "",
+    postInfo: {}
   },
   reducers: {
-    resetPostDetail(state, {postDetail}) {
+    resetPostDetail(state, {content}) {
       return {
-        ...state.postDetail,
-        postDetail
+        ...state,
+        content:content
+      }
+    },
+    resetPostInfo(state, {postInfo}) {
+      return {
+        ...state.postInfo,
+        postInfo
+        
+      }
+    },
+    emptyPost(state, playload) {
+      return {
+        ...state,
+        content:"",
+        postInfo:{}
       }
     }
   },
   effects: dispatch => ({
-    async getPostDetailAsync(playload, state) {
-      await api.entry.getPostDetail(playload.id)
-      .then((data) => {
-        if(data.s !== 1) throw Error
-        let {d: postDetail} = data
-        dispatch.post.resetPostDetail({postDetail})
-      }).catch(err => {
-        console.log(err)
-      })
+    async getPostDetailAsync({id}, state) {
+      await api.entry
+        .getPostDetail(id)
+        .then(data => {
+          if (data.s !== 1) throw Error
+          let {d: {content}} = data
+          dispatch.post.resetPostDetail({content})
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    async getPostAsync({id}, state) {
+      await dispatch.post.emptyPost()
+      await api.entry
+        .getPostDetail(id, 'entry')
+        .then(data => {
+          if (data.s !== 1) throw Error
+          let {d: postInfo} = data
+          dispatch.post.resetPostInfo({postInfo})
+          dispatch.post.getPostDetailAsync({id})
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }),
   subscriptions: {}

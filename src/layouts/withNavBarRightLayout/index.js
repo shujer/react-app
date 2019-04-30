@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {NavBar, Icon} from 'antd-mobile'
+import ShareActionSheet from '@components/ShareActionSheet'
 import './style.less'
 
 const withNavBarBasicLayout = title => {
@@ -7,16 +8,19 @@ const withNavBarBasicLayout = title => {
     return class extends Component {
       render() {
         return (
-          <div className="BasicNavBar">
+          <div className="RightNavBar">
             <NavBar
-              mode="dark"
+              mode="light"
               icon={<Icon type="left" />}
               onLeftClick={this.goBack}
+              rightContent={
+                <ShareActionSheet icon={<Icon key="1" type="ellipsis" />} />
+              }
             >
               <h2>{title}</h2>
             </NavBar>
-            <div style={{paddingTop:"43px", width:"100%"}}></div>
-            <WrappedComponent {...this.props}/>
+            <div style={{paddingTop: '43px', width: '100%'}} />
+            <WrappedComponent {...this.props} />
           </div>
         )
       }

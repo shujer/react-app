@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@koa/cors": "^3.0.0",
     "antd-mobile": "^2.2.9",
     "axios": "^0.18.0",
     "co-body": "^6.0.0",
@@ -30,7 +29,9 @@
     "react-router-page-transition": "^3.1.0",
     "react-router-redux": "^4.0.8",
     "react-scripts": "2.1.8",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
   },
   "scripts": {
     "dev:server": "cross-env NODE_ENV=development nodemon server/app.js",

@@ -4,10 +4,9 @@ import PropTypes from 'prop-types'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import EntryItem from '@components/EntryItem'
 import NavList from '@components/NavList'
-import HotPost from '@components/HotPost'
+// import HotPost from '@components/HotPost'
 import PullDownRefresh from '@components/PullDownRefresh'
 import PullUpRefresh from '@components/PullUpRefresh'
-// import {sortByKey} from '@utils/listHelper'
 import './style.less'
 
 @withTabBarBasicLayout
@@ -19,13 +18,6 @@ class HomeContainer extends Component {
 
   componentWillMount() {
     this._onRefreshDown()
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.tabList.length === 0) {
-      return false
-    }
-    return true
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,7 +66,7 @@ class HomeContainer extends Component {
   render() {
     let {entryList, tabList} = this.props
     const tabs = [
-      {name: '推荐', title: 'all', show: true},
+      {name: '首页', title: 'all', show: true},
       {name: '关注', title: 'following', show: true},
       ...tabList
     ].filter(val => val.show === true)
@@ -86,13 +78,12 @@ class HomeContainer extends Component {
           showCaret={true}
           selectedTitle={this.state.selectedTitle}
         />
-        <div className="entryList" style={{marginTop: '43px'}}>
+        <div className="entryList">
           <PullDownRefresh
             onRefresh={this._onRefreshDown}
             refreshing={this.state.refreshing}
           >
             <PullUpRefresh onRefresh={this._onRefreshUp}>
-              <HotPost items={entryList.filter(val => val.hot === true)} />
               {entryList.map((element, index) => {
                 return <EntryItem item={element} key={index} />
               })}

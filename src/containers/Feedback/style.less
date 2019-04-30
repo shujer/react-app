@@ -1,0 +1,38 @@
+.FeedContainer {
+    padding: 43px 0 50px 0;
+    .navbar {
+        color:'#000';
+        position: fixed;
+        top:0;
+        width: 100%;
+        z-index: 999;
+    }
+    .list {
+        overflow-y: scroll;
+    }
+    .control {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+        background-color: #fff;
+        textarea {
+            flex-grow: 1;
+            height: 20px;
+            padding: 10px 10px;
+            vertical-align: top;
+            border: none;
+            outline: none;
+            resize: none;
+        }
+        button {
+            width: 25%;
+            border: none;
+            outline: none;
+            background-color:#007FFE;
+            color: #fff;
+        }
+    }
+}

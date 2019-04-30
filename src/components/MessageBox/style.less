@@ -1,0 +1,61 @@
+.leftBox,
+.rightBox {
+    display: flex;
+    width: 85%;
+    overflow: hidden;
+    margin: 1rem .5rem 0 .5rem;
+    align-items: flex-start;
+
+    .messageBox {
+        background-color: #E0E3DA;
+        padding: .5rem;
+        position: relative;
+        border-radius: 4px;
+    }
+
+    .messageAvatar {
+
+        img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+        }
+
+    }
+}
+
+.messageTriangle {
+    width: 0;
+    height: 0;
+    border-right: 14px solid transparent;
+    border-left: 14px solid transparent;
+    border-top: 14px solid #E0E3DA;
+    position: absolute;
+    z-index: -1;
+}
+
+.leftBox {
+    float: left;
+    justify-content: flex-start;
+    .messageTriangle {
+        top: 0;
+        left: -7px;
+    }
+    .messageAvatar {
+        margin-right: 1rem;
+    }
+}
+
+.rightBox {
+    float: right;
+    justify-content: flex-end;
+
+    .messageTriangle {
+        top: 0;
+        right: -7px;
+    }
+
+    .messageAvatar {
+        margin-left: 1rem;
+    }
+}

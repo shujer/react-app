@@ -1,19 +1,29 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import withNavBarBasicLayout from '@layouts/withNavBarBasicLayout'
+import withNavBarRightLayout from '@layouts/withNavBarRightLayout'
 import './style.less'
 import '@assets/highlight/default.min.css'
 
-@withNavBarBasicLayout('post')
+function isEmptyObject(obj) {
+  for (let key in obj) {
+    return true
+  }
+  return false
+}
+
+@withNavBarRightLayout('文章详情页')
 class PostContainer extends Component {
   componentWillMount() {
-    this.props.getPostDetailAsync({id: this.props.match.params.id})
+    this.props.getPostAsync({id: this.props.match.params.id})
   }
   render() {
     return (
       <div className="postContainer">
-        <div className="postDetail"
-          dangerouslySetInnerHTML={{__html: this.props.postDetail.content}}
+        <div
+          className="postDetail"
+          dangerouslySetInnerHTML={{
+            __html: this.props.content ? this.props.content : ''
+          }}
         />
       </div>
     )
@@ -21,11 +31,12 @@ class PostContainer extends Component {
 }
 
 const mapState = state => ({
-  postDetail: state.post.postDetail
+  content: state.post.content,
+  postInfo: state.post.postInfo
 })
 
-const mapDispatch = ({post: {getPostDetailAsync}}) => ({
-  getPostDetailAsync: playload => getPostDetailAsync(playload)
+const mapDispatch = ({post: {getPostAsync}}) => ({
+  getPostAsync: playload => getPostAsync(playload)
 })
 
 export default connect(

@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
+import Test from '@components/ShareActionSheet'
 
 @withTabBarBasicLayout
 class ActivityContainer extends Component {
   render() {
-    return <div>search</div>
+    return <div><Test/></div>
   }
 }
 

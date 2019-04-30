@@ -7,35 +7,8 @@ var querystring = require('querystring')
 var fetch = require('node-fetch')
 var md5 = crypto.createHash('md5')
 
-var generateToken = require('./token')
-
 router.get('/404', async (ctx, next) => {
   ctx.response.body = '<h1>404 Not Found</h1>'
-})
-
-router.post('/auth/type/phoneNumber', async (ctx, next) => {
-  var {phoneNumber, password} = await parse.json(ctx.req)
-  if (phoneNumber === '15111111111' && password === '123456') {
-    let token = generateToken({uid: phoneNumber, password})
-    ctx.response.body = JSON.stringify({
-      s: 0,
-      m: `账号登录成功错误`,
-      d: '',
-      token
-    })
-  } else {
-    ctx.response.body = JSON.stringify({s: 1, m: '账号信息错误', d: ''})
-  }
-})
-
-router.post('/auth/type/email', async (ctx, next) => {
-  let {email, password} = await parse.json(ctx.req)
-  if (email === 'example@react.com' && password === '123456') {
-    let token = generateToken({uid: email, password})
-    ctx.response.body = {s: 0, m: `Hello， ${email}！`, d: '', token}
-  } else {
-    ctx.response.body = {s: 1, m: '账号信息错误', d: ''}
-  }
 })
 
 router.get('/oauth/github/authorize', async (ctx, next) => {
