@@ -48,7 +48,6 @@ let RightBox = ({item, user}) => (
 
 const MessageBox = props => {
   let {item, user = {}} = props
-  console.log(props)
   return (
     <>
       {item.role === 'left' ? (

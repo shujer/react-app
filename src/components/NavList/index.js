@@ -23,7 +23,7 @@ const NavList = props => {
   return (
     <>
     <div className="tabListBar" >
-      <div className="tabList">
+      <div className="tabList scroll_content">
         {tabs.map((element, index) => {
           return (
             <Link

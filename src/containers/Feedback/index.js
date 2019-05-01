@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
 import {NavBar, Icon} from 'antd-mobile'
 import MessageBox from '@components/MessageBox'
 import io from 'socket.io-client'
@@ -14,18 +15,28 @@ class Feedback extends Component {
 
   componentDidMount() {
     socket.on('reply', ({message}) => {
-      this.setState({
-        messages: [...this.state.messages, {content: message, role: 'left'}]
-      })
+      this.setMessage({message,role:"left"})
     })
     socket.on('feedback', ({message}) => {
-      this.setState({
-        messages: [...this.state.messages, {content: message, role: 'left'}]
-      })
+      this.setMessage({message,role:"left"})
     })
     socket.emit('user feedback', {message: 'first'}, function(data) {
       console.log('发送成功')
     })
+  }
+
+  setMessage = ({message:content, role}) => {
+    this.setState({
+      messages: [...this.state.messages, {content, role}]
+    },
+    () => {
+      this.scrollToBottom()
+    })
+  }
+
+  scrollToBottom = () => {
+    document.documentElement.scrollTop = document.documentElement.scrollHeight
+    document.body.scrollTop = document.body.scrollHeight
   }
 
   handleSend = e => {
@@ -37,6 +48,7 @@ class Feedback extends Component {
       messages: [...this.state.messages, {content: value, role: 'right'}]
     },() => {
       this.input.value=""
+      this.scrollToBottom()
       socket.emit('new reply', {message: value}, function(data) {
         console.log('发送成功')
       })
@@ -49,7 +61,7 @@ class Feedback extends Component {
 
   render() {
     return (
-      <div className="FeedContainer" >
+      <div className="FeedContainer" ref={el => (this.container = el)}>
         <NavBar
         className="navbar"
           icon={<Icon type="left" />}
@@ -58,7 +70,7 @@ class Feedback extends Component {
         >
           掘金酱
         </NavBar>
-        <div className="list">
+        <div className="list scroll_content" >
           {this.state.messages.map((val, index) => (
             <MessageBox item={val} key={index} />
           ))}
