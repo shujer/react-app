@@ -37,8 +37,6 @@ const proxyTable = {
     '^/api/follow': '/'
   },
   router: function({url}) {
-    console.log(url)
-    console.log(getRealApi(url))
     return getRealApi(url)
   }
 }

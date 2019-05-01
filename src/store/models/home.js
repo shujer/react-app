@@ -82,7 +82,11 @@ export default {
         .getEntry({category, before})
         .then(data => {
           if (data.s !== 1) throw Error
-          dispatch.home.resetEntryList({entryList: data.d['entrylist'], more})
+          let {d: {entrylist}} = data
+          let entryList = entrylist.filter(
+            val => val.originalUrl.split('https://juejin.im')[1]
+          )
+          dispatch.home.resetEntryList({entryList, more})
         })
         .catch(err => {
           Toast.info('网络似乎出现了点问题', 1.5)

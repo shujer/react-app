@@ -1,7 +1,6 @@
 import React from 'react'
-import {ActionSheet, WingBlank, WhiteSpace, Button, Toast} from 'antd-mobile'
+import {ActionSheet} from 'antd-mobile'
 import './style.less'
-const requireContext = require.context('@assets/icons/share/', true, /^\.\/.*\.png$/)
 const Icons = {
   message: 'message_card',
   wechat: 'share_wechat',
@@ -14,15 +13,15 @@ const Icons = {
   earth: 'share_earth'
 }
 
-const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(
-  window.navigator.userAgent
-)
-let wrapProps
-if (isIPhone) {
-  wrapProps = {
-    onTouchStart: e => e.preventDefault()
-  }
-}
+// const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(
+//   window.navigator.userAgent
+// )
+// let wrapProps
+// if (isIPhone) {
+//   wrapProps = {
+//     onTouchStart: e => e.preventDefault()
+//   }
+// }
 
 class ShareActionSheet extends React.Component {
   constructor() {

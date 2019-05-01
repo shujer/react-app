@@ -6,7 +6,16 @@ import UserLink from '@components/AvatarBar/UserLink'
 import './style.less'
 
 const PostItem = ({item, ...props}) => {
-  let {title, content, commentsCount,likeCount, originalUrl, screenshot, tags, user} = item
+  let {
+    title,
+    content,
+    commentsCount,
+    likeCount,
+    originalUrl,
+    screenshot,
+    tags,
+    user
+  } = item
   let extraContent = tags
     .slice(0, 2)
     .map(val => val.title)
@@ -17,7 +26,7 @@ const PostItem = ({item, ...props}) => {
       <div className="entryAvatar">
         <AvatarBar
           user={user}
-          appendContent={<UserLink {...user} />}
+          appendContent={[<UserLink {...user} />]}
           extraContent={extraContent}
         />
       </div>
@@ -28,7 +37,7 @@ const PostItem = ({item, ...props}) => {
         </div>
         {screenshot ? (
           <div className="screenshot">
-            <img src={screenshot} alt="screenshot"/>
+            <img src={screenshot} alt="screenshot" />
           </div>
         ) : null}
       </Link>
@@ -38,7 +47,5 @@ const PostItem = ({item, ...props}) => {
     </div>
   )
 }
-
-
 
 export default PostItem

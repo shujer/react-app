@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
 import {NavBar, Icon} from 'antd-mobile'
 import MessageBox from '@components/MessageBox'
 import io from 'socket.io-client'

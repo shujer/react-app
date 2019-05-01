@@ -1,5 +1,4 @@
 import api from '@services/api'
-import {Toast} from 'antd-mobile'
 export default {
   namespace: 'post',
   state: {

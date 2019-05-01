@@ -10,7 +10,7 @@ const AvatarBar = ({user, appendContent, extraContent}) => {
           <Avatar {...user} />
         </div>
         <div className="userlinkContainer">
-          {appendContent}
+          {appendContent.map((val, index) => <div key={index}>{val}</div>)}
         </div>
       </div>
       <small className="extra">{extraContent}</small>
