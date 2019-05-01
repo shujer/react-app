@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import withNavBarRightLayout from '@layouts/withNavBarRightLayout'
 import AvatarBar from '@components/AvatarBar'
 import UserLink from '@components/AvatarBar/UserLink'
-import {handleStrOverflow} from '@utils/stringHelper'
+import JobTitle from '@components/ShortStr'
 import './style.less'
 import '@assets/highlight/default.min.css'
 
@@ -13,7 +13,7 @@ class PostContainer extends Component {
     content: '',
     postInfo: {}
   }
-  componentWillMount() {
+  componentDidMount() {
     this.props.getPostAsync({id: this.props.match.params.id})
   }
   componentWillReceiveProps(nextProps) {
@@ -22,22 +22,25 @@ class PostContainer extends Component {
         content: nextProps.content
       })
     }
-    if (this.props.postInfo.user) {
+    if (nextProps.postInfo.user) {
       this.setState({
-        postInfo: this.props.postInfo
+        postInfo: nextProps.postInfo
       })
     }
+  }
+  componentWillUnmount() {
+    this.props.emptyPost()
   }
   render() {
     let {user, title, screenshot} = this.state.postInfo
     return (
       <div className="postContainer" key={title}>
         <AvatarBar
-        className="avatarBar"
+          className="avatarBar"
           user={user}
           appendContent={[
             <UserLink {...user} />,
-            <small>{user ? handleStrOverflow(user.jobTitle, 15) : ''}</small>
+            <JobTitle str={user ? user.jobTitle: ''}/>
           ]}
           extraContent={'关注'}
         />
@@ -61,8 +64,9 @@ const mapState = state => ({
   postInfo: state.post.postInfo
 })
 
-const mapDispatch = ({post: {getPostAsync}}) => ({
-  getPostAsync: playload => getPostAsync(playload)
+const mapDispatch = ({post: {getPostAsync, emptyPost}}) => ({
+  getPostAsync: playload => getPostAsync(playload),
+  emptyPost: () => emptyPost
 })
 
 export default connect(

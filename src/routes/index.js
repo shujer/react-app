@@ -55,6 +55,10 @@ const Feedback = Loadable({
   loading: () => <TabLoading />
 })
 
+const User = Loadable({
+  loader: () => import('@containers/User'),
+  loading: () => <TabLoading />
+})
 
 const routes = [
   {path: '/timeline/:category', exact: true, component: Home},
@@ -73,81 +77,15 @@ const routes = [
   },
   {
     path: '/profile',
-    component: Profile,
-    routes: [
-      {
-        path: '/profile/notification',
-        component: Profile
-      },
-      {
-        path: '/profile/likes',
-        component: Profile
-      },
-      {
-        path: '/profile/collections',
-        component: Profile
-      },
-      {
-        path: '/profile/xiaoxe/',
-        component: Profile
-      },
-      {
-        path: '/profile/posts',
-        component: Profile
-      },
-      {
-        path: '/profile/subscrib',
-        component: Profile
-      }
-    ]
+    component: Profile
   },
   {
     path: '/user/:id',
-    component: Profile,
+    component: User,
     routes: [
       {
-        path: '/user/:id/following',
-        component: Profile
-      },
-      {
-        path: '/user/:id/followers',
-        component: Profile
-      },
-      {
-        path: '/user/:id/activities',
-        component: Profile
-      },
-      {
-        path: '/user/:id/pins',
-        component: Profile
-      },
-      {
-        path: '/user/:id/posts',
-        component: Profile
-      },
-      {
-        path: '/user/:id/shares',
-        component: Profile
-      },
-      {
-        path: '/user/:id/likes',
-        component: Profile
-      },
-      {
-        path: '/user/:id/tags',
-        component: Profile
-      },
-      {
-        path: '/user/:id/collections',
-        component: Profile
-      },
-      {
-        path: '/user/settings/profile',
-        component: Profile
-      },
-      {
-        path: '/user/:id/xiaoce',
-        component: Profile
+        path: '/user/:id/:tag',
+        component: User
       }
     ]
   }

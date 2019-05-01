@@ -20,6 +20,8 @@ class HomeContainer extends Component {
     this._onRefreshDown()
   }
 
+  
+
   componentWillReceiveProps(nextProps) {
     let category = nextProps.match.params.category
     if (category !== this.props.match.params.category) {

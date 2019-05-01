@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import EntryInfo from '@components/EntryInfo'
+import Tags from '@components/ShortStr'
 import AvatarBar from '@components/AvatarBar'
 import UserLink from '@components/AvatarBar/UserLink'
 import './style.less'
@@ -16,10 +17,15 @@ const PostItem = ({item, ...props}) => {
     tags,
     user
   } = item
-  let extraContent = tags
-    .slice(0, 2)
-    .map(val => val.title)
-    .join(' / ')
+  let extraContent = (
+    <Tags
+      str={tags
+        .slice(0, 2)
+        .map(val => val.title)
+        .join(' / ')}
+      len={15}
+    />
+  )
   let url = originalUrl.split('https://juejin.im')[1]
   return (
     <div className="myEntry">

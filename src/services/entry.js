@@ -67,3 +67,25 @@ export async function getPostDetail(postId, type = 'entryView') {
     }
   })
 }
+
+
+export async function getRelatedEntry(entryId) {
+  return get(`/timeline/get_related_entry`, {
+    params: {
+      src: 'mobile',
+      limit: 5,
+      entryId
+    }
+  })
+}
+
+
+
+export async function getRecommendEntryByTagIds(tagIds) {
+  return get(`/post/getRecommendEntryByTagIds`, {
+    params: {
+      src: 'mobile',
+      tagIds
+    }
+  })
+}

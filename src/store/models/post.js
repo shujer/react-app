@@ -1,4 +1,5 @@
 import api from '@services/api'
+import {Toast} from 'antd-mobile'
 export default {
   namespace: 'post',
   state: {
@@ -52,7 +53,7 @@ export default {
           dispatch.post.getPostDetailAsync({id})
         })
         .catch(err => {
-          console.log(err)
+          Toast.info('网络似乎出现了点问题', 1.5)
         })
     }
   }),

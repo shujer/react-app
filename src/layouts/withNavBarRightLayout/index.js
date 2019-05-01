@@ -17,7 +17,7 @@ const withNavBarBasicLayout = title => {
                 <ShareActionSheet icon={<Icon key="1" type="ellipsis" />} />
               }
             >
-              <h2>{title}</h2>
+              <h1>{title}</h1>
             </NavBar>
             <div style={{paddingTop: '43px', width: '100%'}} />
             <WrappedComponent {...this.props} />
