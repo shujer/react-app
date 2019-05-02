@@ -24,30 +24,17 @@ npm run start
 <table width="100%">
     <tr>
         <td width="33%" height="100%">
-            <img src="./doc/效果图/localhost_3000_(iPhone 5_SE).png" alt="img" />
+            <img src="./doc/效果图/home.gif" alt="img" />
         </td>
         <td width="33%" height="100%">
-            <img src="./doc/效果图/localhost_3000_home(iPhone 5_SE).png" alt="img" />
+            <img src="./doc/效果图/login.gif" alt="img" />
         </td>
         <td width="33%" height="100%">
-            <img src="./doc/效果图/localhost_3000_auth(iPhone 5_SE).png" alt="img" />
+            <img src="./doc/效果图/pick.gif" alt="img" />
         </td>
     <tr>
         <td width="33%" height="100%">
-            <img src="./doc/效果图/localhost_3000_profile(iPhone 5_SE).png" alt="img" />
-        </td>
-        <td width="33%" height="100%">
-            <img src="./doc/效果图/localhost_3000_profile_unauth(iPhone 5_SE).png" alt="img" />
-        </td>
-        <td width="33%" height="100%">
-            <img src="./doc/效果图/localhost_3000_register(iPhone 5_SE).png" alt="img" />
-        </td>
-    </tr>
-        <td width="33%" height="100%">
-            <img src="./doc/效果图/localhost_3000_settings(iPhone 5_SE) .png" alt="img" />
-        </td>
-        <td width="33%" height="100%">
-            <img src="./doc/效果图/localhost_3000_feedback(Galaxy S5).png" alt="img" />
+            <img src="./doc/效果图/message.gif" alt="img" />
         </td>
         <td width="33%" height="100%">
             <img src="./doc/效果图/localhost_3000_post(Galaxy S5).png" alt="img" />
