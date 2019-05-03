@@ -6,12 +6,12 @@ const Loading = props => {
   let {orient} = props
   return (
     <>
-      {orient === 'up' ? (
+      {orient === 'down' ? (
         <div className="refreshTop">
           <Icon type="loading" />
         </div>
       ) : (
-        <div className="refreshDown">
+        <div className="refreshBottom">
           <img src={entryDefault} alt="loading" />
         </div>
       )}

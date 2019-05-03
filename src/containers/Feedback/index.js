@@ -34,8 +34,7 @@ class Feedback extends Component {
   }
 
   scrollToBottom = () => {
-    document.documentElement.scrollTop = document.documentElement.scrollHeight
-    document.body.scrollTop = document.body.scrollHeight
+    this.scrollContent.scrollTop =  this.scrollContent.scrollHeight
   }
 
   handleSend = e => {
@@ -60,21 +59,21 @@ class Feedback extends Component {
 
   render() {
     return (
-      <div className="FeedContainer" ref={el => (this.container = el)}>
+      <div className="wrap FeedContainer" >
         <NavBar
-        className="navbar"
+        className="header"
           icon={<Icon type="left" />}
           mode="light"
           onLeftClick={this.goBack}
         >
           掘金酱
         </NavBar>
-        <div className="list scroll_content" >
+        <div className="main scroll_content" ref={el => (this.scrollContent = el)}>
           {this.state.messages.map((val, index) => (
             <MessageBox item={val} key={index} />
           ))}
         </div>
-        <div className="control">
+        <div className="footer">
           <textarea type="text" placehoder="发送消息" rows={1} ref={el => (this.input = el)}/>
           <button onClick={this.handleSend}>Send</button>
         </div>

@@ -8,8 +8,9 @@ const withNavBarBasicLayout = title => {
     return class extends Component {
       render() {
         return (
-          <div className="RightNavBar">
+          <div className="wrap RightNavBar">
             <NavBar
+              className="header"
               mode="light"
               icon={<Icon type="left" />}
               onLeftClick={this.goBack}
@@ -19,8 +20,9 @@ const withNavBarBasicLayout = title => {
             >
               <h1>{title}</h1>
             </NavBar>
-            <div style={{paddingTop: '43px', width: '100%'}} />
-            <WrappedComponent {...this.props} />
+            <div className="content">
+              <WrappedComponent {...this.props} />
+            </div>
           </div>
         )
       }

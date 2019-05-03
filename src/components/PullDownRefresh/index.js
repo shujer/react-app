@@ -1,10 +1,17 @@
 import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
 import RefreshLoading from '@components/RefreshLoading'
 
+/**
+ * nesting: 是否嵌套在其他拉动组件中
+ * minHeight: 拉动触发最小距离
+ */
 class PullDownRefresh extends Component {
   state = {
     startPos: 0,
-    refreshing: true
+    refreshing: true,
+    minHeight: this.props.minHeight || 60,
+    nesting: false
   }
 
   componentWillReceiveProps(nextProps) {
@@ -15,6 +22,13 @@ class PullDownRefresh extends Component {
     }
   }
 
+  componentDidMount() {
+    let parentNode = ReactDOM.findDOMNode(this.scrollContent).parentNode
+    this.setState({
+      parentNode: this.state.nesting ? parentNode.parentNode : parentNode
+    })
+  }
+
   handleTouchStart = e => {
     this.setState({
       startPos: e.touches[0].pageY
@@ -22,15 +36,15 @@ class PullDownRefresh extends Component {
   }
 
   handleTouchMove = e => {
-    if (this.state.refreshing === false) {
-      let doc = document.documentElement || document.body
-      if (doc.scrollTop === doc.offsetTop) {
-        let _pullHeight = e.touches[0].pageY - this.state.startPos
-        if (_pullHeight > 60) {
-          this.setState({
-            refreshing: true
-          })
-        }
+    if (
+      this.state.refreshing === false &&
+      this.state.parentNode.scrollTop === 0
+    ) {
+      let _pullHeight = e.touches[0].pageY - this.state.startPos
+      if (_pullHeight > this.state.minHeight) {
+        this.setState({
+          refreshing: true
+        })
       }
     }
   }
@@ -42,17 +56,11 @@ class PullDownRefresh extends Component {
   }
 
   render() {
-    let refreshing = this.state.refreshing
     return (
       <>
-        {refreshing ? <RefreshLoading orient="up" /> : null}
+        {this.state.refreshing ? <RefreshLoading orient="down" /> : null}
         <div
-          ref={el => (this.ptr = el)}
-          style={{
-            overflowY: 'auto',
-            position: 'relative',
-            width: '100%'
-          }}
+          ref={el => (this.scrollContent = el)}
           onTouchStart={this.handleTouchStart}
           onTouchMove={this.handleTouchMove}
           onTouchEnd={this.handleTouchEnd}

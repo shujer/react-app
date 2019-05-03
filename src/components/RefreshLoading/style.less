@@ -3,84 +3,83 @@
     height: 40px;
     width: 100%;
     opacity: 1;
-    top: 50px;
     text-align: center;
     z-index: 999;
-    animation: load .3s;
-    -moz-animation: load .3s;
-    -webkit-animation: load .3s;
-    -o-animation: load .3s;
     background: none;
-    transition: all .1s ease-in-out;
+    animation: load .5s forwards;
+    -moz-animation: load .5s forwards;
+    -webkit-animation: load .5s forwards;
+    -o-animation: load .5s forwards;
 }
 
-.refreshDown {
+.refreshBottom {
     height: 6rem;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+
     img {
         height: 5rem;
     }
+
     animation: proRotate .3s;
     -moz-animation: proRotate .3s;
     -webkit-animation: proRotate .3s;
     -o-animation: proRotate .3s;
-    transition: all .1s ease-in-out;
 }
 
 @-webkit-keyframes load {
 
     0% {
-        -webkit-transform: scale(0, 0)
+        -webkit-transform: translate3d(0, 0px, 0);
     }
 
     40% {
-        -webkit-transform: scale(0.6, 0.6)
+        -webkit-transform: translate3d(0, 40px, 0);
     }
 
     100% {
-        -webkit-transform: scale(1.0, 1.0)
+        -webkit-transform: translate3d(0, 15px, 0);
     }
 }
 
 @keyframes load {
     0% {
-        transform: scale(0, 0);
-        -webkit-transform: scale(0, 0)
+        transform: translate3d(0, 0px, 0);
+        -webkit-transform: translate3d(0, 0px, 0);
     }
 
     40% {
-        transform: scale(0.6, 0.6);
-        -webkit-transform: scale(0.6, 0.6)
+        transform: translate3d(0, 40px, 0);
+        -webkit-transform: translate3d(0, 40px, 0);
     }
 
     100% {
-        transform: scale(1.0, 1.0);
-        -webkit-transform: scale(1.0, 1.0)
+        transform: translate3d(0, 15px, 0);
+        -webkit-transform: translate3d(0, 15px, 0);
     }
 }
 
 
 @-webkit-keyframes proRotate {
     0% {
-        -webkit-transform: perspective(400px) rotateX(180deg);
+        -webkit-transform: perspective(400px) rotate3d(180deg, 0, 1);
     }
 
     100% {
-        -webkit-transform: perspective(400px) rotateX(0deg);
+        -webkit-transform: perspective(400px) rotate3d(0deg, 0, 1);
     }
 }
 
 @keyframes proRotate {
     0% {
-        -webkit-transform: perspective(400px) rotateX(180deg);
-        transform: perspective(400px) rotateX(180deg);
+        -webkit-transform: perspective(400px) rotate3d(180deg, 0, 1);
+        transform: perspective(400px) rotate3d(180deg, 0, 1);
     }
 
     100% {
-        -webkit-transform: perspective(400px) rotateX(0deg);
-        transform: perspective(400px) rotateX(0deg);
+        -webkit-transform: perspective(400px) rotate3d(0deg, 0, 1);
+        transform: perspective(400px) rotate3d(0deg, 0, 1);
     }
 }

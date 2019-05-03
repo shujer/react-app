@@ -20,8 +20,6 @@ class HomeContainer extends Component {
     this._onRefreshDown()
   }
 
-  
-
   componentWillReceiveProps(nextProps) {
     let category = nextProps.match.params.category
     if (category !== this.props.match.params.category) {
@@ -73,26 +71,27 @@ class HomeContainer extends Component {
       ...tabList
     ].filter(val => val.show === true)
     return (
-      <>
+      <div className="wrap">
         <NavList
+          className="header"
           tabs={tabs}
           onCaretClick={this._goToTab}
           showCaret={true}
           selectedTitle={this.state.selectedTitle}
         />
-        <div className="entryList">
+        <div className="main scroll_content">
           <PullDownRefresh
             onRefresh={this._onRefreshDown}
             refreshing={this.state.refreshing}
           >
-            <PullUpRefresh onRefresh={this._onRefreshUp}>
+            <PullUpRefresh onRefresh={this._onRefreshUp} nesting={true}>
               {entryList.map((element, index) => {
                 return <EntryItem item={element} key={index} />
               })}
             </PullUpRefresh>
           </PullDownRefresh>
         </div>
-      </>
+      </div>
     )
   }
 }

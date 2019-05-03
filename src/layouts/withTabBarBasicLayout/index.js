@@ -33,7 +33,7 @@ const withTabBarBasicLayout = WrappedComponent => props => {
   ]
 
   return (
-    <div style={{height: '100%',paddingBottom:"43px"}}>
+    <div style={{height: '100%'}}>
       <WrappedComponent {...props} />
       <div
         style={{
@@ -41,7 +41,7 @@ const withTabBarBasicLayout = WrappedComponent => props => {
           width: '100%',
           bottom: 0
         }}
-        className="transition-item"
+        className="transition-item footer"
       >
         <TabBar
           unselectedTintColor="#949494"

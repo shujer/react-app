@@ -7,16 +7,18 @@ const withNavBarBasicLayout = title => {
     return class extends Component {
       render() {
         return (
-          <div className="BasicNavBar">
+          <div className="wrap BasicNavBar">
             <NavBar
               mode="dark"
               icon={<Icon type="left" />}
               onLeftClick={this.goBack}
+              className="header"
             >
               <h2>{title}</h2>
             </NavBar>
-            <div style={{paddingTop:"43px", width:"100%"}}></div>
+            <div className="content">
             <WrappedComponent {...this.props}/>
+            </div>
           </div>
         )
       }

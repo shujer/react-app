@@ -32,6 +32,7 @@ a {
 h1 {
     font-size: 18px;
 }
+
 h2,
 h3,
 h4,
@@ -44,4 +45,53 @@ h5 {
 small {
     font-size: 10px;
     color: gray;
+}
+
+.wrap {
+    width: 100%;
+    // position: relative;
+    height: 100%;
+
+    & > .header,
+    .footer {
+        position: absolute;
+        height: 43px;
+        line-height: 43px;
+        width: 100%;
+        z-index: 999;
+        left: 0;
+    }
+
+    & > .header {
+        top: 0;
+    }
+
+    & > .footer {
+        bottom: 0;
+    }
+
+    & > .main {
+        position: absolute;
+        z-index: 1;
+        top: 43px;
+        left: 0;
+        bottom: 43px;
+        width: 100%;
+        overflow-y: scroll;
+    }
+
+    & > .content {
+        position: absolute;
+        z-index: 1;
+        top: 43px;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        overflow-y: scroll;
+    }
+}
+
+button {
+    border: none;
+    outline: none;
 }
