@@ -36,7 +36,7 @@ class PullUpRefresh extends Component {
         this.state.parentNode.scrollHeight -
         this.state.parentNode.scrollTop -
         this.state.hei
-      if (offset < 300) {
+      if (offset <= 0) {
         this.setState({
           refreshing: true
         })

@@ -36,9 +36,6 @@ npm run start
         <td width="33%" height="100%">
             <img src="./doc/效果图/message.gif" alt="img" />
         </td>
-        <td width="33%" height="100%">
-            <img src="./doc/效果图/localhost_3000_post(Galaxy S5).png" alt="img" />
-        </td>
     </tr>
     <tr>
     </tr>

@@ -12,7 +12,8 @@ const Loading = props => {
         </div>
       ) : (
         <div className="refreshBottom">
-          <img src={entryDefault} alt="loading" />
+          {/* <img src={entryDefault} alt="loading" /> */}
+          <Icon type="loading" />
         </div>
       )}
     </>

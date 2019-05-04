@@ -5,15 +5,15 @@ import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import EntryItem from '@components/EntryItem'
 import NavList from '@components/NavList'
 // import HotPost from '@components/HotPost'
-import PullDownRefresh from '@components/PullDownRefresh'
-import PullUpRefresh from '@components/PullUpRefresh'
+import PullRefresh from '@components/PullRefresh'
 import './style.less'
 
 @withTabBarBasicLayout
 class HomeContainer extends Component {
   state = {
     selectedTitle: this.props.match.params.category,
-    refreshing: true
+    downRefreshing: true,
+    upRefreshing: false
   }
 
   componentWillMount() {
@@ -26,7 +26,7 @@ class HomeContainer extends Component {
       this.setState(
         {
           selectedTitle: category,
-          refreshing: true
+          downRefreshing: true
         },
         () => {
           this.props.emptyEntryList()
@@ -37,10 +37,16 @@ class HomeContainer extends Component {
   }
 
   _onRefreshUp = () => {
-    this.props.getEntryByListAsync({
-      more: true,
-      category: this.state.selectedTitle
-    })
+    this.props
+      .getEntryByListAsync({
+        more: true,
+        category: this.state.selectedTitle
+      })
+      .finally(() => {
+        this.setState({
+          upRefreshing: false
+        })
+      })
   }
 
   _onRefreshDown = () => {
@@ -49,12 +55,11 @@ class HomeContainer extends Component {
         more: false,
         category: this.state.selectedTitle
       })
-      .then(() => {
+      .finally(() => {
         this.setState({
-          refreshing: false
+          downRefreshing: false
         })
       })
-      .catch(err => {})
   }
 
   _goToTab = () => {
@@ -80,16 +85,18 @@ class HomeContainer extends Component {
           selectedTitle={this.state.selectedTitle}
         />
         <div className="main scroll_content">
-          <PullDownRefresh
-            onRefresh={this._onRefreshDown}
-            refreshing={this.state.refreshing}
+          <PullRefresh
+            down={true}
+            onDownRefresh={this._onRefreshDown}
+            downRefreshing={this.state.downRefreshing}
+            up={true}
+            upRefreshing={this.state.upRefreshing}
+            onUpRefresh={this._onRefreshUp}
           >
-            <PullUpRefresh onRefresh={this._onRefreshUp} nesting={true}>
-              {entryList.map((element, index) => {
-                return <EntryItem item={element} key={index} />
-              })}
-            </PullUpRefresh>
-          </PullDownRefresh>
+            {entryList.map((element, index) => {
+              return <EntryItem item={element} key={index} />
+            })}
+          </PullRefresh>
         </div>
       </div>
     )
