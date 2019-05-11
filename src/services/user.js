@@ -1,4 +1,3 @@
-import {stringify} from 'qs'
 import {get} from '@utils/request'
 
 const COLS =
@@ -6,14 +5,16 @@ const COLS =
 /**
  * 获取个人信息
  */
-export async function getUserInfo({uid, token}) {
-  let params = {
-    src: 'mobile',
-    uid: uid,
-    current_uid: uid,
-    token: token
-  }
-  return get(`/user/getUserInfo${stringify(params)}`)
+export async function getUserInfo({uid, token, device_id}) {
+  return get(`/user/getUserInfo`, {
+    params: {
+      src: 'mobile',
+      current_uid: uid,
+      uid,
+      token,
+      device_id
+    }
+  })
 }
 /**
  * 获取系统未读通知

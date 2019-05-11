@@ -34,59 +34,77 @@ const stateTransformer = function(currentState, stepUp) {
 export default {
   namespace: 'auth',
   state: {
-    currentState: 'login form'
+    currentState: 'login form',
+    userInfo: {},
+    userDetail: {},
+    isLogin: false
   },
   reducers: {
     stateChanger(state, {stepUp}) {
+      let currentState = stateTransformer(state.currentState, stepUp)
       return {
         ...state,
-        currentState: stateTransformer(state.currentState, stepUp)
+        currentState: currentState,
+        isLogin: currentState === 'profile'
+      }
+    },
+    setAuthState(state, {currentState}) {
+      return {
+        ...state,
+        currentState: currentState,
+        isLogin: currentState === 'profile'
+      }
+    },
+    setUser(state, {userDetail, userInfo}) {
+      return {
+        ...state,
+        userDetail,
+        userInfo
       }
     }
   },
+
   effects: dispatch => ({
     async loginByPhoneNumber(playload, state) {
       dispatch.auth.stateChanger({stepUp: 'submit'})
-      await api.auth
-        .loginByPhoneNumber(playload)
-        .then((data) => {
-          let userInfo = {
-            token: data.token,
-            clientId: data.clientId,
-            uid: data.user.uid
-          }
-          Cookies.set('userInfo', userInfo, {expires: 7, path: '/'})
-          saveData('juejin_userInfo', userInfo)
-          dispatch.auth.stateChanger({stepUp: 'success'})
-        })
-        .catch(err => {
-          dispatch.auth.stateChanger({stepUp: 'failure'})
-          console.log(err)
-          // if (err.response.status === 401) {
-          //   Toast.info('用户名或密码错误', 1.5)
-          // } else {
-          //   Toast.info('未知错误，请稍后重试', 1.5)
-          // }
-        })
+      try {
+        let data = await api.auth.loginByPhoneNumber(playload)
+        if (data.err) throw data.err
+        let userInfo = {
+          token: data.data.token,
+          clientId: data.data.clientId,
+          uid: data.data.user.userId
+        }
+        let userDetail = data.data.user
+        Cookies.set('userInfo', userInfo, {expires: 7, path: '/'})
+        saveData('juejin_userInfo', userInfo)
+        dispatch.auth.setUser({userDetail, userInfo})
+        dispatch.auth.stateChanger({stepUp: 'success'})
+      } catch (err) {
+        dispatch.auth.stateChanger({stepUp: 'failure'})
+        if (err.response.status === 401) {
+          Toast.info('用户名或密码错误', 1.5)
+        } else {
+          Toast.info('未知错误，请稍后重试', 1.5)
+        }
+      }
     },
 
     async loginByEmail(playload, state) {
       dispatch.auth.stateChanger({stepUp: 'submit'})
       try {
-        let response = await api.auth.loginByEmail(playload)
-        if ('err' in response) {
-          throw response.err
-        } else {
-          let {data} = response
-          let userInfo = {
-            token: data.token,
-            clientId: data.clientId,
-            uid: data.user.uid
-          }
-          Cookies.set('userInfo', userInfo, {expires: 7, path: '/'})
-          saveData('juejin_userInfo', userInfo)
-          dispatch.auth.stateChanger({stepUp: 'success'})
+        let data = await api.auth.loginByEmail(playload)
+        if (data.err) throw data.err
+        let userInfo = {
+          token: data.data.token,
+          clientId: data.data.clientId,
+          uid: data.data.user.userId
         }
+        let userDetail = data.data.user
+        Cookies.set('userInfo', userInfo, {expires: 7, path: '/'})
+        saveData('juejin_userInfo', userInfo)
+        dispatch.auth.setUser({userDetail, userInfo})
+        dispatch.auth.stateChanger({stepUp: 'success'})
       } catch (err) {
         dispatch.auth.stateChanger({stepUp: 'failure'})
         if (err.response.status === 401) {
@@ -106,7 +124,7 @@ export default {
     async logout(playload, state) {
       await api.auth.logout()
       dispatch.auth.stateChanger({stepUp: 'logout'})
-      removeData('userInfo')
+      removeData('juejin_userInfo')
       Cookies.remove('userInfo')
     }
   })

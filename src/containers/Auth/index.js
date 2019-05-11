@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {ActivityIndicator} from 'antd-mobile'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
 import LoginForm from '@components/LoginForm'
 
 import ThirdPartyLogin from '@components/ThirdPartyLogin'
@@ -92,7 +91,3 @@ export default connect(
   mapState,
   mapDispatch
 )(Auth)
-
-Auth.propTypes = {
-  currentState: PropTypes.string.isRequired
-}

@@ -77,7 +77,8 @@ const routes = [
   },
   {
     path: '/profile',
-    component: Profile
+    component: Profile,
+    requiredAuth: true
   },
   {
     path: '/user/:id',

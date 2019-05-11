@@ -44,7 +44,7 @@ export default {
       let info = loadData('juejin_userInfo') || {}
       await api.category
         .getCategories(info)
-        .then(data => {
+        .then(({data}) => {
           if (data.s !== 1) throw Error
           let tabList = data.d['categoryList'].map(val => {
             return {
@@ -80,9 +80,11 @@ export default {
       let before = more ? getBeforeRank(state.home.entryList) : ''
       await api.entry
         .getEntry({category, before})
-        .then(data => {
+        .then(({data}) => {
           if (data.s !== 1) throw Error
-          let {d: {entrylist}} = data
+          let {
+            d: {entrylist}
+          } = data
           let entryList = entrylist.filter(
             val => val.originalUrl.split('https://juejin.im')[1]
           )

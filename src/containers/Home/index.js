@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import EntryItem from '@components/EntryItem'
 import NavList from '@components/NavList'
-// import HotPost from '@components/HotPost'
 import PullRefresh from '@components/PullRefresh'
 import './style.less'
 

@@ -1,6 +1,28 @@
 import React, {Component} from 'react'
-import NavList from '@components/NavList'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
+import UnAuth from './UnAuth'
+import {connect} from 'react-redux'
+import {Tabs} from 'antd-mobile'
+
+const tabs = [
+  {name: '全部', title: '全部', show: true},
+  {name: '已购', title: '已购', show: true}
+]
+
+let RenderContent = props => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff'
+      }}
+    >
+      {props.children}
+    </div>
+  )
+}
 
 @withTabBarBasicLayout
 class XiaoceContainer extends Component {
@@ -13,19 +35,44 @@ class XiaoceContainer extends Component {
     })
   }
   render() {
-    const tabs = [{name: '全部', show: true}, {name: '已购', show: true}]
-
     return (
       <div>
-        <NavList
+        <Tabs
+          tabBarUnderlineStyle={{
+            backgroundColor: 'white',
+            border: '1.5px #fff solid'
+          }}
+          tabBarBackgroundColor="#007FFE"
+          tabBarTextStyle={{color: 'white'}}
+          tabBarActiveTextColor="white"
+          tabBarInactiveTextColor="white"
           tabs={tabs}
-          selectedIndex={this.state.selectedIndex}
-          onTabChange={this.handleTabChange}
-          page={2}
-        />
+          initialPage={0}
+          onChange={(tab, index) => {
+            console.log('onChange', index, tab)
+          }}
+          onTabClick={(tab, index) => {
+            console.log('onTabClick', index, tab)
+          }}
+        >
+          <RenderContent>Content of first tab</RenderContent>
+          {this.props.isLogin ? (
+            <RenderContent>Content of 2 tab</RenderContent>
+          ) : (
+            <UnAuth />
+          )}
+        </Tabs>
       </div>
     )
   }
 }
 
-export default XiaoceContainer
+const mapState = state => ({
+  isLogin: state.auth.isLogin
+})
+
+const mapDispatch = {}
+export default connect(
+  mapState,
+  mapDispatch
+)(XiaoceContainer)

@@ -58,7 +58,7 @@ export function get(url, {params = {}, ...res} = {}) {
     ...res
   })
     .then(checkStatus)
-    .then(({data}) => data)
+    .then((data) => data)
     .catch(err => ({err}))
 }
 
@@ -71,8 +71,8 @@ export function post(url, {data = {}, ...res} = {}, retry = false) {
     ...res
   })
     .then(checkStatus)
-    .then(({data}) => data)
-    .catch(err => ({err}))
+    .then((data) => data)
+    .catch((err) => ({err}))
 }
 
 export function put(url, {...res} = {}, retry = false) {
@@ -81,7 +81,7 @@ export function put(url, {...res} = {}, retry = false) {
     ...res
   })
     .then(checkStatus)
-    .then(({data}) => data)
+    .then((data) => data)
     .catch(err => ({err}))
 }
 
