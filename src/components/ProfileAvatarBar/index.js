@@ -4,11 +4,11 @@ import Avatar from '@components/Avatar'
 import './style.less'
 
 const ProfileAvatarBar = props => {
-  let {username, jobTitle, company} = props.userInfo
+  let {username, jobTitle, company} = props.user
   return (
     <div className="ProfileAvatarBar">
       <div className="avatar">
-        <Avatar userInfo={props.userInfo} />
+        <Avatar {...props.user} />
       </div>
       <div className="right">
         <div className="userInfo">

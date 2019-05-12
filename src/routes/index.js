@@ -60,6 +60,12 @@ const User = Loadable({
   loading: () => <TabLoading />
 })
 
+const JoinUs = Loadable({
+  loader: () => import('@containers/JoinUs'),
+  loading: () => <></>
+})
+
+
 const routes = [
   {path: '/timeline/:category', exact: true, component: Home},
   {path: '/auth', exact: true, component: Auth},
@@ -89,7 +95,8 @@ const routes = [
         component: User
       }
     ]
-  }
+  },
+  {path: '/joinus', component: JoinUs},
 ]
 
 export default routes

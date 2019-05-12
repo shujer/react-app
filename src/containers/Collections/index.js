@@ -4,10 +4,9 @@ import UnAuth from './UnAuth'
 import {connect} from 'react-redux'
 import {Tabs} from 'antd-mobile'
 
-
 const tabs = [
-  {name: '全部', title: '全部', show: true},
-  {name: '已购', title: '已购', show: true}
+  {name: '创建的', title: '创建的', show: true},
+  {name: '关注的', title: '关注的', show: true}
 ]
 
 let RenderContent = props => {

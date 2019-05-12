@@ -3,7 +3,7 @@ import {NavBar, Icon} from 'antd-mobile'
 import ShareActionSheet from '@components/ShareActionSheet'
 import './style.less'
 
-const withNavBarBasicLayout = title => {
+const withNavBarRightLayout = title => {
   return WrappedComponent => {
     return class extends Component {
       render() {
@@ -18,7 +18,7 @@ const withNavBarBasicLayout = title => {
                 <ShareActionSheet icon={<Icon key="1" type="ellipsis" />} />
               }
             >
-              <h1>{title}</h1>
+              <div>{title}</div>
             </NavBar>
             <div className="content">
               <WrappedComponent {...this.props} />
@@ -32,4 +32,4 @@ const withNavBarBasicLayout = title => {
     }
   }
 }
-export default withNavBarBasicLayout
+export default withNavBarRightLayout

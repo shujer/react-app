@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
+import {withRouter} from 'react-router-dom'
 import {NavBar, WhiteSpace} from 'antd-mobile'
 import ProfileAvatarBar from '@components/ProfileAvatarBar/UnAuth'
 import ProfileList from '@components/ProfileList/UnAuth'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
+
 
 @withTabBarBasicLayout
 class ActivityContainer extends Component {
@@ -20,4 +22,4 @@ class ActivityContainer extends Component {
   }
 }
 
-export default ActivityContainer
+export default withRouter(ActivityContainer)

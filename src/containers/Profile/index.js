@@ -1,39 +1,27 @@
 import React, {Component} from 'react'
 import {NavBar, WhiteSpace} from 'antd-mobile'
 import ProfileAvatarBar from '@components/ProfileAvatarBar'
-import ProfileList from '@components/ProfileList'
+import ProfileList from './ProfileList'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import UnAuth from './UnAuth'
-
 import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
-
-let userInfo = {
-  uid: '57726622165abd005492ee87',
-  username: '稀土掘金',
-  avatarLarge:
-    require('@assets/icons/profile/empty_avatar_user.png'),
-  selfDescription: '',
-  jobTitle: '攻城狮',
-  company: '稀土星球'
-}
 
 @withTabBarBasicLayout
 class ProfileContainer extends Component {
   render() {
-    let {currentState} = this.props
+    let {isLogin, userDetail} = this.props
     return (
       <>
-        {currentState === 'profile' ? (
+        {isLogin ? (
           <div>
             <NavBar mode="dark">我</NavBar>
             <WhiteSpace />
-            <ProfileAvatarBar userInfo={userInfo} />
+            <ProfileAvatarBar user={userDetail} />
             <WhiteSpace />
-            <ProfileList {...this.props}/>
+            <ProfileList user={userDetail} />
           </div>
         ) : (
-          <UnAuth {...this.props} />
+          <UnAuth />
         )}
       </>
     )
@@ -41,15 +29,15 @@ class ProfileContainer extends Component {
 }
 
 const mapState = state => ({
-  currentState: state.auth.currentState
+  isLogin: state.auth.isLogin,
+  userDetail: state.auth.userDetail
 })
 
 const mapDispatch = ({auth: {logout}}) => ({
   logout: () => logout()
 })
 
-export default connect(mapState, mapDispatch)(ProfileContainer)
-
-ProfileContainer.propTypes = {
-  currentState: PropTypes.string.isRequired
-}
+export default connect(
+  mapState,
+  mapDispatch
+)(ProfileContainer)

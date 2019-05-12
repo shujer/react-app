@@ -3,7 +3,8 @@ import {Link} from 'react-router-dom'
 import './style.less'
 import emptyAvatar from '@assets/icons/profile/empty_avatar_user.png'
 
-const Avatar = ({objectId, avatarLarge, username}) => {
+const Avatar = (props) => {
+  let {avatarLarge, objectId, username} = props
   if (!avatarLarge) {
     avatarLarge = emptyAvatar
   }

@@ -1,7 +1,7 @@
 import api from '@services/api'
 import Cookies from 'js-cookie'
 import {Toast} from 'antd-mobile'
-import {removeData, saveData} from '@utils/localstorageHelper'
+import {removeData, saveData, loadData} from '@utils/localstorageHelper'
 
 const machine = {
   states: {
@@ -44,15 +44,7 @@ export default {
       let currentState = stateTransformer(state.currentState, stepUp)
       return {
         ...state,
-        currentState: currentState,
-        isLogin: currentState === 'profile'
-      }
-    },
-    setAuthState(state, {currentState}) {
-      return {
-        ...state,
-        currentState: currentState,
-        isLogin: currentState === 'profile'
+        currentState
       }
     },
     setUser(state, {userDetail, userInfo}) {
@@ -61,10 +53,36 @@ export default {
         userDetail,
         userInfo
       }
+    },
+    setLoginState(state, {isLogin}) {
+      return {
+        ...state,
+        isLogin
+      }
     }
   },
 
   effects: dispatch => ({
+    async isAuth(playload, state) {
+      let userInfo = loadData('juejin_userInfo')
+      if (userInfo) {
+        try {
+          let data = await api.user.getUserInfo({
+            uid: userInfo.uid,
+            token: userInfo.token,
+            device_id: userInfo.clientId
+          })
+          if (data.err || data.data.s !== 1) throw data.err
+          dispatch.auth.setUser({userDetail: data.data.d, userInfo})
+          dispatch.auth.setLoginState({isLogin: true})
+          return true
+        } catch (err) {
+          // console.log(err)
+        }
+      }
+      dispatch.auth.setLoginState({isLogin: false})
+    },
+
     async loginByPhoneNumber(playload, state) {
       dispatch.auth.stateChanger({stepUp: 'submit'})
       try {
@@ -73,12 +91,13 @@ export default {
         let userInfo = {
           token: data.data.token,
           clientId: data.data.clientId,
-          uid: data.data.user.userId
+          uid: data.data.userId
         }
         let userDetail = data.data.user
         Cookies.set('userInfo', userInfo, {expires: 7, path: '/'})
         saveData('juejin_userInfo', userInfo)
         dispatch.auth.setUser({userDetail, userInfo})
+        dispatch.auth.setLoginState({isLogin: true})
         dispatch.auth.stateChanger({stepUp: 'success'})
       } catch (err) {
         dispatch.auth.stateChanger({stepUp: 'failure'})

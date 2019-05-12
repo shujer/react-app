@@ -33,7 +33,7 @@ export default {
     async getPostDetailAsync({id}, state) {
       await api.entry
         .getPostDetail(id)
-        .then(data => {
+        .then(({data}) => {
           if (data.s !== 1) throw Error
           let {d: {content}} = data
           dispatch.post.resetPostDetail({content})
@@ -46,7 +46,7 @@ export default {
       await dispatch.post.emptyPost()
       await api.entry
         .getPostDetail(id, 'entry')
-        .then(data => {
+        .then(({data}) => {
           if (data.s !== 1) throw Error
           let {d: postInfo} = data
           dispatch.post.resetPostInfo({postInfo})

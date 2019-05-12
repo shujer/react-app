@@ -1,4 +1,5 @@
 import React from 'react'
+import {withRouter} from 'react-router-dom'
 import {List, WhiteSpace} from 'antd-mobile'
 import NotificationIcon from '@assets/icons/profile/ic_notification.png'
 import UserLiked from '@assets/icons/profile/user_liked_pin.png'
@@ -51,4 +52,4 @@ const ProfileList = props => {
     </>
   )
 }
-export default ProfileList
+export default withRouter(ProfileList)
