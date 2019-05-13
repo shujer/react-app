@@ -1,6 +1,7 @@
 import {loadData, saveData} from '@utils/localstorageHelper'
-import api from '@services/api'
 import {Toast} from 'antd-mobile'
+import {getEntry} from '@services/entry'
+import {getCategories} from '@services/category'
 import {getUniqueList} from '@utils/listHelper'
 
 function getBeforeRank(list) {
@@ -39,25 +40,27 @@ export default {
   },
 
   effects: dispatch => ({
-    async queryTabList(playload, state) {
-      clearTimeout(this.timer)
+    queryTabList(playload, state) {
       let info = loadData('juejin_userInfo') || {}
-      await api.category
-        .getCategories(info)
-        .then(({data}) => {
-          if (data.s !== 1) throw Error
-          let tabList = data.d['categoryList'].map(val => {
-            return {
-              ...val,
-              show: true
-            }
+      return new Promise((resolve, reject) => {
+        getCategories(info)
+          .then(response => {
+            const data = response.data
+            let tabList = data.d['categoryList'].map(val => {
+              return {
+                ...val,
+                show: true
+              }
+            })
+            saveData('tabList', tabList)
+            dispatch.home.resetTabList({tabList})
+            resolve()
           })
-          saveData('tabList', tabList)
-          dispatch.home.resetTabList({tabList})
-        })
-        .catch(err => {
-          Toast.info('网络似乎出现了点问题', 1.5)
-        })
+          .catch(error => {
+            Toast.info('网络似乎出现了点问题', 1.5)
+            reject(error)
+          })
+      })
     },
 
     async getTabListAsync(playload, state) {
@@ -75,24 +78,24 @@ export default {
     },
 
     async getEntryByListAsync({more = false, category = 'all'}, state) {
-      clearTimeout(this.timer)
       category = category === '' ? 'all' : category
       let before = more ? getBeforeRank(state.home.entryList) : ''
-      await api.entry
-        .getEntry({category, before})
-        .then(({data}) => {
-          if (data.s !== 1) throw Error
-          let {
-            d: {entrylist}
-          } = data
-          let entryList = entrylist.filter(
-            val => val.originalUrl.split('https://juejin.im')[1]
-          )
-          dispatch.home.resetEntryList({entryList, more})
-        })
-        .catch(err => {
-          Toast.info('网络似乎出现了点问题', 1.5)
-        })
+      return new Promise((resolve, reject) => {
+        getEntry({category, before})
+          .then(response => {
+            let data = response.data
+            let {d: {entrylist}} = data
+            let entryList = entrylist.filter(
+              val => val.originalUrl.split('https://juejin.im')[1]
+            )
+            dispatch.home.resetEntryList({entryList, more})
+            resolve()
+          })
+          .catch(err => {
+            Toast.info('网络似乎出现了点问题', 1.5)
+            reject()
+          })
+      })
     }
   })
 }

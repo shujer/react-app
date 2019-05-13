@@ -1,4 +1,4 @@
-import {post, request} from '@utils/request'
+import {post, request, get} from '@utils/request'
 
 export async function register({phoneNumber, username, password}) {
   return post('/register', {
@@ -30,4 +30,19 @@ export async function loginByEmail({email, password}) {
 
 export async function logout() {
   return request('/juejin/auth',{method:'DELETE'})
+}
+
+/**
+ * 获取个人信息
+ */
+export async function getUserInfo({uid, token, device_id}) {
+  return get(`/user/getUserInfo`, {
+    params: {
+      src: 'mobile',
+      current_uid: uid,
+      uid,
+      token,
+      device_id
+    }
+  })
 }

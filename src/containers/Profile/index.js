@@ -3,7 +3,6 @@ import {NavBar, WhiteSpace} from 'antd-mobile'
 import ProfileAvatarBar from '@components/ProfileAvatarBar'
 import ProfileList from './ProfileList'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
-import UnAuth from './UnAuth'
 import {connect} from 'react-redux'
 
 @withTabBarBasicLayout
@@ -12,17 +11,13 @@ class ProfileContainer extends Component {
     let {isLogin, userDetail} = this.props
     return (
       <>
-        {isLogin ? (
-          <div>
-            <NavBar mode="dark">我</NavBar>
-            <WhiteSpace />
-            <ProfileAvatarBar user={userDetail} />
-            <WhiteSpace />
-            <ProfileList user={userDetail} />
-          </div>
-        ) : (
-          <UnAuth />
-        )}
+        <div>
+          <NavBar mode="dark">我</NavBar>
+          <WhiteSpace />
+          <ProfileAvatarBar user={userDetail} />
+          <WhiteSpace />
+          <ProfileList user={userDetail} />
+        </div>
       </>
     )
   }

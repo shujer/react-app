@@ -1,0 +1,36 @@
+.bookEntry {
+    // padding: .5rem .5rem;
+    background-color: white;
+    display: flex;
+    .left {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        width: 80%;
+
+        .bookCover {
+            width: 20%;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .detail {
+            width: 80%;
+            margin-left: .5rem;
+            word-break: break-all;
+            overflow: hidden;
+            white-space:normal;
+        }
+    }
+    .right {
+        width: 20%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+    }
+}

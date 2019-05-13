@@ -3,20 +3,6 @@ import {get} from '@utils/request'
 const COLS =
   'viewedEntriesCount|role|totalCollectionsCount|allowNotification|subscribedTagsCount|appliedEditorAt|email|followersCount|postedEntriesCount|latestCollectionUserNotification|commentedEntriesCount|weeklyEmail|collectedEntriesCount|postedPostsCount|username|latestLoginedInAt|totalHotIndex|blogAddress|selfDescription|latestCheckedNotificationAt|emailVerified|totalCommentsCount|installation|blacklist|weiboId|mobilePhoneNumber|apply|followeesCount|deviceType|editorType|jobTitle|company|latestVoteLikeUserNotification|authData|avatarLarge|mobilePhoneVerified|objectId|createdAt|updatedAt'
 /**
- * 获取个人信息
- */
-export async function getUserInfo({uid, token, device_id}) {
-  return get(`/user/getUserInfo`, {
-    params: {
-      src: 'mobile',
-      current_uid: uid,
-      uid,
-      token,
-      device_id
-    }
-  })
-}
-/**
  * 获取系统未读通知
  */
 export async function getUnreadSystemNotificationNum({uid, token}) {

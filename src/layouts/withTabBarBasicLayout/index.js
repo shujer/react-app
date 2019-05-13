@@ -35,11 +35,12 @@ const withTabBarBasicLayout = WrappedComponent => props => {
   return (
     <div style={{height: '100%'}}>
       <WrappedComponent {...props} />
+      <div style={{paddingBottom:"43px"}}></div>
       <div
         style={{
           position: 'fixed',
           width: '100%',
-          bottom: 0
+          bottom: 0,
         }}
         className="transition-item footer"
       >

@@ -19,6 +19,7 @@ const categoryIds = {
   article: '5562b428e4b00c57d9b94b9d'
 }
 
+//获取首页文章列表
 export async function getEntry({limit = 20, category = 'all', before = ''}) {
   let categoryId = categoryIds[category]
   return get(`/timeline/get_entry_by_rank`, {
@@ -31,6 +32,7 @@ export async function getEntry({limit = 20, category = 'all', before = ''}) {
   })
 }
 
+//获取首页文章列表
 export async function getEntryByQuery({
   after = '',
   category = 'all',
@@ -57,7 +59,7 @@ export async function getEntryByQuery({
     }
   })
 }
-
+//获取文章详情
 export async function getPostDetail(postId, type = 'entryView') {
   return get(`/post/getDetailData`, {
     params: {
@@ -67,7 +69,6 @@ export async function getPostDetail(postId, type = 'entryView') {
     }
   })
 }
-
 
 export async function getRelatedEntry(entryId) {
   return get(`/timeline/get_related_entry`, {
@@ -79,13 +80,31 @@ export async function getRelatedEntry(entryId) {
   })
 }
 
-
-
 export async function getRecommendEntryByTagIds(tagIds) {
   return get(`/post/getRecommendEntryByTagIds`, {
     params: {
       src: 'mobile',
       tagIds
+    }
+  })
+}
+
+// 获取小册
+export async function getXiaoce({
+  pageNum = 1,
+  alias = '',
+  client_id = '',
+  token = '',
+  uid = ''
+}) {
+  return get(`/xiaoce/getListByLastTime`, {
+    params: {
+      src: 'mobile',
+      pageNum,
+      alias,
+      uid,
+      client_id,
+      token
     }
   })
 }
