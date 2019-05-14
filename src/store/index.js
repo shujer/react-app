@@ -20,6 +20,3 @@ const store = init({
 
 export default store
 
-store.dispatch.auth.isAuth()
-store.dispatch.home.getTabListAsync()
-

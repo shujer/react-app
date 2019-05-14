@@ -14,7 +14,7 @@ let Entry = props => {
           <div>{book.author}</div>
           <small>
             {book.lastSectionCount}
-            {'小节·'}
+            {'小节 · '}
             {book.buyCount}
             {'人已购买'}
           </small>

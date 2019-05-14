@@ -1,102 +1,123 @@
 import React from 'react'
 import Loadable from 'react-loadable'
 import HomeLoading from '@components/Loading/Home'
-import PostLoading from '@components/Loading/Post'
-import TabLoading from '@components/Loading/Tab'
 import TabPicker from '@containers/TabPicker'
+import {Icon} from 'antd-mobile'
+
+let Loading = props => <div />
 
 const Home = Loadable({
   loader: () => import('@containers/Home'),
   loading: () => <HomeLoading />
 })
 
-const Post = Loadable({
-  loader: () => import('@containers/Post'),
-  loading: () => <PostLoading />
-})
-
-const Activity = Loadable({
-  loader: () => import('@containers/Activity'),
-  loading: () => <TabLoading />
-})
-
-const Explore = Loadable({
-  loader: () => import('@containers/Explore'),
-  loading: () => <TabLoading />
-})
-
-const Xiaoce = Loadable({
-  loader: () => import('@containers/Xiaoce'),
-  loading: () => <TabLoading />
-})
-
-const Profile = Loadable({
-  loader: () => import('@containers/Profile'),
-  loading: () => <TabLoading />
-})
-
-const Auth = Loadable({
-  loader: () => import('@containers/Auth'),
-  loading: () => <TabLoading />
-})
-
-const Register = Loadable({
-  loader: () => import('@containers/Register'),
-  loading: () => <TabLoading />
-})
-
-const Settings = Loadable({
-  loader: () => import('@containers/Settings'),
-  loading: () => <TabLoading />
-})
-
-const Feedback = Loadable({
-  loader: () => import('@containers/Feedback'),
-  loading: () => <TabLoading />
-})
-
-const User = Loadable({
-  loader: () => import('@containers/User'),
-  loading: () => <TabLoading />
-})
-
-const JoinUs = Loadable({
-  loader: () => import('@containers/JoinUs'),
-  loading: () => <></>
-})
-
-
 const routes = [
   {path: '/timeline/:category', exact: true, component: Home},
-  {path: '/auth', exact: true, component: Auth},
-  {path: '/register', exact: true, component: Register},
-  {path: '/settings', exact: true, component: Settings},
-  {path: '/post/:id', component: Post},
-  {path: '/recommended', component: TabPicker},
-  {path: '/activity', component: Activity},
-  {path: '/explore', component: Explore},
-  {path: '/feedback', component: Feedback},
-  {path: '/xiaoce', component: Xiaoce},
   {
-    path: '/collection/:id',
-    component: Xiaoce
+    path: '/auth',
+    exact: true,
+    component: Loadable({
+      loader: () => import('@containers/Auth'),
+      loading: () => <Loading />
+    })
   },
   {
-    path: '/profile',
-    component: Profile,
+    path: '/register',
+    exact: true,
+    component: Loadable({
+      loader: () => import('@containers/Register'),
+      loading: () => <Loading />
+    })
+  },
+  {
+    path: '/settings',
+    exact: true,
+    component: Loadable({
+      loader: () => import('@containers/Settings/guest'),
+      loading: () => <Loading />
+    }),
+    other: Loadable({
+      loader: () => import('@containers/Settings/auth'),
+      loading: () => <Loading />
+    }),
     requiredAuth: true
   },
   {
+    path: '/post/:id',
+    component: Loadable({
+      loader: () => import('@containers/Post'),
+      loading: () => <Loading />
+    })
+  },
+  {path: '/recommended', component: TabPicker},
+  {
+    path: '/activity',
+    component: Loadable({
+      loader: () => import('@containers/Activity'),
+      loading: () => <Loading />
+    })
+  },
+  {
+    path: '/explore',
+    component: Loadable({
+      loader: () => import('@containers/Explore'),
+      loading: () => <Loading />
+    })
+  },
+  {
+    path: '/feedback',
+    component: Loadable({
+      loader: () => import('@containers/Feedback'),
+      loading: () => <Loading />
+    })
+  },
+  {
+    path: '/xiaoce',
+    component: Loadable({
+      loader: () => import('@containers/Xiaoce/guest'),
+      loading: () => <Loading />
+    }),
+    requiredAuth: true,
+    other: Loadable({
+      loader: () => import('@containers/Xiaoce/auth'),
+      loading: () => <Loading />
+    })
+  },
+  {
+    path: '/profile',
+    component: Loadable({
+      loader: () => import('@containers/Profile/guest'),
+      loading: () => <Loading />
+    }),
+    requiredAuth: true,
+    other: Loadable({
+      loader: () => import('@containers/Profile/auth'),
+      loading: () => <Loading />
+    })
+  },
+  {
     path: '/user/:id',
-    component: User,
+    component: Loadable({
+      loader: () => import('@containers/User'),
+      loading: () => <Loading />
+    }),
     routes: [
       {
         path: '/user/:id/:tag',
-        component: User
+        component: Loadable({
+          loader: () => import('@containers/User'),
+          loading: () => <Loading />
+        })
       }
     ]
   },
-  {path: '/joinus', component: JoinUs},
+  {
+    path: '/joinus',
+    component: Loadable({
+      loader: () => import('@containers/JoinUs'),
+      loading: () => <Loading />
+    })
+  }
 ]
 
 export default routes

@@ -1,5 +1,5 @@
 import React from 'react'
-import Avatar from '@components/Avatar'
+import Avatar from '@components/Avatar/auth'
 import './style.less'
 
 const AvatarBar = ({user, appendContent, extraContent}) => {

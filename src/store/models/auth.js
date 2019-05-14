@@ -57,17 +57,18 @@ export default {
     setLoginState(state, {isLogin}) {
       return {
         ...state,
-        isLogin
+        isLogin,
+        currentState: isLogin ? 'profile' : 'login form'
       }
     }
   },
 
   effects: dispatch => ({
-    isAuth(playload, state) {
+    getAuth(playload, state) {
       let userInfo = loadData('juejin_userInfo')
       if (userInfo) {
-        return new Promise((resolve, reject) => {
-          api
+        return new Promise(async (resolve, reject) => {
+          await api
             .getUserInfo({
               uid: userInfo.uid,
               token: userInfo.token,
@@ -84,6 +85,8 @@ export default {
               reject(err)
             })
         })
+      } else {
+        dispatch.auth.setLoginState({isLogin: false})
       }
     },
 

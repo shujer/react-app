@@ -46,3 +46,19 @@ export async function getUserInfo({uid, token, device_id}) {
     }
   })
 }
+
+/**
+ * 发短信
+ */
+export async function sendSmsCodeToUser({mobilePhoneNumber, token='', device_id=''}) {
+  return post('/sms/sendSmsCodeToUser', {
+    data: {
+      src: 'mobile',
+      token,
+      device_id,
+      mobilePhoneNumber,
+      ticket: '8G8sZBN0BT91g-rAFIxsE_TlDqsBYqUCXHm9Jg-u2vaBUkYn51mXstBY-nnwafVDu7RgCwSBb9A*',
+      useType: 'signup'
+    }
+  })
+}

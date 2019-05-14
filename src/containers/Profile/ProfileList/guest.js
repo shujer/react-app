@@ -7,42 +7,42 @@ import UserCollectionset from '@assets/icons/profile/user_collectionset.png'
 import UserBuy from '@assets/icons/profile/user_buy.png'
 import UserDataRead from '@assets/icons/profile/ic_user_data_read.png'
 import TagIcon from '@assets/icons/profile/ic_dynamic_tag.png'
-import NightIcon from '@assets/icons/profile/ic_night.png'
 import FeedBackIcon from '@assets/icons/profile/icon_feed_back.png'
 import SettingsIcon from '@assets/icons/profile/settings.png'
 let Item = List.Item
 
 const ProfileList = props => {
-  let push = props.history.push
-  let {userLikes, collectionSetCount, purchasedBookletCount, viewedEntriesCount, subscribedTagsCount} = props.user
+  let handleUnlogin = () => {
+    props.history.push('/auth')
+  }
   return (
     <>
       <List>
-        <Item thumb={NotificationIcon} extra="" onClick={() => {}}>
+        <Item thumb={NotificationIcon} extra="" onClick={handleUnlogin}>
           消息中心
         </Item>
-        <Item thumb={UserLiked} extra={<small>{`${userLikes || 0}篇`}</small>} onClick={() => {}}>
+        <Item thumb={UserLiked} extra={`0篇`} onClick={handleUnlogin}>
           我赞过的
         </Item>
-        <Item thumb={UserCollectionset} extra={<small>{`${collectionSetCount||0}个`}</small>} onClick={() => {}}>
+        <Item thumb={UserCollectionset} extra={`0个`} onClick={handleUnlogin}>
           收藏集
         </Item>
-        <Item thumb={UserBuy} extra={<small>{`${purchasedBookletCount||0}本`}</small>} onClick={() => {}}>
+        <Item thumb={UserBuy} extra={`0本`} onClick={handleUnlogin}>
           已购小册
         </Item>
-        <Item thumb={UserDataRead} extra={<small>{`${viewedEntriesCount||0}篇`}</small>} onClick={() => {}}>
+        <Item thumb={UserDataRead} extra={`0篇`} onClick={handleUnlogin}>
           阅读过的文章
         </Item>
-        <Item thumb={TagIcon} extra={<small>{`${subscribedTagsCount||0}个`}</small>} onClick={() => {}}>
+        <Item thumb={TagIcon} extra={`0个`} onClick={handleUnlogin}>
           标签管理
         </Item>
       </List>
       <WhiteSpace />
       <List>
-        <Item thumb={NightIcon} onClick={() => {}}>
-          夜间模式
-        </Item>
-        <Item thumb={FeedBackIcon} onClick={() => {props.history.push('/feedback')}}>
+        <Item
+          thumb={FeedBackIcon}
+          onClick={() => props.history.push('/feedback')}
+        >
           意见反馈
         </Item>
         <Item thumb={SettingsIcon} onClick={() => {props.history.push('/settings')}}>

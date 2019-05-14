@@ -1,5 +1,8 @@
 import React from 'react'
 import {Route} from 'react-router-dom'
+import store from '@store'
+
+store.dispatch.auth.getAuth()
 
 export function RouteWithSubRoutes(route) {
   return (
@@ -7,7 +10,13 @@ export function RouteWithSubRoutes(route) {
       path={route.path}
       render={props => (
         // pass the sub-routes down to keep nesting
-        <route.component {...props} routes={route.routes} />
+        <>{
+          store.getState().auth.isLogin && route.requiredAuth ? (
+            <route.other {...props} routes={route.routes} />
+          ) : (
+            <route.component {...props} routes={route.routes} />
+          )
+        }</>
       )}
     />
   )

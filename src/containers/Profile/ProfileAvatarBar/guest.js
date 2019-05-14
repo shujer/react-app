@@ -1,22 +1,25 @@
 import React from 'react'
 import Arrow from '@assets/icons/profile/profile_arrow.png'
-import Avatar from '@components/Avatar'
+import Avatar from '@components/Avatar/guest'
+import {withRouter} from 'react-router-dom'
 import './style.less'
 
 const ProfileAvatarBar = props => {
-  let {username, jobTitle, company} = props.user
+  let handleLogin = () => {
+    props.history.push('/auth')
+  }
   return (
-    <div className="ProfileAvatarBar">
+    <div className="ProfileAvatarBar" onClick={handleLogin}>
       <div className="avatar">
-        <Avatar {...props.user} />
+        <Avatar userInfo={props.userInfo} />
       </div>
       <div className="right">
         <div className="userInfo">
-          <div className="userName">{username}</div>
+          <div className="userName">登录/注册</div>
           <div className="userJob">
-            {jobTitle}
+            {'添加职位'}
             {' @ '}
-            {company}
+            {'添加公司'}
           </div>
         </div>
         <div className="arrow">
@@ -26,4 +29,4 @@ const ProfileAvatarBar = props => {
     </div>
   )
 }
-export default ProfileAvatarBar
+export default withRouter(ProfileAvatarBar)

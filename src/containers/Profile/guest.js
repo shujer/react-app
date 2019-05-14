@@ -1,22 +1,22 @@
 import React, {Component} from 'react'
 import {NavBar, WhiteSpace} from 'antd-mobile'
-import ProfileAvatarBar from '@components/ProfileAvatarBar'
-import ProfileList from './ProfileList'
+import ProfileAvatarBar from './ProfileAvatarBar/guest'
+import ProfileList from './ProfileList/guest'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import {connect} from 'react-redux'
+
 
 @withTabBarBasicLayout
 class ProfileContainer extends Component {
   render() {
-    let {isLogin, userDetail} = this.props
     return (
       <>
         <div>
           <NavBar mode="dark">我</NavBar>
           <WhiteSpace />
-          <ProfileAvatarBar user={userDetail} />
+          <ProfileAvatarBar/>
           <WhiteSpace />
-          <ProfileList user={userDetail} />
+          <ProfileList/>
         </div>
       </>
     )

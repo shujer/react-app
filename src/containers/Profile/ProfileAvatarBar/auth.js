@@ -1,24 +1,21 @@
 import React from 'react'
 import Arrow from '@assets/icons/profile/profile_arrow.png'
-import Avatar from '@components/Avatar/UnAuth'
+import Avatar from '@components/Avatar/auth'
+import ShortStr from '@components/ShortStr'
 import './style.less'
 
 const ProfileAvatarBar = props => {
-  let handleLogin = () => {
-    props.history.push('/auth')
-  }
+  let {username, jobTitle, company} = props.user
   return (
-    <div className="ProfileAvatarBar" onClick={handleLogin}>
+    <div className="ProfileAvatarBar">
       <div className="avatar">
-        <Avatar userInfo={props.userInfo} />
+        <Avatar {...props.user} />
       </div>
       <div className="right">
         <div className="userInfo">
-          <div className="userName">登录/注册</div>
+          <div className="userName">{username}</div>
           <div className="userJob">
-            {'添加职位'}
-            {' @ '}
-            {'添加公司'}
+            <ShortStr str={jobTitle + ' @ ' + company}/>
           </div>
         </div>
         <div className="arrow">

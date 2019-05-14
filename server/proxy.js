@@ -14,7 +14,8 @@ const JujinApi = {
   like: 'https://user-like-wrapper-ms.juejin.im/v1/',
   follow: 'https://follow-api-ms.juejin.im/v1/',
   notification: 'https://user-notification-api-ms.juejin.im/v1/',
-  lccro: 'https://lccro-api-ms.juejin.im/v1/'
+  lccro: 'https://lccro-api-ms.juejin.im/v1/',
+  sms: 'https://user-storage-api-ms.juejin.im/v2/'
 }
 
 function getRealApi(url) {

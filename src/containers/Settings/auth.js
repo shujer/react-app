@@ -35,92 +35,88 @@ class Setting extends Component {
     let {isLogin} = this.props
     return (
       <>
-        {isLogin ? (
-          <>
-            <List>
-              <Item extra="未设置" onClick={this.handleNotComplete}>
-                {'邮箱'}
-              </Item>
-              <Item extra="未设置" onClick={this.handleNotComplete}>
-                {'手机号'}
-              </Item>
-              <Item onClick={this.handleNotComplete}>{'修改账户密码'}</Item>
-            </List>
-            <WhiteSpace />
-            <List>
-              <Item
-                onClick={this.handleNotComplete}
-                extra={
-                  <Switch
-                    disabled
-                    {...getFieldProps('weiboChecked', {
-                      initialValue: this.state.weiboChecked,
-                      valuePropName: 'checked',
-                      onChange: val => {
-                        console.log(val)
-                      }
-                    })}
-                    onClick={checked => {
-                      this.props.form.setFieldsValue({
-                        weiboChecked: checked
-                      })
-                    }}
-                  />
-                }
-              >
-                {'绑定新浪微博'}
-              </Item>
-              <Item
-                onClick={this.handleNotComplete}
-                extra={
-                  <Switch
-                    disabled
-                    {...getFieldProps('wechatChecked', {
-                      initialValue: this.state.wechatChecked,
-                      valuePropName: 'checked',
-                      onChange: val => {
-                        console.log(val)
-                      }
-                    })}
-                    onClick={checked => {
-                      this.props.form.setFieldsValue({
-                        wechatChecked: checked
-                      })
-                    }}
-                  />
-                }
-              >
-                {'绑定微信'}
-              </Item>
-              <Item
-                onClick={this.handleNotComplete}
-                extra={
-                  <Switch
-                    disabled
-                    {...getFieldProps('githubChecked', {
-                      initialValue: this.state.githubChecked,
-                      valuePropName: 'checked',
-                      onChange: val => {
-                        console.log(val)
-                      }
-                    })}
-                    onClick={checked => {
-                      this.props.form.setFieldsValue({
-                        githubChecked: checked
-                      })
-                    }}
-                  />
-                }
-              >
-                {'绑定Github'}
-              </Item>
-            </List>
-            <WhiteSpace />
-          </>
-        ) : null}
         <List>
-          <Item  onClick={this.handleNotComplete}>{'清除缓存'}</Item>
-          <Item  onClick={this.handleNotComplete}>{'推送消息设置'}</Item>
+          <Item extra="未设置" onClick={this.handleNotComplete}>
+            {'邮箱'}
+          </Item>
+          <Item extra="未设置" onClick={this.handleNotComplete}>
+            {'手机号'}
+          </Item>
+          <Item onClick={this.handleNotComplete}>{'修改账户密码'}</Item>
+        </List>
+        <WhiteSpace />
+        <List>
+          <Item
+            onClick={this.handleNotComplete}
+            extra={
+              <Switch
+                disabled
+                {...getFieldProps('weiboChecked', {
+                  initialValue: this.state.weiboChecked,
+                  valuePropName: 'checked',
+                  onChange: val => {
+                    console.log(val)
+                  }
+                })}
+                onClick={checked => {
+                  this.props.form.setFieldsValue({
+                    weiboChecked: checked
+                  })
+                }}
+              />
+            }
+          >
+            {'绑定新浪微博'}
+          </Item>
+          <Item
+            onClick={this.handleNotComplete}
+            extra={
+              <Switch
+                disabled
+                {...getFieldProps('wechatChecked', {
+                  initialValue: this.state.wechatChecked,
+                  valuePropName: 'checked',
+                  onChange: val => {
+                    console.log(val)
+                  }
+                })}
+                onClick={checked => {
+                  this.props.form.setFieldsValue({
+                    wechatChecked: checked
+                  })
+                }}
+              />
+            }
+          >
+            {'绑定微信'}
+          </Item>
+          <Item
+            onClick={this.handleNotComplete}
+            extra={
+              <Switch
+                disabled
+                {...getFieldProps('githubChecked', {
+                  initialValue: this.state.githubChecked,
+                  valuePropName: 'checked',
+                  onChange: val => {
+                    console.log(val)
+                  }
+                })}
+                onClick={checked => {
+                  this.props.form.setFieldsValue({
+                    githubChecked: checked
+                  })
+                }}
+              />
+            }
+          >
+            {'绑定Github'}
+          </Item>
+        </List>
+        <WhiteSpace />
+        <List>
+          <Item onClick={this.handleNotComplete}>{'清除缓存'}</Item>
+          <Item onClick={this.handleNotComplete}>{'推送消息设置'}</Item>
           <Item
             onClick={this.handleNotComplete}
             extra={

@@ -4,6 +4,7 @@ import './style.less'
 
 const withTabBarBasicLayout = WrappedComponent => props => {
   let pathname = props.match.path.split('/')[1]
+  
   let items = [
     {
       title: 'timeline',
