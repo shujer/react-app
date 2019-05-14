@@ -2,7 +2,7 @@ import {get, put} from '@utils/request'
 
 export async function getCategories(info={}) {
   let {clientId, token, uid} = info
-  return get('/tag/categories', {
+  return get('/api/tag/categories', {
     headers: {
       'X-Juejin-Client': clientId || '',
       'X-Juejin-Src': 'mobile',

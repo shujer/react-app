@@ -17,6 +17,7 @@ class HomeContainer extends Component {
 
   componentWillMount() {
     this._onRefreshDown()
+    this.props.getTabListAsync()
   }
 
   componentWillReceiveProps(nextProps) {

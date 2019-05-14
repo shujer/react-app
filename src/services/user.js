@@ -6,7 +6,7 @@ const COLS =
  * 获取系统未读通知
  */
 export async function getUnreadSystemNotificationNum({uid, token}) {
-  return get(`/notification/getUnreadSystemNotificationNum`, {
+  return get(`/api/notification/getUnreadSystemNotificationNum`, {
     params: {
       uid,
       token,
@@ -17,12 +17,19 @@ export async function getUnreadSystemNotificationNum({uid, token}) {
 /**
  * 获取其他用户的信息
  */
-export async function getMultiUser({uid, token, ids, cols = COLS}) {
-  return get(`/api/lccro/get_multi_user`, {
+export async function getMultiUser({
+  ids,
+  uid = '',
+  device_id = '',
+  token = '',
+  cols = COLS
+}) {
+  return get(`/api/multi_user`, {
     params: {
       uid,
+      device_id,
       token,
-      src: 'mobile',
+      src: 'web',
       ids,
       cols
     }

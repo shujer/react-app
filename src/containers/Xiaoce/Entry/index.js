@@ -1,5 +1,16 @@
 import React from 'react'
+import Level from '@components/Level'
 import './style.less'
+
+let Price = ({book}) => {
+  let {price} = book
+  let content = price ?  '¥'+price : '免费'
+  return (
+    <div className="price">
+      <div>{content}</div>
+    </div>
+  )
+}
 
 let Entry = props => {
   let {book} = props
@@ -11,9 +22,9 @@ let Entry = props => {
         </div>
         <div className="detail">
           <h4>{book.title}</h4>
-          <div>{book.author}</div>
+          <div className="author">{book.userData.username}{' '}<Level level={book.userData.level}/></div>
           <small>
-            {book.lastSectionCount}
+            {book.section.length}
             {'小节 · '}
             {book.buyCount}
             {'人已购买'}
@@ -22,7 +33,7 @@ let Entry = props => {
       </div>
       <div className="right" >
       {
-          book.isBuy ? '已购':'未购'
+        book.isBuy ? '已购':<Price book={book}/>
       }
       </div>
     </div>

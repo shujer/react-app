@@ -9,7 +9,8 @@
         width: 80%;
 
         .bookCover {
-            width: 20%;
+            width: 16vw;
+            max-height: 22.4vw;
 
             img {
                 width: 100%;
@@ -23,6 +24,9 @@
             word-break: break-all;
             overflow: hidden;
             white-space:normal;
+            .author {
+                font-size: 12px;
+            }
         }
     }
     .right {
@@ -31,6 +35,18 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 14px;
+        font-size: 12px;
+        font-weight: bold;
+        color: gray;
+        .price {
+            background-color: #F0F7FF;
+            color: #007FFE;
+            width: 14vw;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+        }
     }
 }

@@ -52,7 +52,7 @@ class Auth extends Component {
   render() {
     const {getFieldProps} = this.props.form
     return (
-      <div className="registerContainer">
+      <div className="registerContainer wrap">
         <div className="form">
           <InputItem
             {...getFieldProps('phoneNumber', {

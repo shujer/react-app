@@ -22,7 +22,7 @@ const categoryIds = {
 //获取首页文章列表
 export async function getEntry({limit = 20, category = 'all', before = ''}) {
   let categoryId = categoryIds[category]
-  return get(`/timeline/get_entry_by_rank`, {
+  return get(`/api/timeline/get_entry_by_rank`, {
     params: {
       src: 'mobile',
       limit,
@@ -41,7 +41,7 @@ export async function getEntryByQuery({
   let categoryId = categoryIds[category]
   let id =
     categoryId !== 'all' && categoryId !== 'following' ? 'category' : category
-  return post(`/webapi/query`, {
+  return post(`/api/webapi/query`, {
     data: {
       operationName: '',
       query: '',
@@ -61,7 +61,7 @@ export async function getEntryByQuery({
 }
 //获取文章详情
 export async function getPostDetail(postId, type = 'entryView') {
-  return get(`/post/getDetailData`, {
+  return get(`/api/post/getDetailData`, {
     params: {
       src: 'mobile',
       postId,

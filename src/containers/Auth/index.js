@@ -2,9 +2,8 @@ import React, {Component} from 'react'
 import {ActivityIndicator} from 'antd-mobile'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
-import LoginForm from '@components/LoginForm'
-
-import ThirdPartyLogin from '@components/ThirdPartyLogin'
+import LoginForm from './LoginForm'
+import ThirdPartyLogin from './ThirdPartyLogin'
 import './style.less'
 import withNavBarBasicLayout from '@layouts/withNavBarBasicLayout'
 
@@ -36,11 +35,11 @@ class Auth extends Component {
   }
 
   render() {
-    let {currentState} = this.props
+    let {currentState, isLogin} = this.props
     return (
       <>
         {(() => {
-          switch (currentState) {
+          switch (currentState || isLogin) {
             case 'loading':
               return (
                 <div className="authContainer">
@@ -76,7 +75,8 @@ class Auth extends Component {
 }
 
 const mapState = state => ({
-  currentState: state.auth.currentState
+  currentState: state.auth.currentState,
+  isLogin: state.auth.isLogin
 })
 
 const mapDispatch = ({

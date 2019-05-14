@@ -78,7 +78,7 @@ export default {
               let data = response.data
               dispatch.auth.setUser({userDetail: data.d, userInfo})
               dispatch.auth.setLoginState({isLogin: true})
-              resolve()
+              resolve(true)
             })
             .catch(err => {
               dispatch.auth.setLoginState({isLogin: false})
@@ -103,11 +103,12 @@ export default {
               uid: data.userId
             }
             let userDetail = data.user
-            Cookies.set('userInfo', userInfo, {expires: 7, path: '/'})
+            Cookies.set('userInfo', userInfo, { expires: 7, path: '/' })
             saveData('juejin_userInfo', userInfo)
             dispatch.auth.setUser({userDetail, userInfo})
             dispatch.auth.setLoginState({isLogin: true})
             dispatch.auth.stateChanger({stepUp: 'success'})
+            window.location.reload()
             resolve()
           })
           .catch(err => {
@@ -135,12 +136,13 @@ export default {
               uid: data.userId
             }
             let userDetail = data.user
-            Cookies.set('userInfo', userInfo, {expires: 7, path: '/'})
+            Cookies.set('userInfo', userInfo, { expires: 7, path: '/' })
             saveData('juejin_userInfo', userInfo)
             dispatch.auth.setUser({userDetail, userInfo})
             dispatch.auth.setLoginState({isLogin: true})
             dispatch.auth.stateChanger({stepUp: 'success'})
-            resolve()
+            window.location.reload()
+            resolve(true)
           })
           .catch(err => {
             dispatch.auth.stateChanger({stepUp: 'failure'})
@@ -159,6 +161,8 @@ export default {
       dispatch.auth.stateChanger({stepUp: 'logout'})
       removeData('juejin_userInfo')
       Cookies.remove('userInfo')
+      dispatch.auth.setLoginState({isLogin: false})
+      window.location.reload()
     }
   })
 }

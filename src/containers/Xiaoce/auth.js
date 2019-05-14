@@ -27,7 +27,7 @@ class XiaoceContainer extends Component {
     let {books} = this.props
     return (
       <div>
-        <Tabs tabs={tabs}>
+        <Tabs tabs={tabs} mode="dark">
           <List>
             {books.map((book, index) => (
               <List.Item key={index}>

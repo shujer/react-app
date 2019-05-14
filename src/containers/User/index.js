@@ -1,39 +1,40 @@
 import React, {Component} from 'react'
-import {Tabs, WhiteSpace, NavBar, Icon} from 'antd-mobile'
-import {StickyContainer, Sticky} from 'react-sticky'
+import {WhiteSpace, NavBar, Icon} from 'antd-mobile'
+import Tabs from '@components/Tabs'
 import ShareActionSheet from '@components/ShareActionSheet'
-import withNavBarRightLayout from '@layouts/withNavBarRightLayout'
+import {connect} from 'react-redux'
 import ShareIcon from '@assets/icons/profile/ic_share_white.png'
 import DataIcon from '@assets/icons/profile/icon_profile_data.png'
 
-function renderTabBar(props) {
-  return (
-    <Sticky>
-      {({style}) => (
-        <div style={{...style, zIndex: 1}}>
-          <Tabs.DefaultTabBar {...props} />
-        </div>
-      )}
-    </Sticky>
-  )
-}
 const tabs = [
-  {tag: 'activities',title:'动态'},
-  {tag: 'posts',title:'专栏'},
-  {tag: 'pins',title:'沸点'},
-  {tag: 'shares',title:'分享'},
-  {tag: 'more',title:'更多'}
+  {tag: 'activities', title: '动态'},
+  {tag: 'posts', title: '专栏'},
+  {tag: 'pins', title: '沸点'},
+  {tag: 'shares', title: '分享'},
+  {tag: 'more', title: '更多'}
 ]
 
-@withNavBarRightLayout('个人主页')
 class User extends Component {
-  componentDidMount() {}
+  state = {
+    user: {},
+    id: ''
+  }
+
+  componentWillMount() {
+    let {
+      match: {
+        params: {id}
+      }
+    } = this.props
+    this.props.getUserInfo({ids: id})
+  }
+
   goBack = () => {
     this.props.history.goBack('')
   }
   render() {
     return (
-      <div>
+      <div className="wrap">
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
@@ -56,21 +57,29 @@ class User extends Component {
         >
           {'个人主页'}
         </NavBar>
-        <StickyContainer>
-          <Tabs tabs={tabs} initalPage={'t2'} renderTabBar={renderTabBar}>
-            {tabs.map((val, index) => {
-              return (
-                <div className="tabItem" key={index}>
-                  Content of {val.tag}
-                </div>
-              )
-            })}
-          </Tabs>
-        </StickyContainer>
-        <WhiteSpace />
+        <Tabs tabs={tabs} mode="light">
+          {tabs.map((val, index) => {
+            return (
+              <div className="tabItem" key={index}>
+                Content of {val.tag}
+              </div>
+            )
+          })}
+        </Tabs>
       </div>
     )
   }
 }
 
-export default User
+const mapState = state => ({
+  user: state.user.user
+})
+
+const mapDispatch = ({user: {getUserInfo}}) => ({
+  getUserInfo: playload => getUserInfo(playload)
+})
+
+export default connect(
+  mapState,
+  mapDispatch
+)(User)

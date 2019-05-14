@@ -2,7 +2,7 @@ import React from 'react'
 import {Route} from 'react-router-dom'
 import store from '@store'
 
-store.dispatch.auth.getAuth()
+let isLogin = store.dispatch.auth.getAuth().then(data => data).catch(err=>{})
 
 export function RouteWithSubRoutes(route) {
   return (
@@ -11,10 +11,10 @@ export function RouteWithSubRoutes(route) {
       render={props => (
         // pass the sub-routes down to keep nesting
         <>{
-          store.getState().auth.isLogin && route.requiredAuth ? (
-            <route.other {...props} routes={route.routes} />
+          isLogin && route.requiredAuth ? (
+            <route.authComponent {...props} routes={route.routes} />
           ) : (
-            <route.component {...props} routes={route.routes} />
+            <route.guestComponent {...props} routes={route.routes} />
           )
         }</>
       )}

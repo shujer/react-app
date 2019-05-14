@@ -8,15 +8,11 @@ const app = new Koa()
 const server = require('http').Server(app.callback())
 const io = require('socket.io')(server)
 
-// app.use(
-//   cors({
-//     'Access-Control-Allow-Credentials': true
-//   })
-// )
+app.use(router.routes()).use(router.allowedMethods())
 
 app.use(proxy('/api', proxyTable))
 
-app.use(router.routes()).use(router.allowedMethods())
+
 
 io.set('origins', '*:*')
 

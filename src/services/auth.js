@@ -1,7 +1,7 @@
 import {post, request, get} from '@utils/request'
 
 export async function register({phoneNumber, username, password}) {
-  return post('/register', {
+  return post('/api/register', {
     data: {
       phoneNumber,
       username,
@@ -11,7 +11,7 @@ export async function register({phoneNumber, username, password}) {
 }
 
 export async function loginByPhoneNumber({phoneNumber, password}) {
-  return post('/juejin/auth/type/phoneNumber', {
+  return post('/api/juejin/auth/type/phoneNumber', {
     data: {
       phoneNumber,
       password
@@ -20,7 +20,7 @@ export async function loginByPhoneNumber({phoneNumber, password}) {
 }
 
 export async function loginByEmail({email, password}) {
-  return post('/juejin/auth/type/email', {
+  return post('/api/juejin/auth/type/email', {
     data: {
       email,
       password
@@ -29,14 +29,14 @@ export async function loginByEmail({email, password}) {
 }
 
 export async function logout() {
-  return request('/juejin/auth',{method:'DELETE'})
+  return request('/api/juejin/auth',{method:'DELETE'})
 }
 
 /**
  * 获取个人信息
  */
 export async function getUserInfo({uid, token, device_id}) {
-  return get(`/user/getUserInfo`, {
+  return get(`/api/user/getUserInfo`, {
     params: {
       src: 'mobile',
       current_uid: uid,
@@ -51,7 +51,7 @@ export async function getUserInfo({uid, token, device_id}) {
  * 发短信
  */
 export async function sendSmsCodeToUser({mobilePhoneNumber, token='', device_id=''}) {
-  return post('/sms/sendSmsCodeToUser', {
+  return post('/api/sms/sendSmsCodeToUser', {
     data: {
       src: 'mobile',
       token,

@@ -54,11 +54,11 @@ export default {
             })
             saveData('tabList', tabList)
             dispatch.home.resetTabList({tabList})
-            resolve()
+            resolve(tabList)
           })
           .catch(error => {
             Toast.info('网络似乎出现了点问题', 1.5)
-            reject(error)
+            // reject(error)
           })
       })
     },
@@ -89,11 +89,11 @@ export default {
               val => val.originalUrl.split('https://juejin.im')[1]
             )
             dispatch.home.resetEntryList({entryList, more})
-            resolve()
+            resolve(entrylist)
           })
           .catch(err => {
             Toast.info('网络似乎出现了点问题', 1.5)
-            reject()
+            // reject()
           })
       })
     }
