@@ -1,14 +1,38 @@
 const Router = require('koa-router')
-const router = new Router({prefix: '/api'})
 const parse = require('co-body')
 const Config = require('./config')
 var crypto = require('crypto')
 var querystring = require('querystring')
 var fetch = require('node-fetch')
 var md5 = crypto.createHash('md5')
+const router = new Router({prefix: '/api'})
 
 router.get('/404', async (ctx, next) => {
   ctx.response.body = '<h1>404 Not Found</h1>'
+})
+
+/**
+ * 解决CORS限制问题
+ */
+router.get('/multi_user', async (ctx, next) => {
+  let params = await ctx.request.query
+  let query = querystring.stringify(params)
+  try {
+    let body
+    await fetch(`https://lccro-api-ms.juejin.im/v1/get_multi_user?${query}`, {
+      header: {
+        Origin: 'https://juejin.im',
+        Referer: 'https://juejin.im/'
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        body = json
+      })
+      ctx.response.body = body
+  } catch (err) {
+    ctx.response.body = {s: 1, m: '验证码发送失败'}
+  }
 })
 
 router.get('/oauth/github/authorize', async (ctx, next) => {
@@ -21,7 +45,6 @@ router.get('/oauth/github/authorize', async (ctx, next) => {
   let url = `${Config.GITHUB.authorize_url}?${query}`
   ctx.body = {url}
 })
-
 
 router.get('/oauth/github/callback', async (ctx, next) => {
   let params = {
@@ -43,11 +66,6 @@ router.get('/oauth/github/callback', async (ctx, next) => {
       return arg[1]
     })
     .then(async token => {
-      // await fetch(`${Config.GITHUB.api_url}?access_token=${token}`)
-      //   .then(res => res.json())
-      //   .then(res => {
-      //     console.log(res)
-      //   })
       ctx.redirect(`/auth?access_token=${token}&status=true`)
     })
     .catch(err => {
