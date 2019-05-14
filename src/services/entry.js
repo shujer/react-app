@@ -71,7 +71,7 @@ export async function getPostDetail(postId, type = 'entryView') {
 }
 
 export async function getRelatedEntry(entryId) {
-  return get(`/timeline/get_related_entry`, {
+  return get(`/api/timeline/get_related_entry`, {
     params: {
       src: 'mobile',
       limit: 5,
@@ -81,7 +81,7 @@ export async function getRelatedEntry(entryId) {
 }
 
 export async function getRecommendEntryByTagIds(tagIds) {
-  return get(`/post/getRecommendEntryByTagIds`, {
+  return get(`/api/post/getRecommendEntryByTagIds`, {
     params: {
       src: 'mobile',
       tagIds
@@ -97,7 +97,7 @@ export async function getXiaoce({
   token = '',
   uid = ''
 }) {
-  return get(`/xiaoce/getListByLastTime`, {
+  return get(`/api/xiaoce/getListByLastTime`, {
     params: {
       src: 'mobile',
       pageNum,

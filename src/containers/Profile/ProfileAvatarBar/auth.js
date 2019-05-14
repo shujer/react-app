@@ -9,7 +9,7 @@ const ProfileAvatarBar = props => {
   let {username, jobTitle, company,objectId} = props.user
   return (
     <div className="ProfileAvatarBar" onClick={() => {props.history.push(`/user/${objectId}`)}}>
-      <div className="avatar">
+      <div className="avatarContainer">
         <Avatar {...props.user} />
       </div>
       <div className="right">

@@ -5,7 +5,14 @@ export default {
     name: 'user',
     user: {}
   },
-  reducers: {},
+  reducers: {
+    setUser(state, {user}) {
+      return {
+        ...state,
+        user
+      }
+    }
+  },
   effects: dispatch => ({
     getUserInfo({ids}, state) {
       return new Promise((resolve, reject) => {
@@ -14,11 +21,14 @@ export default {
             ids: ids,
             token: state.auth.userInfo.token,
             uid: state.auth.userInfo.uid,
-            device_id:state.auth.userInfo.clientId
+            device_id: state.auth.userInfo.clientId
           })
           .then(response => {
-            console.log(response)
-            resolve()
+            let data = response.data
+            let user = data.d[ids]
+            dispatch.user.setUser({user})
+            console.log(user)
+            resolve(user)
           })
           .catch(err => {})
       })

@@ -1,7 +1,31 @@
-.tabItem {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 640px;
-    background-color: #fff
+.RightNavBar {
+    width:100%;
+    .am-navbar-title {
+        flex-grow: 1;
+        justify-content: space-between;
+    }
+    .am-navbar-left {
+        flex-grow: 0;
+    }
+    .barTitle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        .author {
+            font-weight: 800;
+            margin-right: 5px;
+        }
+    }
+}
+
+.more, .am-list {
+    width: 100%;
+    .am-list-content {
+        width: 100%;
+        display: inline-flex;
+        justify-content: space-between;
+    }
+    img {
+        margin-right: 1rem;
+    }
 }

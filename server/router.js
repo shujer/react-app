@@ -29,9 +29,9 @@ router.get('/multi_user', async (ctx, next) => {
       .then(json => {
         body = json
       })
-      ctx.response.body = body
+    ctx.response.body = body
   } catch (err) {
-    ctx.response.body = {s: 1, m: '验证码发送失败'}
+    ctx.response.body = {s: 4, m: '请求失败', d: null}
   }
 })
 

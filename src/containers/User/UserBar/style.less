@@ -1,0 +1,44 @@
+.userBar {
+    background-color: #fff;
+
+    .cover,
+    img {
+        width: 100%;
+    }
+
+    .bar,
+    .avatarImg,
+    .description,
+    .follow {
+        margin-left: 4vw;
+    }
+
+    .avatarImg {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 16vw;
+        height: 16vw;
+        border-radius: 50%;
+        border: .2rem solid white;
+
+        transform: translate3d(0, -50%, 0);
+        overflow: hidden;
+
+        img {
+            width: 100%;
+        }
+    }
+    .follow {
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+        &>div {
+            margin: 5px 5px 5px 0;
+            div {
+                font-weight: 600;
+            }
+        }
+    }
+}

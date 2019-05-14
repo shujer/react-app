@@ -22,7 +22,7 @@ let Entry = props => {
         </div>
         <div className="detail">
           <h4>{book.title}</h4>
-          <div className="author">{book.userData.username}{' '}<Level level={book.userData.level}/></div>
+          <div className="author">{book.userData.username}{' '}<Level level={book.userData.level} height="12px"/></div>
           <small>
             {book.section.length}
             {'小节 · '}
