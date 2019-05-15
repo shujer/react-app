@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import RefreshLoading from '@components/RefreshLoading'
+import PropTypes from 'prop-types'
 
 /**
  * nesting: 是否嵌套在其他拉动组件中
@@ -11,16 +12,21 @@ class PullUpRefresh extends Component {
     this.state = {
       startPos: 0,
       refreshing: false,
-      nesting: this.props.nesting || false
+      useBodyScroll: this.props.useBodyScroll || false
     }
   }
 
   componentDidMount() {
-    let parentNode = ReactDOM.findDOMNode(this.scrollContent).parentNode
-    parentNode = this.state.nesting ? parentNode.parentNode : parentNode
+    let scrollContainer
+    if (this.state.useBodyScroll) {
+      var isCSS1Compat = (document.compatMode || '') === 'CSS1Compat'
+      scrollContainer = isCSS1Compat ? document.documentElement : document.body
+    } else {
+      scrollContainer = ReactDOM.findDOMNode(this.scrollContent).parentNode
+    }
     this.setState({
-      parentNode: parentNode,
-      hei: parentNode.clientHeight
+      scrollContainer: scrollContainer,
+      clientHeight: scrollContainer.clientHeight
     })
   }
 
@@ -33,9 +39,9 @@ class PullUpRefresh extends Component {
   handleTouchMove = e => {
     if (this.state.refreshing === false) {
       let offset =
-        this.state.parentNode.scrollHeight -
-        this.state.parentNode.scrollTop -
-        this.state.hei
+        this.state.scrollContainer.scrollHeight -
+        this.state.scrollContainer.scrollTop -
+        this.state.clientHeight
       if (offset <= 0) {
         this.setState({
           refreshing: true
@@ -48,6 +54,14 @@ class PullUpRefresh extends Component {
     if (this.state.refreshing) {
       this.props.onRefresh()
     }
+    clearTimeout(this.timer)
+    this.timer = setTimeout(() => {
+      if (this.state.refreshing) {
+        this.setState({
+          refreshing: false
+        })
+      }
+    }, 8000)
   }
 
   render() {
@@ -68,3 +82,7 @@ class PullUpRefresh extends Component {
 }
 
 export default PullUpRefresh
+
+PullUpRefresh.propTypes = {
+  onRefresh: PropTypes.func.isRequired
+}

@@ -5,13 +5,10 @@ import emptyAvatar from '@assets/icons/profile/empty_avatar_user.png'
 
 const Avatar = (props) => {
   let {avatarLarge, objectId, username} = props
-  if (!avatarLarge) {
-    avatarLarge = emptyAvatar
-  }
   return (
     <Link to={`/user/${objectId}`} className="avatar">
       <img
-        src={avatarLarge}
+        src={avatarLarge || emptyAvatar}
         alt="userAvatar"
         title={`/user/${username}`}
       />

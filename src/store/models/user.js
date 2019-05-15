@@ -11,10 +11,17 @@ export default {
         ...state,
         user
       }
+    },
+    emptyUser(state, playload) {
+      return {
+        ...state,
+        user:{}
+      }
     }
   },
   effects: dispatch => ({
-    getUserInfo({ids}, state) {
+    async getUserInfo({ids}, state) {
+      await dispatch.user.emptyUser()
       return new Promise((resolve, reject) => {
         api
           .getMultiUser({

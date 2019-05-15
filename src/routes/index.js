@@ -48,9 +48,16 @@ const routes = [
       loading: () => <Loading />
     })
   },
+  {
+    path: '/pin/:id',
+    guestComponent: Loadable({
+      loader: () => import('@containers/Pin'),
+      loading: () => <Loading />
+    })
+  },
   {path: '/recommended', guestComponent: TabPicker},
   {
-    path: '/activity',
+    path: '/activity/:category/:id?',//id参数可选
     guestComponent: Loadable({
       loader: () => import('@containers/Activity'),
       loading: () => <Loading />

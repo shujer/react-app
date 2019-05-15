@@ -1,57 +1,17 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-import EntryInfo from '@components/EntryInfo'
-import Tags from '@components/ShortStr'
-import AvatarBar from '@components/AvatarBar'
-import UserLink from '@components/AvatarBar/UserLink'
-import './style.less'
+import {withRouter} from 'react-router-dom'
+import PostItem from './PostItem'
+import PinItem from './PinItem'
 
-const PostItem = ({item, ...props}) => {
-  let {
-    title,
-    content,
-    commentsCount,
-    likeCount,
-    originalUrl,
-    screenshot,
-    tags,
-    user
-  } = item
-  let extraContent = (
-    <Tags
-      str={tags
-        .slice(0, 2)
-        .map(val => val.title)
-        .join(' / ')}
-      len={15}
-    />
-  )
-  let url = originalUrl.split('https://juejin.im')[1]
-  return (
-    <div className="myEntry">
-      <div className="entryAvatar">
-        <AvatarBar
-          user={user}
-          appendContent={[<UserLink {...user} />]}
-          extraContent={extraContent}
-        />
-      </div>
-      <Link className="entryBox" to={url || '#'}>
-        <div className="text">
-          <h3 className="title">{title}</h3>
-          <small className="content">{content}</small>
-        </div>
-        {screenshot ? (
-          <div className="screenshot">
-            <img src={screenshot} alt="screenshot" />
-          </div>
-        ) : null}
-      </Link>
-      <div className="info">
-        <EntryInfo likeCount={likeCount} commentsCount={commentsCount} />
-      </div>
-    </div>
-  )
+const Entry = ({item, type, ...props}) => {
+  switch (type) {
+    case 'pin':
+      return <PinItem item={item} />
+    case 'post':
+      return <PostItem item={item} />
+    default:
+      return <PostItem item={item} />
+  }
 }
 
-export default PostItem
+export default withRouter(Entry)

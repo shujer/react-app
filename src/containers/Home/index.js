@@ -10,7 +10,6 @@ import './style.less'
 @withTabBarBasicLayout
 class HomeContainer extends Component {
   state = {
-    selectedTitle: this.props.match.params.category,
     downRefreshing: true,
     upRefreshing: false
   }
@@ -25,7 +24,6 @@ class HomeContainer extends Component {
     if (category !== this.props.match.params.category) {
       this.setState(
         {
-          selectedTitle: category,
           downRefreshing: true
         },
         () => {
@@ -40,7 +38,7 @@ class HomeContainer extends Component {
     this.props
       .getEntryByListAsync({
         more: true,
-        category: this.state.selectedTitle
+        category: this.props.match.params.category
       })
       .finally(() => {
         this.setState({
@@ -53,7 +51,7 @@ class HomeContainer extends Component {
     this.props
       .getEntryByListAsync({
         more: false,
-        category: this.state.selectedTitle
+        category: this.props.match.params.category
       })
       .finally(() => {
         this.setState({
@@ -74,7 +72,12 @@ class HomeContainer extends Component {
       {name: '首页', title: 'all', show: true},
       {name: '关注', title: 'following', show: true},
       ...tabList
-    ].filter(val => val.show === true)
+    ]
+      .filter(val => val.show === true)
+      .map(val => {
+        val.link = `/timeline/${val.title}`
+        return val
+      })
     return (
       <div className="wrap">
         <NavList
@@ -82,7 +85,6 @@ class HomeContainer extends Component {
           tabs={tabs}
           onCaretClick={this._goToTab}
           showCaret={true}
-          selectedTitle={this.state.selectedTitle}
         />
         <div className="main scroll_content">
           <PullRefresh

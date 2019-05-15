@@ -17,6 +17,7 @@ const withNavBarRightLayout = title => {
               rightContent={
                 <ShareActionSheet icon={<Icon key="1" type="ellipsis" />} />
               }
+              style={{color:"black"}}
             >
               <div>{title}</div>
             </NavBar>

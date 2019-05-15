@@ -1,19 +1,34 @@
 import React from 'react'
-import CoverImg from '@assets/icons/profile/user_profile_header.png'
+import Level from '@components/Level'
+import ShortStr from '@components/ShortStr'
+import emptyAvatar from '@assets/icons/profile/empty_avatar_user.png'
 import './style.less'
 
 const UserBar = ({user}) => {
   return (
     <div className="userBar">
-      <div className="cover">
-        <img src={CoverImg} alt="coverimg" />
-      </div>
+      <div className="cover" />
       <div className="avatarImg">
-        <img src={user.avatarLarge} alt="avatarImg" />
+        <img src={user.avatarLarge || emptyAvatar} alt="avatarImg" />
       </div>
-      <div className="bar" />
+      <div className="bar">
+        <div className="barTitle">
+          <div className="author">{user.username || ''}</div>
+          <Level
+            level={user.level}
+            style={{width: '25.19px', height: '14px'}}
+          />
+        </div>
+        <div className="job">
+          <ShortStr
+            str={(user.jobTitle || '') + ' @ ' + (user.company || '')}
+            size={20}
+            style={{color: '#000'}}
+          />
+        </div>
+      </div>
       <div className="description">
-        <small>{user.selfDescription}</small>
+        <small>{user.selfDescription || ''}</small>
       </div>
       <div className="follow">
         <div>

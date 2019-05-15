@@ -1,7 +1,4 @@
-/**
- * API部分参考了这个博主的，感谢
- *  https://github.com/Kim09AI/react-juejin/blob/master/server/config/index.js
- */
+
 const JujinApi = {
   timeline: 'https://timeline-merger-ms.juejin.im/v1/',
   webapi: 'https://web-api.juejin.im/',
@@ -15,7 +12,8 @@ const JujinApi = {
   follow: 'https://follow-api-ms.juejin.im/v1/',
   notification: 'https://user-notification-api-ms.juejin.im/v1/',
   lccro: 'https://lccro-api-ms.juejin.im/v1',
-  sms: 'https://user-storage-api-ms.juejin.im/v2/'
+  sms: 'https://user-storage-api-ms.juejin.im/v2/',
+  shortMsg: 'https://short-msg-ms.juejin.im/v1/'
 }
 
 function getRealApi(url) {
@@ -35,7 +33,11 @@ const proxyTable = {
     '^/api/juejin': '/',
     '^/api/user': '/',
     '^/api/like': '/',
-    '^/api/follow': '/'
+    '^/api/follow': '/',
+    '^/api/notification': '/',
+    '^/api/lccro': '/',
+    '^/api/shortMsg': '/',
+    '^/api/sms': '/',
   },
   router: function({url}) {
     return getRealApi(url)

@@ -1,10 +1,10 @@
 import React from 'react'
-const Level = ({level, height}) =>
+const Level = ({level, ...props}) =>
   level ? (
     <img
       src={require('@assets/icons/level/ic_user_lv' + level + '.png')}
       alt={level}
-      style={{height: height || '12px'}}
+      {...props}
     />
   ) : null
 export default Level

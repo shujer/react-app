@@ -19,7 +19,12 @@ const categoryIds = {
   article: '5562b428e4b00c57d9b94b9d'
 }
 
-//获取首页文章列表
+/**
+ * 获取首页列表
+ * @param {number} limet 每次请求数量
+ * @param {string} category 列表类型
+ * @param {number} before 上次请求的rankIndex
+ */
 export async function getEntry({limit = 20, category = 'all', before = ''}) {
   let categoryId = categoryIds[category]
   return get(`/api/timeline/get_entry_by_rank`, {
@@ -32,7 +37,12 @@ export async function getEntry({limit = 20, category = 'all', before = ''}) {
   })
 }
 
-//获取首页文章列表
+/**
+ * 获取首页列表——另一个接口
+ * @param {number} after 上次请求的cursor
+ * @param {string} category 列表类型
+ * @param {array} tags 选择的标签
+ */
 export async function getEntryByQuery({
   after = '',
   category = 'all',
@@ -59,7 +69,12 @@ export async function getEntryByQuery({
     }
   })
 }
-//获取文章详情
+
+/**
+ * 获取文章信息
+ * @param {string} postId 文章id
+ * @param {string} type：entryView获取文章内容，entry获取文章信息
+ */
 export async function getPostDetail(postId, type = 'entryView') {
   return get(`/api/post/getDetailData`, {
     params: {
@@ -70,6 +85,10 @@ export async function getPostDetail(postId, type = 'entryView') {
   })
 }
 
+/**
+ * 获取文章相关列表
+ * @param {string} entryId 文章id
+ */
 export async function getRelatedEntry(entryId) {
   return get(`/api/timeline/get_related_entry`, {
     params: {
@@ -80,6 +99,10 @@ export async function getRelatedEntry(entryId) {
   })
 }
 
+/**
+ * 获取标签相关列表
+ * @param {array} tagIds 标签id
+ */
 export async function getRecommendEntryByTagIds(tagIds) {
   return get(`/api/post/getRecommendEntryByTagIds`, {
     params: {
@@ -89,7 +112,14 @@ export async function getRecommendEntryByTagIds(tagIds) {
   })
 }
 
-// 获取小册
+/**
+ * 根据页码获取小册列表
+ * @param {number} pageNum 从1开始计数
+ * @param {alias}
+ * @param {string} client_id 当前用户设备id
+ * @param {string} token 当前用户token
+ * @param {string} uid 当前用户uid
+ */
 export async function getXiaoce({
   pageNum = 1,
   alias = '',
@@ -105,6 +135,32 @@ export async function getXiaoce({
       uid,
       client_id,
       token
+    }
+  })
+}
+
+/**
+ * 获取轮播图
+ * @param {string} currentUid 登录用户的id
+ * @param {string} uid 目标用户的id
+ * @param {string} before
+ * @param {number} limit
+ */
+export async function getEventList({
+  pageNum,
+  orderType = 'startTime',
+  pageSize = 20,
+  showBanner = 1,
+  bannerStartTime
+} = {}) {
+  return get(`/api/event/getEventList`, {
+    params: {
+      src: 'mobile',
+      orderType,
+      pageNum,
+      pageSize,
+      showBanner,
+      bannerStartTime
     }
   })
 }

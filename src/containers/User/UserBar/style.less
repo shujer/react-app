@@ -1,9 +1,14 @@
 .userBar {
     background-color: #fff;
 
-    .cover,
-    img {
-        width: 100%;
+    // .cover,
+    // img {
+    //     width: 100%;
+    // }
+    .cover {
+        background: url('../../../assets/icons/profile/user_profile_header.png');
+        background-size: 100vw 35.37vw;
+        height: 35.37vw;
     }
 
     .bar,
@@ -11,6 +16,10 @@
     .description,
     .follow {
         margin-left: 4vw;
+        margin-bottom: 5px;
+    }
+    .bar {
+        margin-top: 12vw;
     }
 
     .avatarImg {
@@ -21,24 +30,29 @@
         width: 16vw;
         height: 16vw;
         border-radius: 50%;
-        border: .2rem solid white;
-
+        border: .2rem solid #fff;
+        background-color: #fff;
         transform: translate3d(0, -50%, 0);
         overflow: hidden;
+        position: absolute;
 
         img {
             width: 100%;
         }
     }
+
     .follow {
         width: 50%;
         display: flex;
         justify-content: space-between;
+
         &>div {
             margin: 5px 5px 5px 0;
+
             div {
                 font-weight: 600;
             }
         }
     }
+
 }

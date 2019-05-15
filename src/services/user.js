@@ -29,7 +29,7 @@ export async function getMultiUser({
       uid,
       device_id,
       token,
-      src: 'web',
+      src: 'mobile',
       ids,
       cols
     }

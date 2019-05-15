@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import Tabs from '@components/Tabs'
+import PullUpRefresh from '@components/PullUpRefresh'
 import {connect} from 'react-redux'
 import {List} from 'antd-mobile'
 import Entry from './Entry'
@@ -23,11 +24,15 @@ class XiaoceContainer extends Component {
   componentWillMount() {
     this.props.getAllXiaoce()
   }
+
+  onRefresh = () => {
+    console.log('fresh')
+  }
   render() {
     let {books} = this.props
     return (
-      <div>
-        <Tabs tabs={tabs} mode="dark">
+      <Tabs tabs={tabs} mode="dark">
+        <PullUpRefresh useBodyScroll onRefresh={this.onRefresh}>
           <List>
             {books.map((book, index) => (
               <List.Item key={index}>
@@ -35,7 +40,9 @@ class XiaoceContainer extends Component {
               </List.Item>
             ))}
           </List>
+        </PullUpRefresh>
 
+        <PullUpRefresh useBodyScroll onRefresh={this.onRefresh}>
           <List>
             {books
               .filter(val => val.isBuy)
@@ -45,8 +52,8 @@ class XiaoceContainer extends Component {
                 </List.Item>
               ))}
           </List>
-        </Tabs>
-      </div>
+        </PullUpRefresh>
+      </Tabs>
     )
   }
 }

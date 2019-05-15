@@ -21,11 +21,7 @@ const myTabs = props => {
     <div>
       {mode === 'light' ? (
         <StickyContainer>
-          <Tabs
-            renderTabBar={renderTabBar}
-            tabs={props.tabs}
-            initialPage={0}
-          >
+          <Tabs renderTabBar={renderTabBar} tabs={props.tabs} initialPage={0}>
             {props.children}
           </Tabs>
         </StickyContainer>

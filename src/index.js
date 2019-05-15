@@ -20,8 +20,9 @@ const RouterConfig = () => (
         {routes.map((route, i) => (
           <RouteWithSubRoutes key={i} {...route} />
         ))}
-        <Redirect from="/" to="/timeline/all"/>
-        <Redirect from="/timeline/" to="/timeline/all"/>
+        <Redirect from="/activity/" to="/activity/all" />
+        <Redirect from="/" to="/timeline/all" />
+        <Redirect from="/timeline/" to="/timeline/all" />
       </Switch>
     </Router>
   </Provider>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import RefreshLoading from '@components/RefreshLoading'
+import PropTypes from 'prop-types'
 
 /**
  * 整合向下刷新和向上加载组件，合理化逻辑
@@ -90,9 +91,7 @@ class PullDownRefresh extends Component {
   render() {
     return (
       <>
-        {this.state.downRefreshing ? (
-          <RefreshLoading orient="down" />
-        ) : null}
+        {this.state.downRefreshing ? <RefreshLoading orient="down" /> : null}
         <div
           ref={el => (this.scrollContent = el)}
           onTouchStart={this.handleTouchStart}
@@ -110,3 +109,10 @@ class PullDownRefresh extends Component {
 }
 
 export default PullDownRefresh
+
+PullDownRefresh.propTypes = {
+  down: PropTypes.bool,
+  up: PropTypes.bool,
+  downRefreshing: PropTypes.bool,
+  upRefreshing: PropTypes.bool
+}

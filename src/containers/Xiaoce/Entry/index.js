@@ -4,7 +4,7 @@ import './style.less'
 
 let Price = ({book}) => {
   let {price} = book
-  let content = price ?  '¥'+price : '免费'
+  let content = price ? '¥' + price : '免费'
   return (
     <div className="price">
       <div>{content}</div>
@@ -22,7 +22,10 @@ let Entry = props => {
         </div>
         <div className="detail">
           <h4>{book.title}</h4>
-          <div className="author">{book.userData.username}{' '}<Level level={book.userData.level} height="12px"/></div>
+          <div className="author">
+            {book.userData.username}{' '}
+            <Level level={book.userData.level} style={{height: '12px'}} />
+          </div>
           <small>
             {book.section.length}
             {'小节 · '}
@@ -31,11 +34,7 @@ let Entry = props => {
           </small>
         </div>
       </div>
-      <div className="right" >
-      {
-        book.isBuy ? '已购':<Price book={book}/>
-      }
-      </div>
+      <div className="right">{book.isBuy ? '已购' : <Price book={book} />}</div>
     </div>
   )
 }

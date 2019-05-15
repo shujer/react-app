@@ -3,7 +3,9 @@ import {connect} from 'react-redux'
 import withNavBarRightLayout from '@layouts/withNavBarRightLayout'
 import AvatarBar from '@components/AvatarBar'
 import UserLink from '@components/AvatarBar/UserLink'
-import JobTitle from '@components/ShortStr'
+import ShortStr from '@components/ShortStr'
+import Level from '@components/Level'
+import FollowButton from '@components/FollowButton'
 import './style.less'
 import '@assets/highlight/default.min.css'
 
@@ -36,13 +38,23 @@ class PostContainer extends Component {
     return (
       <div className="postContainer" key={title}>
         <AvatarBar
+          size="medium"
           className="avatarBar"
           user={user}
           appendContent={[
-            <UserLink {...user} />,
-            <JobTitle str={user ? user.jobTitle: ''}/>
+            <div>
+              <UserLink {...user} />
+              <Level
+                level={user ? user.level : 0}
+                style={{height: '12px', marginLeft: '.5rem'}}
+              />
+            </div>,
+            <ShortStr
+              str={user ? `${user.jobTitle} @  ${user.company}` : ''}
+              len={15}
+            />
           ]}
-          extraContent={'关注'}
+          extraContent={[<FollowButton />]}
         />
         <div className="postDetail">
           <h1>{title}</h1>

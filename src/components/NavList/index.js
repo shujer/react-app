@@ -1,55 +1,54 @@
 import React from 'react'
 import './style.less'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import CaretImage from '../../assets/caret.png'
 
-function getSelectedIndex(tabs, title) {
-  let res = 0
-  tabs.forEach((tab, index) => {
-    if (tab.title === title) {
-      res = index
+function getSelectedIndex(tabs, key, value) {
+  for (let i = 0; i < tabs.length; i++) {
+    if (tabs[i][key] === value) {
+      return i;
     }
-  })
-  return res
+  }
+  return 0
 }
 
 const NavList = props => {
-  let {tabs, onCaretClick, showCaret, selectedTitle, page} = props
+  let {tabs, onCaretClick, showCaret, page} = props
   let width = 25
   if (page) {
     width = 100 / page
   }
-  let selectedIndex = getSelectedIndex(tabs, selectedTitle)
+  let selectedIndex = getSelectedIndex(tabs, 'link', props.match.url)
   return (
     <>
-    <div className="tabListBar" >
-      <div className="tabList scroll_content">
-        {tabs.map((element, index) => {
-          return (
-            <Link
-              key={index}
-              className="tabItem"
-              to={`/timeline/${element.title}`}
-              style={{width: width + '%'}}
-            >
-              {element.name}
-            </Link>
-          )
-        })}
-        <div
-          className="tabChange"
-          style={{left: selectedIndex * width + '%', width: width + '%'}}
-        />
-      </div>
-      {showCaret ? (
-        <div className="caretTab" onClick={onCaretClick}>
-          <img src={CaretImage} alt="" />
+      <div className="tabListBar">
+        <div className="tabList scroll_content">
+          {tabs.map((element, index) => {
+            return (
+              <Link
+                key={index}
+                className="tabItem"
+                to={element.link}
+                style={{width: width + '%'}}
+              >
+                {element.name}
+              </Link>
+            )
+          })}
+          <div
+            className="tabChange"
+            style={{left: selectedIndex * width + '%', width: width + '%'}}
+          />
         </div>
-      ) : null}
-    </div>
-    <div style={{paddingTop:"42px"}}></div>
+        {showCaret ? (
+          <div className="caretTab" onClick={onCaretClick}>
+            <img src={CaretImage} alt="" />
+          </div>
+        ) : null}
+      </div>
+      <div style={{paddingTop: '42px'}} />
     </>
   )
 }
 
-export default NavList
+export default withRouter(NavList)
