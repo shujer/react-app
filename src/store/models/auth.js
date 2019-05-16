@@ -103,7 +103,7 @@ export default {
               uid: data.userId
             }
             let userDetail = data.user
-            Cookies.set('userInfo', userInfo, { expires: 7, path: '/' })
+            Cookies.set('userInfo', userInfo, {expires: 7, path: '/'})
             saveData('juejin_userInfo', userInfo)
             dispatch.auth.setUser({userDetail, userInfo})
             dispatch.auth.setLoginState({isLogin: true})
@@ -136,13 +136,13 @@ export default {
               uid: data.userId
             }
             let userDetail = data.user
-            Cookies.set('userInfo', userInfo, { expires: 7, path: '/' })
+            Cookies.set('userInfo', userInfo, {expires: 7, path: '/'})
             saveData('juejin_userInfo', userInfo)
             dispatch.auth.setUser({userDetail, userInfo})
             dispatch.auth.setLoginState({isLogin: true})
             dispatch.auth.stateChanger({stepUp: 'success'})
             window.location.reload()
-            resolve(true)
+            resolve()
           })
           .catch(err => {
             dispatch.auth.stateChanger({stepUp: 'failure'})

@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import withNavBarRightLayout from '@layouts/withNavBarRightLayout'
+import {ShareWhiteIcon} from '@components/Icons'
+import {NavBar, Icon} from 'antd-mobile'
+import ShareActionSheet from '@components/ShareActionSheet'
 import AvatarBar from '@components/AvatarBar'
 import UserLink from '@components/AvatarBar/UserLink'
 import ShortStr from '@components/ShortStr'
@@ -9,7 +11,6 @@ import FollowButton from '@components/FollowButton'
 import './style.less'
 import '@assets/highlight/default.min.css'
 
-@withNavBarRightLayout('文章详情页')
 class PostContainer extends Component {
   state = {
     content: '',
@@ -37,6 +38,24 @@ class PostContainer extends Component {
     let {user, title, screenshot} = this.state.postInfo
     return (
       <div className="postContainer" key={title}>
+        <NavBar
+          mode="light"
+          icon={<Icon type="left" />}
+          onLeftClick={() => {
+            this.props.history.goBack()
+          }}
+          style={{
+            width: '100%',
+            color: '#000',
+            position: 'fixed',
+            top: 0
+          }}
+          leftContent={['文章详情页']}
+          rightContent={[
+            <ShareActionSheet key="1" icon={<ShareWhiteIcon />} />
+          ]}
+        />
+        <div style={{paddingBottom:"43px"}}></div>
         <AvatarBar
           size="medium"
           className="avatarBar"

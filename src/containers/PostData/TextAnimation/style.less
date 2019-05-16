@@ -1,0 +1,24 @@
+.text-animation {
+    margin-bottom: .5rem;
+    span {
+        font-size: 2rem;
+    }
+    /*入场动画开始*/
+    .fade-enter {
+        transform: translate3d(0, -100%, 0);
+        -webkit-transform: translate3d(0, -100%, 0);
+    }
+
+    /*入场动画过程*/
+    .fade-enter-active {
+        transform: translate3d(0, 0%, 0);
+        -webkit-transform: translate3d(0, 0%, 0);
+        transition: transform .5s ease-in;
+    }
+
+    /*入场动画结束*/
+    .fade-enter-done {
+        transform: translate3d(0%, 0%, 0);
+        -webkit-transform: translate3d(0, 0%, 0);
+    }
+}

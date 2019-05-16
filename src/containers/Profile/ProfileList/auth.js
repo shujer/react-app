@@ -1,15 +1,17 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {List, WhiteSpace, Toast} from 'antd-mobile'
-import NotificationIcon from '@assets/icons/profile/ic_notification.png'
-import UserLiked from '@assets/icons/profile/user_liked_pin.png'
-import UserCollectionset from '@assets/icons/profile/user_collectionset.png'
-import UserBuy from '@assets/icons/profile/user_buy.png'
-import UserDataRead from '@assets/icons/profile/ic_user_data_read.png'
-import TagIcon from '@assets/icons/profile/ic_dynamic_tag.png'
-import NightIcon from '@assets/icons/profile/ic_night.png'
-import FeedBackIcon from '@assets/icons/profile/icon_feed_back.png'
-import SettingsIcon from '@assets/icons/profile/settings.png'
+import {
+  NoticeIcon,
+  LikeIcon,
+  CollectionSetIcon,
+  BuyIcon,
+  UserReadIcon,
+  TagIcon,
+  NightIcon,
+  FeedBacIcon,
+  SettingIcon
+} from '@components/Icons'
 let Item = List.Item
 
 const ProfileList = props => {
@@ -23,39 +25,39 @@ const ProfileList = props => {
   return (
     <>
       <List>
-        <Item thumb={NotificationIcon} extra="" onClick={() => {}}>
+        <Item thumb={<NoticeIcon />} extra="" onClick={() => {}}>
           消息中心
         </Item>
         <Item
-          thumb={UserLiked}
+          thumb={<LikeIcon isLike />}
           extra={<small>{`${userLikes || 0}篇`}</small>}
           onClick={() => {}}
         >
           我赞过的
         </Item>
         <Item
-          thumb={UserCollectionset}
+          thumb={<CollectionSetIcon />}
           extra={<small>{`${collectionSetCount || 0}个`}</small>}
           onClick={() => {}}
         >
           收藏集
         </Item>
         <Item
-          thumb={UserBuy}
+          thumb={<BuyIcon />}
           extra={<small>{`${purchasedBookletCount || 0}本`}</small>}
           onClick={() => {}}
         >
           已购小册
         </Item>
         <Item
-          thumb={UserDataRead}
+          thumb={<UserReadIcon />}
           extra={<small>{`${viewedEntriesCount || 0}篇`}</small>}
           onClick={() => {}}
         >
           阅读过的文章
         </Item>
         <Item
-          thumb={TagIcon}
+          thumb={<TagIcon />}
           extra={<small>{`${subscribedTagsCount || 0}个`}</small>}
           onClick={() => {}}
         >
@@ -65,7 +67,7 @@ const ProfileList = props => {
       <WhiteSpace />
       <List>
         <Item
-          thumb={NightIcon}
+          thumb={<NightIcon />}
           onClick={() => {
             Toast.info('功能尚未开发', 1.5)
           }}
@@ -73,7 +75,7 @@ const ProfileList = props => {
           夜间模式
         </Item>
         <Item
-          thumb={FeedBackIcon}
+          thumb={<FeedBacIcon />}
           onClick={() => {
             props.history.push('/feedback')
           }}
@@ -81,7 +83,7 @@ const ProfileList = props => {
           意见反馈
         </Item>
         <Item
-          thumb={SettingsIcon}
+          thumb={<SettingIcon />}
           onClick={() => {
             props.history.push('/settings')
           }}

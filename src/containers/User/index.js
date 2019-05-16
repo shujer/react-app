@@ -4,7 +4,7 @@ import {List, WhiteSpace} from 'antd-mobile'
 import Tabs from '@components/Tabs'
 import UserBar from './UserBar'
 import NavBar from './NavBar'
-import BlogIcon from '@assets/icons/profile/icon_profile_blog.png'
+import {BlogIcon} from '@components/Icons'
 import './style.less'
 
 class User extends Component {
@@ -21,9 +21,9 @@ class User extends Component {
     let {user} = this.props
     const tabs = [
       {tag: 'activities', title: '动态'},
-      {tag: 'posts', title: '专栏' + (user.postedPostsCount || "")},
-      {tag: 'pins', title: '沸点' + (user.pinCount || "")},
-      {tag: 'shares', title: '分享'},
+      {tag: 'posts', title: '专栏' + (user.postedPostsCount || 0)},
+      {tag: 'pins', title: '沸点' + (user.pinCount || 0)},
+      {tag: 'shares', title: '分享' + (user.postedEntriesCount || 0)},
       {tag: 'more', title: '更多'}
     ]
     return (
@@ -31,16 +31,12 @@ class User extends Component {
         <NavBar user={user} />
         <UserBar user={user} />
         <WhiteSpace />
-        <Tabs
-        
-          tabs={tabs}
-          mode="light"
-        >
+        <Tabs tabs={tabs} mode="light">
           <div className="activity scroll_content ">尚未完善</div>
           <div className="article scroll_content ">尚未完善</div>
           <div className="pin scroll_content ">尚未完善</div>
           <div className="share scroll_content ">尚未完善</div>
-          <div className="more scroll_content" style={{height:"800px"}}>
+          <div className="more scroll_content" style={{height: '800px'}}>
             <List>
               <List.Item>
                 <div>赞过的文章</div>
@@ -59,7 +55,7 @@ class User extends Component {
             <List>
               <List.Item>
                 <div>
-                  <img src={BlogIcon} alt="blog" width="14" height="14" />
+                  <BlogIcon />
                   {user.blogAddress}
                 </div>
               </List.Item>

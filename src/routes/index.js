@@ -2,8 +2,13 @@ import React from 'react'
 import Loadable from 'react-loadable'
 import HomeLoading from '@components/Loading/Home'
 import TabPicker from '@containers/TabPicker'
+import {Icon} from 'antd-mobile'
 
-let Loading = props => <div />
+let Loading = props => (
+  <div style={{position: 'fixed', top: '50px', left: '50%', transform:"translate3d(50%, 0, 0)"}}>
+    <Icon type="loading" />
+  </div>
+)
 
 const Home = Loadable({
   loader: () => import('@containers/Home'),
@@ -49,6 +54,13 @@ const routes = [
     })
   },
   {
+    path: '/postdata/:id',
+    guestComponent: Loadable({
+      loader: () => import('@containers/PostData'),
+      loading: () => <Loading />
+    })
+  },
+  {
     path: '/pin/:id',
     guestComponent: Loadable({
       loader: () => import('@containers/Pin'),
@@ -57,7 +69,7 @@ const routes = [
   },
   {path: '/recommended', guestComponent: TabPicker},
   {
-    path: '/activity/:category/:id?',//id参数可选
+    path: '/activity/:category/:id?', //id参数可选
     guestComponent: Loadable({
       loader: () => import('@containers/Activity'),
       loading: () => <Loading />

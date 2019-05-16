@@ -46,7 +46,7 @@ const PinItem = ({item, ...props}) => {
       </div>
       <div className="pinfooter">
         <small>
-          <LikeIcon isLike={item.isLike || false} /> {item.isLiked || '点赞'}
+          <LikeIcon isLiked={item.isLiked || false} /> {item.isLiked || '点赞'}
         </small>
         <small
           onClick={() => {

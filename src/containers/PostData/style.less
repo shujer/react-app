@@ -1,0 +1,46 @@
+.postdataContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+
+    .header {
+        .avatar {
+            width: 15vw;
+            height: 15vw;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto auto;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .username {
+            font-size: 12px;
+            margin: 4vw 4vw;
+
+            img {
+                margin-left: 2px;
+            }
+        }
+    }
+
+    &>div {
+        &>marquee {
+            font-size: 2rem;
+            margin-bottom: 4vw;
+            text-align: center;
+        }
+
+        &>div:last-child {
+            color: gray;
+            margin-left: 2px;
+        }
+    }
+}
