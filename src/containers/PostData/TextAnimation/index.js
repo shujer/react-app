@@ -27,15 +27,15 @@ class TextAnimation extends Component {
               <CSSTransition
                 key={index}
                 timeout={500}
-                classNames="fade"
                 onEnter={e => {
                   e.style.backgroundPositionY=`0`
                 }}
                 onEntering={
                   e => {
-                    e.style.backgroundPositionY=`${-3*val - 60}rem`
+                    e.style.backgroundPositionY=`${-3*val - 30}rem`
                     e.style.transitionProperty="background-position-y"
                     e.style.transitionDuration=`${(index+1)*this.state.delay}ms`
+                    e.style.transitionTimingFunction="ease-out"
                   }
                 }
               >
