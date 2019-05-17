@@ -2,9 +2,8 @@ import React from 'react'
 import {Route} from 'react-router-dom'
 import store from '@store'
 
-let isLogin = store.dispatch.auth.getAuth().then(data => data).catch(err=>{})
-
 export function RouteWithSubRoutes(route) {
+  let isLogin = store.dispatch.auth.getAuth().then(data => data).catch(err=>{})
   return (
     <Route
       path={route.path}

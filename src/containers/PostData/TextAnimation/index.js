@@ -4,46 +4,15 @@ import './style.less'
 
 class TextAnimation extends Component {
   state = {
-    text: this.props.str,
-    arr: [],
-    interval: this.props.interval || 500,
-    currentArr: [],
-    scroll: false
+    delay: this.props.interval || 500,
+    data: []
   }
-
-  componentDidMount() {}
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.str !== this.props.str && nextProps.str !== 'undefined') {
-      this.setState(
-        {
-          arr: nextProps.str.split('')
-        },
-        () => {
-          this.schedule()
-        }
-      )
+      this.setState({
+        data: nextProps.str.split('')
+      })
     }
-  }
-
-  schedule = () => {
-    this.timer = setTimeout(() => {
-      if (this.state.arr.length) {
-        let arr = this.state.arr
-        this.setState(
-          {
-            arr: arr.slice(1),
-            currentArr: [...this.state.currentArr, arr[0]]
-          },
-          () => {
-            this.schedule()
-          }
-        )
-      }
-    }, this.state.interval)
-  }
-  componentWillUnmount() {
-    clearTimeout(this.timer)
   }
   render() {
     return (
@@ -53,14 +22,24 @@ class TextAnimation extends Component {
         ref={ref => (this.ref = ref)}
       >
         <TransitionGroup className="text-list">
-          {this.state.currentArr.map((val, index) => {
+          {this.state.data.map((val, index) => {
             return (
               <CSSTransition
                 key={index}
-                timeout={800}
+                timeout={500}
                 classNames="fade"
+                onEnter={e => {
+                  e.style.backgroundPositionY=`0`
+                }}
+                onEntering={
+                  e => {
+                    e.style.backgroundPositionY=`${-3*val - 60}rem`
+                    e.style.transitionProperty="background-position-y"
+                    e.style.transitionDuration=`${(index+1)*this.state.delay}ms`
+                  }
+                }
               >
-                <span key={index}>{val}</span>
+                <span key={index} />
               </CSSTransition>
             )
           })}

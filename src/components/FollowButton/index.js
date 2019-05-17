@@ -5,14 +5,14 @@ import {Icon} from 'antd-mobile'
 const machine = {
   states: {
     unfollowed: {
-      submit: 'follow loading'
+      'follow submit': 'follow loading'
     },
     'follow loading': {
       success: 'followed',
       failure: 'unfollow'
     },
     followed: {
-      submit: 'unfollow loading'
+      'unfollow submit': 'unfollow loading'
     },
     'unfollow loading': {
       success: 'unfollow',
