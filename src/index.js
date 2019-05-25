@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import routes from './routes'
 import {Router, Switch, Redirect} from 'react-router-dom'
-import {RouteWithSubRoutes} from './routes/RouteWithSubRoutes'
+import {RouteGuard} from './routes/RouteGuard'
 
 import store, {history} from './store'
 import {Provider} from 'react-redux'
@@ -18,7 +18,7 @@ const RouterConfig = () => (
     <Router history={history}>
       <Switch>
         {routes.map((route, i) => (
-          <RouteWithSubRoutes key={i} {...route} />
+          <RouteGuard key={i} {...route} />
         ))}
         <Redirect from="/activity/" to="/activity/all" />
         <Redirect from="/" to="/timeline/all" />

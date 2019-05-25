@@ -16,7 +16,7 @@ const ProfileAvatarBar = props => {
         <div className="userInfo">
           <div className="userName">{username}</div>
           <div className="userJob">
-            <ShortStr str={jobTitle + ' @ ' + company} size={20}/>
+            <ShortStr str={`${(jobTitle || '添加职位')} @ ${(company || '添加公司')}`} size={20}/>
           </div>
         </div>
         <div className="arrow">

@@ -68,6 +68,7 @@ export default {
       let userInfo = loadData('juejin_userInfo')
       if (userInfo) {
         return new Promise(async (resolve, reject) => {
+          if (state.isLogin) resolve(true)
           await api
             .getUserInfo({
               uid: userInfo.uid,

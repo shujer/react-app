@@ -5,7 +5,14 @@ import TabPicker from '@containers/TabPicker'
 import {Icon} from 'antd-mobile'
 
 let Loading = props => (
-  <div style={{position: 'fixed', top: '50px', left: '50%', transform:"translate3d(50%, 0, 0)"}}>
+  <div
+    style={{
+      position: 'fixed',
+      top: '50px',
+      left: '50%',
+      transform: 'translate3d(-50%, 0, 0)'
+    }}
+  >
     <Icon type="loading" />
   </div>
 )
@@ -16,11 +23,17 @@ const Home = Loadable({
 })
 
 const routes = [
-  {path: '/timeline/:category', exact: true, guestComponent: Home},
+  {
+    path: '/timeline/:category',
+    exact: true,
+    component: Home,
+    meta: {role: ['auth', 'guest']}
+  },
   {
     path: '/auth',
     exact: true,
-    guestComponent: Loadable({
+    meta: {role: ['auth', 'guest']},
+    component: Loadable({
       loader: () => import('@containers/Auth'),
       loading: () => <Loading />
     })
@@ -28,7 +41,8 @@ const routes = [
   {
     path: '/register',
     exact: true,
-    guestComponent: Loadable({
+    meta: {role: ['auth', 'guest']},
+    component: Loadable({
       loader: () => import('@containers/Register'),
       loading: () => <Loading />
     })
@@ -36,66 +50,72 @@ const routes = [
   {
     path: '/settings',
     exact: true,
-    guestComponent: Loadable({
+    component: Loadable({
       loader: () => import('@containers/Settings/guest'),
       loading: () => <Loading />
     }),
+    meta: {role: ['auth', 'guest']},
     authComponent: Loadable({
       loader: () => import('@containers/Settings/auth'),
       loading: () => <Loading />
-    }),
-    requiredAuth: true
+    })
   },
   {
     path: '/post/:id',
-    guestComponent: Loadable({
+    meta: {role: ['auth', 'guest']},
+    component: Loadable({
       loader: () => import('@containers/Post'),
       loading: () => <Loading />
     })
   },
   {
     path: '/postdata/:id',
-    guestComponent: Loadable({
+    meta: {role: ['auth', 'guest']},
+    component: Loadable({
       loader: () => import('@containers/PostData'),
       loading: () => <Loading />
     })
   },
   {
     path: '/pin/:id',
-    guestComponent: Loadable({
+    meta: {role: ['auth', 'guest']},
+    component: Loadable({
       loader: () => import('@containers/Pin'),
       loading: () => <Loading />
     })
   },
-  {path: '/recommended', guestComponent: TabPicker},
+  {path: '/recommended', component: TabPicker, meta: {role: ['auth', 'guest']}},
   {
     path: '/activity/:category/:id?', //id参数可选
-    guestComponent: Loadable({
+    meta: {role: ['auth', 'guest']},
+    component: Loadable({
       loader: () => import('@containers/Activity'),
       loading: () => <Loading />
     })
   },
   {
     path: '/explore',
-    guestComponent: Loadable({
+    meta: {role: ['auth', 'guest']},
+    component: Loadable({
       loader: () => import('@containers/Explore'),
       loading: () => <Loading />
     })
   },
   {
     path: '/feedback',
-    guestComponent: Loadable({
+    meta: {role: ['auth', 'guest']},
+    component: Loadable({
       loader: () => import('@containers/Feedback'),
       loading: () => <Loading />
     })
   },
   {
     path: '/xiaoce',
-    guestComponent: Loadable({
+    component: Loadable({
       loader: () => import('@containers/Xiaoce/guest'),
       loading: () => <Loading />
     }),
-    requiredAuth: true,
+    meta: {role: ['auth', 'guest']},
     authComponent: Loadable({
       loader: () => import('@containers/Xiaoce/auth'),
       loading: () => <Loading />
@@ -103,11 +123,12 @@ const routes = [
   },
   {
     path: '/profile',
-    guestComponent: Loadable({
+    exact: true,
+    component: Loadable({
       loader: () => import('@containers/Profile/guest'),
       loading: () => <Loading />
     }),
-    requiredAuth: true,
+    meta: {role: ['guest', 'auth']},
     authComponent: Loadable({
       loader: () => import('@containers/Profile/auth'),
       loading: () => <Loading />
@@ -115,14 +136,16 @@ const routes = [
   },
   {
     path: '/user/:id',
-    guestComponent: Loadable({
+    meta: {role: ['auth', 'guest']},
+    component: Loadable({
       loader: () => import('@containers/User'),
       loading: () => <Loading />
     }),
     routes: [
       {
         path: '/user/:id/:tag',
-        guestComponent: Loadable({
+        meta: {role: ['auth', 'guest']},
+        component: Loadable({
           loader: () => import('@containers/User'),
           loading: () => <Loading />
         })
@@ -131,7 +154,8 @@ const routes = [
   },
   {
     path: '/joinus',
-    guestComponent: Loadable({
+    meta: {role: ['auth', 'guest']},
+    component: Loadable({
       loader: () => import('@containers/JoinUs'),
       loading: () => <Loading />
     })

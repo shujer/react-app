@@ -21,9 +21,10 @@ class Setting extends Component {
 
   handleLogout = () => {
     let {logout} = this.props
-    logout().then(() => {
-      this.props.history.replace('/auth')
-    })
+    logout()
+    // logout().then(() => {
+    //   this.props.history.replace('/auth')
+    // })
   }
 
   handleNotComplete = () => {

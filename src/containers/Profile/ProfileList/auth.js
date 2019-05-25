@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom'
 import {List, WhiteSpace, Toast} from 'antd-mobile'
 import {
   NoticeIcon,
-  LikeIcon,
+  UserDataLikeIcon,
   CollectionSetIcon,
   BuyIcon,
   UserReadIcon,
@@ -29,7 +29,7 @@ const ProfileList = props => {
           消息中心
         </Item>
         <Item
-          thumb={<LikeIcon isLike />}
+          thumb={<UserDataLikeIcon />}
           extra={<small>{`${userLikes || 0}篇`}</small>}
           onClick={() => {}}
         >
