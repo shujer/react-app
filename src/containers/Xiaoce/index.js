@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import Tabs from '@components/Tabs'
 import PullUpRefresh from '@components/PullUpRefresh'
+import TransitionList from '@components/TransitionList'
 import {List} from 'antd-mobile'
 import Entry from './Entry'
 import LoginInfo from './LoginInfo'
@@ -29,29 +30,32 @@ class XiaoceContainer extends Component {
   onRefresh = () => {
     console.log('fresh')
   }
+
   render() {
     let {books, isLogin} = this.props
+    let allbooks = books.map((book, index) => (
+      <List.Item key={index}>
+        <Entry book={book} />
+      </List.Item>
+    ))
+    let userbooks = books
+      .filter(val => val.isBuy)
+      .map((book, index) => (
+        <List.Item key={index}>
+          <Entry book={book} />
+        </List.Item>
+      ))
     return (
       <Tabs tabs={tabs} mode="dark">
         <PullUpRefresh useBodyScroll onRefresh={this.onRefresh}>
           <List>
-            {books.map((book, index) => (
-              <List.Item key={index}>
-                <Entry book={book} />
-              </List.Item>
-            ))}
+            <TransitionList items={allbooks} />
           </List>
         </PullUpRefresh>
         {isLogin ? (
           <PullUpRefresh useBodyScroll onRefresh={this.onRefresh}>
             <List>
-              {books
-                .filter(val => val.isBuy)
-                .map((book, index) => (
-                  <List.Item key={index}>
-                    <Entry book={book} />
-                  </List.Item>
-                ))}
+              <TransitionList items={userbooks} />
             </List>
           </PullUpRefresh>
         ) : (
