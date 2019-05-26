@@ -1,12 +1,10 @@
 import React, {Component} from 'react'
 import {List, WhiteSpace, Switch, Toast} from 'antd-mobile'
 import {createForm} from 'rc-form'
-import withNavBarBasicLayout from '@layouts/withNavBarBasicLayout'
 import './style.less'
 
 const Item = List.Item
 
-@withNavBarBasicLayout('设置')
 class Setting extends Component {
   state = {
     weiboChecked: false,
@@ -14,13 +12,6 @@ class Setting extends Component {
     githubChecked: false,
     imgChecked: false,
     pasteChecked: false
-  }
-
-  handleLogout = () => {
-    let {logout} = this.props
-    logout().then(() => {
-      this.props.history.replace('/auth')
-    })
   }
 
   handleNotComplete = () => {

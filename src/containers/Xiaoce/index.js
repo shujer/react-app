@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import Tabs from '@components/Tabs'
 import PullUpRefresh from '@components/PullUpRefresh'
-import {connect} from 'react-redux'
 import {List} from 'antd-mobile'
 import Entry from './Entry'
+import LoginInfo from './LoginInfo'
 
 const tabs = [
   {name: '全部', title: '全部', show: true},
@@ -29,7 +30,7 @@ class XiaoceContainer extends Component {
     console.log('fresh')
   }
   render() {
-    let {books} = this.props
+    let {books, isLogin} = this.props
     return (
       <Tabs tabs={tabs} mode="dark">
         <PullUpRefresh useBodyScroll onRefresh={this.onRefresh}>
@@ -41,18 +42,21 @@ class XiaoceContainer extends Component {
             ))}
           </List>
         </PullUpRefresh>
-
-        <PullUpRefresh useBodyScroll onRefresh={this.onRefresh}>
-          <List>
-            {books
-              .filter(val => val.isBuy)
-              .map((book, index) => (
-                <List.Item key={index}>
-                  <Entry book={book} />
-                </List.Item>
-              ))}
-          </List>
-        </PullUpRefresh>
+        {isLogin ? (
+          <PullUpRefresh useBodyScroll onRefresh={this.onRefresh}>
+            <List>
+              {books
+                .filter(val => val.isBuy)
+                .map((book, index) => (
+                  <List.Item key={index}>
+                    <Entry book={book} />
+                  </List.Item>
+                ))}
+            </List>
+          </PullUpRefresh>
+        ) : (
+          <LoginInfo />
+        )}
       </Tabs>
     )
   }

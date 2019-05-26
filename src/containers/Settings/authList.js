@@ -1,15 +1,13 @@
 import React, {Component} from 'react'
 import {List, WhiteSpace, Switch, Modal, Toast} from 'antd-mobile'
 import {createForm} from 'rc-form'
-import withNavBarBasicLayout from '@layouts/withNavBarBasicLayout'
-import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 
 import './style.less'
 
 const Item = List.Item
 const alert = Modal.alert
 
-@withNavBarBasicLayout('设置')
 class Setting extends Component {
   state = {
     weiboChecked: false,
@@ -20,11 +18,7 @@ class Setting extends Component {
   }
 
   handleLogout = () => {
-    let {logout} = this.props
-    logout()
-    // logout().then(() => {
-    //   this.props.history.replace('/auth')
-    // })
+    this.props.logout()
   }
 
   handleNotComplete = () => {
@@ -33,7 +27,6 @@ class Setting extends Component {
 
   render() {
     const {getFieldProps} = this.props.form
-    let {isLogin} = this.props
     return (
       <>
         <List>
@@ -165,7 +158,7 @@ class Setting extends Component {
         </List>
         <WhiteSpace />
         <List>
-          <Item onClick={() => this.props.history.push('/joinus')}>关于</Item>
+          <Item onClick={() => this.props.history.push('/joinUs')}>关于</Item>
         </List>
         <WhiteSpace />
         <List>
@@ -189,15 +182,4 @@ class Setting extends Component {
   }
 }
 
-const mapState = state => ({
-  isLogin: state.auth.isLogin
-})
-
-const mapDispatch = ({auth: {logout}}) => ({
-  logout: () => logout()
-})
-
-export default connect(
-  mapState,
-  mapDispatch
-)(createForm()(Setting))
+export default withRouter((createForm()(Setting)))

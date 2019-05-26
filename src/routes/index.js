@@ -32,7 +32,7 @@ const routes = [
   {
     path: '/auth',
     exact: true,
-    meta: {role: ['auth', 'guest']},
+    meta: {role: ['guest']},
     component: Loadable({
       loader: () => import('@containers/Auth'),
       loading: () => <Loading />
@@ -41,7 +41,7 @@ const routes = [
   {
     path: '/register',
     exact: true,
-    meta: {role: ['auth', 'guest']},
+    meta: {role: ['guest']},
     component: Loadable({
       loader: () => import('@containers/Register'),
       loading: () => <Loading />
@@ -51,14 +51,10 @@ const routes = [
     path: '/settings',
     exact: true,
     component: Loadable({
-      loader: () => import('@containers/Settings/guest'),
+      loader: () => import('@containers/Settings'),
       loading: () => <Loading />
     }),
-    meta: {role: ['auth', 'guest']},
-    authComponent: Loadable({
-      loader: () => import('@containers/Settings/auth'),
-      loading: () => <Loading />
-    })
+    meta: {role: ['auth','guest']}
   },
   {
     path: '/post/:id',
@@ -111,29 +107,23 @@ const routes = [
   },
   {
     path: '/xiaoce',
+    exact: true,
     component: Loadable({
-      loader: () => import('@containers/Xiaoce/guest'),
+      loader: () => import('@containers/Xiaoce'),
       loading: () => <Loading />
     }),
-    meta: {role: ['auth', 'guest']},
-    authComponent: Loadable({
-      loader: () => import('@containers/Xiaoce/auth'),
-      loading: () => <Loading />
-    })
+    meta: {role: ['auth','guest']}
   },
   {
     path: '/profile',
     exact: true,
     component: Loadable({
-      loader: () => import('@containers/Profile/guest'),
+      loader: () => import('@containers/Profile'),
       loading: () => <Loading />
     }),
-    meta: {role: ['guest', 'auth']},
-    authComponent: Loadable({
-      loader: () => import('@containers/Profile/auth'),
-      loading: () => <Loading />
-    })
+    meta: {role: ['auth','guest']}
   },
+
   {
     path: '/user/:id',
     meta: {role: ['auth', 'guest']},
