@@ -6,19 +6,16 @@ import CaretImage from '../../assets/caret.png'
 function getSelectedIndex(tabs, key, value) {
   for (let i = 0; i < tabs.length; i++) {
     if (tabs[i][key] === value) {
-      return i;
+      return i
     }
   }
   return 0
 }
 
 const NavList = props => {
-  let {tabs, onCaretClick, showCaret, page} = props
-  let width = 25
-  if (page) {
-    width = 100 / page
-  }
+  let {onCaretClick, showCaret, tabs} = props
   let selectedIndex = getSelectedIndex(tabs, 'link', props.match.url)
+  let width = props.page ? 100 / props.page : 25
   return (
     <>
       <div className="tabListBar">
@@ -37,7 +34,11 @@ const NavList = props => {
           })}
           <div
             className="tabChange"
-            style={{left: selectedIndex * width + '%', width: width + '%'}}
+            style={{
+              width: width + '%',
+              transform: `translate3d(${selectedIndex * 100}%,0,0)`,
+              transition: 'transform 200ms ease-in-out'
+            }}
           />
         </div>
         {showCaret ? (

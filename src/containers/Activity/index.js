@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import EntryItem from '@components/EntryItem'
 import NavList from '@components/NavList'
+import TransitionList from '@components/TransitionList'
 import PullRefresh from '@components/PullRefresh'
 import './style.less'
 
@@ -73,6 +74,9 @@ class ActivityContainer extends Component {
 
   render() {
     let {entryList, tabs} = this.props
+    let items = entryList.map((element, index) => {
+      return <EntryItem item={element} key={index} type={'pin'} />
+    })
     return (
       <div className="wrap">
         <NavList
@@ -90,9 +94,7 @@ class ActivityContainer extends Component {
             upRefreshing={this.state.upRefreshing}
             onUpRefresh={this._onRefreshUp}
           >
-            {entryList.map((element, index) => {
-              return <EntryItem item={element} key={index} type={'pin'} />
-            })}
+            <TransitionList items={items} />
           </PullRefresh>
         </div>
       </div>

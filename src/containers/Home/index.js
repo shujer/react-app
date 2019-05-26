@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import EntryItem from '@components/EntryItem'
 import NavList from '@components/NavList'
+import TransitionList from '@components/TransitionList'
 import PullRefresh from '@components/PullRefresh'
 import './style.less'
 
@@ -78,6 +79,9 @@ class HomeContainer extends Component {
         val.link = `/timeline/${val.title}`
         return val
       })
+    let items = entryList.map((element, index) => {
+      return <EntryItem item={element} key={index} />
+    })
     return (
       <div className="wrap">
         <NavList
@@ -95,9 +99,7 @@ class HomeContainer extends Component {
             upRefreshing={this.state.upRefreshing}
             onUpRefresh={this._onRefreshUp}
           >
-            {entryList.map((element, index) => {
-              return <EntryItem item={element} key={index} />
-            })}
+            <TransitionList items={items} />
           </PullRefresh>
         </div>
       </div>
