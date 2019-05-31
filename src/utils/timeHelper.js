@@ -29,11 +29,11 @@ export function getTimefromNow(dateStr) {
   }
 
   if ((tmp = commonOp(dayjsObj1, dayjsObj2, 'hours')[0])) {
-    return tmp + '小时前'
+    return commonOp(dayjsObj1, dayjsObj2, 'hours')[1] + '小时前'
   }
 
   if ((tmp = commonOp(dayjsObj1, dayjsObj2, 'minutes')[0])) {
-    return tmp + '分钟前'
+    return commonOp(dayjsObj1, dayjsObj2, 'minutes')[1] + '分钟前'
   }
   return '片刻之前'
 }

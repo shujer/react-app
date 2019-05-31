@@ -4,7 +4,6 @@ import {List, WhiteSpace} from 'antd-mobile'
 import Tabs from '@components/Tabs'
 import UserBar from './UserBar'
 import NavBar from './NavBar'
-import {BlogIcon} from '@components/Icons'
 import './style.less'
 
 class User extends Component {
@@ -54,8 +53,8 @@ class User extends Component {
             <WhiteSpace />
             <List>
               <List.Item>
-                <div>
-                  <BlogIcon />
+                <div style={{display:"flex", alignItems:"center"}}>
+                  <i className="juejin-icon-md profile-blog"/>
                   {user.blogAddress}
                 </div>
               </List.Item>

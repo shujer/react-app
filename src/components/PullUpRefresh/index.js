@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom'
 import RefreshLoading from '@components/RefreshLoading'
 import PropTypes from 'prop-types'
 
-/**
- * nesting: 是否嵌套在其他拉动组件中
- */
 class PullUpRefresh extends Component {
   constructor(props) {
     super(props)

@@ -1,0 +1,27 @@
+.profile-notification {
+  background-image: url('../../../assets/icons/profile/ic_notification.png');
+}
+.profile-user-data-like {
+  background-image: url('../../../assets/icons/profile/user_liked_pin.png');
+}
+.profile-user-collectionset {
+  background-image: url('../../../assets/icons/profile/user_collectionset.png');
+}
+.profile-user-buy {
+  background-image: url('../../../assets/icons/profile/user_buy.png');
+}
+.profile-user-data-read {
+  background-image: url('../../../assets/icons/profile/ic_user_data_read.png');
+}
+.profile-dynamic-tag {
+  background-image: url('../../../assets/icons/profile/ic_dynamic_tag.png');
+}
+.profile-night {
+  background-image: url('../../../assets/icons/profile/ic_night.png');
+}
+.profile-feed-back {
+  background-image: url('../../../assets/icons/profile/icon_feed_back.png');
+}
+.profile-settings {
+  background-image: url('../../../assets/icons/profile/settings.png');
+}

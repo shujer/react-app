@@ -15,8 +15,13 @@
         overflow: hidden;
     }
     .append {
-        max-width: 70%;
-        overflow: hidden;
+        flex-basis: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+    .extra {
+        flex-grow: 0;
+        flex-shrink: 0;
     }
     .userlinkContainer {
         margin-left: .5rem;
@@ -24,6 +29,9 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: flex-start;
-        // max-width: 80%;
+        div {
+            display: flex;
+            align-items: center;
+        }
     }
 }

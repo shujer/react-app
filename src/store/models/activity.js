@@ -1,7 +1,5 @@
-import {loadData, saveData} from '@utils/localstorageHelper'
 import {Toast} from 'antd-mobile'
 import * as api from '@services/pin'
-import {getUniqueList} from '@utils/listHelper'
 
 function getBeforeRank(list) {
   let len = list.length
@@ -95,7 +93,6 @@ export default {
             device_id: state.auth.userInfo.clientId
           })
           .then(response => {
-            console.log(response)
             let data = response.data
             dispatch.activity.resetEntryList({entryList: data.d['list']})
             resolve(data)

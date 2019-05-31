@@ -1,0 +1,37 @@
+.RightNavBar {
+  width: 100%;
+}
+.RightNavBar .am-navbar-title {
+  flex-grow: 1;
+  justify-content: space-between;
+}
+.RightNavBar .am-navbar-left {
+  flex-grow: 0;
+}
+.RightNavBar .barTitle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.RightNavBar .barTitle .author {
+  font-weight: 800;
+  margin-right: 5px;
+}
+.more,
+.am-list {
+  width: 100%;
+}
+.more .am-list-content,
+.am-list .am-list-content {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+}
+.more img,
+.am-list img {
+  margin-right: 1rem;
+}
+.profile-blog {
+  background-image: url('../../assets/icons/profile/icon_profile_blog.png');
+}

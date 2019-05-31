@@ -14,10 +14,7 @@ const UserBar = ({user}) => {
       <div className="bar">
         <div className="barTitle">
           <div className="author">{user.username || ''}</div>
-          <Level
-            level={user.level}
-            style={{width: '25.19px', height: '14px'}}
-          />
+          <Level level={user.level || ''}/>
         </div>
         <div className="job">
           <ShortStr

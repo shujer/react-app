@@ -1,17 +1,7 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {List, WhiteSpace, Toast} from 'antd-mobile'
-import {
-  NoticeIcon,
-  UserDataLikeIcon,
-  CollectionSetIcon,
-  BuyIcon,
-  UserReadIcon,
-  TagIcon,
-  NightIcon,
-  FeedBacIcon,
-  SettingIcon
-} from '@components/Icons'
+import './style.less'
 let Item = List.Item
 
 const ProfileList = props => {
@@ -25,39 +15,43 @@ const ProfileList = props => {
   return (
     <>
       <List>
-        <Item thumb={<NoticeIcon />} extra="" onClick={() => {}}>
+        <Item
+          thumb={<i className="juejin-icon-md profile-notification" />}
+          extra=""
+          onClick={() => {}}
+        >
           消息中心
         </Item>
         <Item
-          thumb={<UserDataLikeIcon />}
+          thumb={<i className="juejin-icon-md profile-user-data-like" />}
           extra={<small>{`${userLikes || 0}篇`}</small>}
           onClick={() => {}}
         >
           我赞过的
         </Item>
         <Item
-          thumb={<CollectionSetIcon />}
+          thumb={<i className="juejin-icon-md profile-user-collectionset" />}
           extra={<small>{`${collectionSetCount || 0}个`}</small>}
           onClick={() => {}}
         >
           收藏集
         </Item>
         <Item
-          thumb={<BuyIcon />}
+          thumb={<i className="juejin-icon-md profile-user-buy" />}
           extra={<small>{`${purchasedBookletCount || 0}本`}</small>}
           onClick={() => {}}
         >
           已购小册
         </Item>
         <Item
-          thumb={<UserReadIcon />}
+          thumb={<i className="juejin-icon-md profile-user-data-read" />}
           extra={<small>{`${viewedEntriesCount || 0}篇`}</small>}
           onClick={() => {}}
         >
           阅读过的文章
         </Item>
         <Item
-          thumb={<TagIcon />}
+          thumb={<i className="juejin-icon-md profile-dynamic-tag" />}
           extra={<small>{`${subscribedTagsCount || 0}个`}</small>}
           onClick={() => {}}
         >
@@ -67,7 +61,7 @@ const ProfileList = props => {
       <WhiteSpace />
       <List>
         <Item
-          thumb={<NightIcon />}
+          thumb={<i className="juejin-icon-md profile-night" />}
           onClick={() => {
             Toast.info('功能尚未开发', 1.5)
           }}
@@ -75,7 +69,7 @@ const ProfileList = props => {
           夜间模式
         </Item>
         <Item
-          thumb={<FeedBacIcon />}
+          thumb={<i className="juejin-icon-md profile-feed-back" />}
           onClick={() => {
             props.history.push('/feedback')
           }}
@@ -83,7 +77,7 @@ const ProfileList = props => {
           意见反馈
         </Item>
         <Item
-          thumb={<SettingIcon />}
+          thumb={<i className="juejin-icon-md profile-settings" />}
           onClick={() => {
             props.history.push('/settings')
           }}

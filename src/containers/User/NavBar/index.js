@@ -4,6 +4,8 @@ import {withRouter} from 'react-router-dom'
 import ShareActionSheet from '@components/ShareActionSheet'
 import {DataIcon, ShareWhiteIcon} from '@components/Icons'
 import Level from '@components/Level'
+import './style.less'
+
 const myNavBar = props => {
   let {user} = props
   return (
@@ -28,14 +30,14 @@ const myNavBar = props => {
           }}
           style={{marginRight: '14px'}}
         >
-          <DataIcon />
+          <i className="juejin-icon-sm profile-data"/>
         </div>,
-        <ShareActionSheet key="1" icon={<ShareWhiteIcon />} />
+        <ShareActionSheet key="1" icon={ <i className="juejin-icon-sm profile-share-white"/>} />
       ]}
     >
       <div className="barTitle">
         <div className="author">{user.username || ''}</div>
-        <Level level={user.level || ''} height="14px" />
+        <Level level={user.level || ''}/>
       </div>
     </NavBar>
   )

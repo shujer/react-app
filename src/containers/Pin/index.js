@@ -6,6 +6,7 @@ import UserLink from '@components/AvatarBar/UserLink'
 import ShortStr from '@components/ShortStr'
 import {getTimefromNow} from '@utils/timeHelper'
 import FollowButton from '@components/FollowButton'
+import './style.less'
 
 @withNavBarRightLayout('沸点详情页')
 class PostContainer extends Component {
@@ -14,9 +15,9 @@ class PostContainer extends Component {
     item: {}
   }
   render() {
-    let {user, title, } = this.state.item
+    let {user, title} = this.state.item
     return (
-      <div className="postContainer" key={title}>
+      <div className="postContainer content" key={title}>
         <AvatarBar
           size="medium"
           className="avatarBar"
@@ -26,7 +27,7 @@ class PostContainer extends Component {
             <ShortStr
             str={
               user
-                ? `${user.jobTitle} @  ${user.company} · ${getTimefromNow(
+                ? `${user.jobTitle}${' @ ' + user.company || ''} · ${getTimefromNow(
                     this.state.item.createdAt
                   )}`
                 : ''

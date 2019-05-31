@@ -53,7 +53,7 @@ small {
     height: 100%;
     max-height: 100vh;
 
-    & > .header,
+    &>.header,
     .footer {
         position: absolute;
         height: 43px;
@@ -63,15 +63,15 @@ small {
         left: 0;
     }
 
-    & > .header {
+    &>.header {
         top: 0;
     }
 
-    & > .footer {
+    &>.footer {
         bottom: 0;
     }
 
-    & > .main {
+    &>.main {
         position: absolute;
         z-index: 1;
         top: 43px;
@@ -81,7 +81,7 @@ small {
         overflow-y: scroll;
     }
 
-    & > .content {
+    &>.content {
         position: absolute;
         z-index: 1;
         top: 43px;
@@ -101,4 +101,65 @@ button {
     position: -webkit-sticky;
     position: sticky;
     top: 45px;
+}
+
+.juejin-icon-xs {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 1px 1px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.juejin-icon-sm {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: 2px 2px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.juejin-icon-md {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 2px 2px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.juejin-icon-lg {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    margin: 4px 4px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.juejin-icon-llg {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    margin: 6px 6px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div {
+    & i {
+        & & {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
 }

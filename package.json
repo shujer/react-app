@@ -32,7 +32,8 @@
     "react-transition-group": "^4.0.1",
     "redux": "^4.0.1",
     "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0"
+    "socket.io-client": "^2.2.0",
+    "swiper": "^4.5.0"
   },
   "scripts": {
     "dev:server": "cross-env NODE_ENV=development nodemon server/app.js",

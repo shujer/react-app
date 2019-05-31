@@ -23,9 +23,8 @@ const PinItem = ({item, ...props}) => {
           <ShortStr
             str={
               user
-                ? `${user.jobTitle} @  ${user.company} · ${getTimefromNow(
-                    item.createdAt
-                  )}`
+                ? `${user.jobTitle}${' @ ' + user.company ||
+                    ''} · ${getTimefromNow(item.createdAt)}`
                 : ''
             }
             len={15}
@@ -55,7 +54,14 @@ const PinItem = ({item, ...props}) => {
         >
           <CommentIcon /> {item.commentCount || '评论'}
         </small>
-        <ShareActionSheet icon={<small><ShareIcon/>{' 分享'}</small>} />
+        <ShareActionSheet
+          icon={
+            <small>
+              <ShareIcon />
+              {' 分享'}
+            </small>
+          }
+        />
       </div>
     </div>
   )

@@ -98,6 +98,14 @@ const routes = [
     })
   },
   {
+    path: '/search',
+    meta: {role: ['auth', 'guest']},
+    component: Loadable({
+      loader: () => import('@containers/Search'),
+      loading: () => <Loading />
+    })
+  },
+  {
     path: '/feedback',
     meta: {role: ['auth', 'guest']},
     component: Loadable({

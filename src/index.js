@@ -10,7 +10,6 @@ import {Provider} from 'react-redux'
 
 import './index.less'
 import './common.less'
-import '@assets/css/iconfont.css'
 import * as serviceWorker from './serviceWorker'
 
 const RouterConfig = () => (

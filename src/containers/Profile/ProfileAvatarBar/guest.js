@@ -1,6 +1,5 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
-import {ArrowIcon} from '@components/Icons'
 import Avatar from '@components/Avatar/guest'
 import ShortStr from '@components/ShortStr'
 import './style.less'
@@ -19,7 +18,7 @@ const ProfileAvatarBar = props => {
           </div>
         </div>
         <div className="arrow">
-           <ArrowIcon/>
+        <i className="juejin-icon-md profile-arrow"/>
         </div>
       </div>
     </div>

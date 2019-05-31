@@ -44,9 +44,12 @@ npm run start
         </td>
     </tr>
     <tr>
+        <td width="33%" height="100%">
+            <img src="./doc/效果图/explore.gif" alt="img" />
+        </td>
     </tr>
 </table>
 
-
 ---
+
 一些后端接口部分参考了[这个作者](https://github.com/Kim09AI/react-juejin/blob/master/server/config/index.js)

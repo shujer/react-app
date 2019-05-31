@@ -24,7 +24,7 @@ let Entry = props => {
           <h4>{book.title}</h4>
           <div className="author">
             {book.userData.username}{' '}
-            <Level level={book.userData.level} style={{height: '12px'}} />
+            <Level level={book.userData.level} size="sm" />
           </div>
           <small>
             {book.section.length}

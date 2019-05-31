@@ -1,10 +1,10 @@
 import React from 'react'
-const Level = ({level, ...props}) =>
+import './style.less'
+const Level = ({level, size, ...props}) =>
   level ? (
-    <img
-      src={require('@assets/icons/level/ic_user_lv' + level + '.png')}
-      alt={level}
-      {...props}
+    <i
+      className={`level-${level} juejin-icon-${size || 'md'}`}
+      style={{marginRight: '12px'}}
     />
   ) : null
 export default Level
