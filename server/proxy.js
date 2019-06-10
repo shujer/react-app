@@ -13,7 +13,7 @@ const JujinApi = {
   notification: 'https://user-notification-api-ms.juejin.im/v1/',
   lccro: 'https://lccro-api-ms.juejin.im/v1',
   sms: 'https://user-storage-api-ms.juejin.im/v2/',
-  shortMsg: 'https://short-msg-ms.juejin.im/v1/'
+  shortMsg: 'https://short-msg-ms.juejin.im/v1/',
 }
 
 function getRealApi(url) {

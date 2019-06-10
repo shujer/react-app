@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {NavBar, Icon} from 'antd-mobile'
 import emptyAvatar from '@assets/icons/profile/empty_avatar_user.png'
+import LazyImg from '@components/LazyImg'
 import Level from '@components/Level'
 import TextAnimation from './TextAnimation'
 import './style.less'
@@ -35,7 +36,7 @@ class PostData extends Component {
         <div className="content postdataContainer">
           <div className="header">
             <div className="avatar">
-              <img src={user.avatarLarge || emptyAvatar} alt="avatar" />
+              <LazyImg src={user.avatarLarge} alternate={emptyAvatar} />
             </div>
             <div className="username">
               {user.username || ''}

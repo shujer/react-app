@@ -4,7 +4,7 @@ import './style.less'
 
 const withTabBarBasicLayout = WrappedComponent => props => {
   let pathname = props.match.path.split('/')[1]
-  
+
   let items = [
     {
       title: 'timeline',
@@ -42,6 +42,7 @@ const withTabBarBasicLayout = WrappedComponent => props => {
           position: 'fixed',
           width: '100%',
           bottom: 0,
+          zIndex: 999
         }}
         className="transition-item footer"
       >

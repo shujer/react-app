@@ -54,7 +54,7 @@ class Auth extends Component {
               return <Redirect to={'/'} />
             default:
               return (
-                <div className="authContainer">
+                <div className="authContainer content">
                   <LoginForm
                     className="loginForm"
                     handleLogin={this.submit}

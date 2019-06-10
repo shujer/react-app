@@ -6,7 +6,6 @@ import EntryItem from '@components/EntryItem'
 import NavList from '@components/NavList'
 import TransitionList from '@components/TransitionList'
 import PullRefresh from '@components/PullRefresh'
-import './style.less'
 
 @withTabBarBasicLayout
 class HomeContainer extends Component {

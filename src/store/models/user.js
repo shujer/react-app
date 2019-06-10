@@ -34,7 +34,6 @@ export default {
             let data = response.data
             let user = data.d[ids]
             dispatch.user.setUser({user})
-            console.log(user)
             resolve(user)
           })
           .catch(err => {})

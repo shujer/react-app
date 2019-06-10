@@ -1,5 +1,7 @@
 import React from 'react'
 import Level from '@components/Level'
+import LazyImg from '@components/LazyImg'
+import EmptyImage from '@assets/icons/post/entry_image_default.png'
 import './style.less'
 
 let Price = ({book}) => {
@@ -18,7 +20,7 @@ let Entry = props => {
     <div className="bookEntry">
       <div className="left">
         <div className="bookCover">
-          <img src={book.img} alt="xiaoce" />
+          <LazyImg src={book.img} alternate={EmptyImage} />
         </div>
         <div className="detail">
           <h4>{book.title}</h4>

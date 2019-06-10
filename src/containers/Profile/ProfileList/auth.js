@@ -1,7 +1,6 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {List, WhiteSpace, Toast} from 'antd-mobile'
-import './style.less'
 let Item = List.Item
 
 const ProfileList = props => {

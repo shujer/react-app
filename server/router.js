@@ -35,6 +35,27 @@ router.get('/multi_user', async (ctx, next) => {
   }
 })
 
+// 解决图片防盗链
+// router.get('/images', async (ctx, next) => {
+//   let url = await ctx.request.url;
+//   console.log(url);
+//   try {
+//     let body
+//     await fetch(url, {
+//       header: {
+//         Origin: 'https://user-gold-cdn.xitu.io/',
+//       }
+//     })
+//       .then(res => res.json())
+//       .then(json => {
+//         body = json
+//       })
+//     ctx.response.body = body
+//   } catch (err) {
+//     ctx.response.body = {s: 4, m: '请求失败', d: null}
+//   }
+// })
+
 router.get('/oauth/github/authorize', async (ctx, next) => {
   let params = {
     client_id: Config.GITHUB.client_id,

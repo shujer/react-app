@@ -13,6 +13,7 @@
     .entryAvatar {
         height: 2.4rem;
         width: 100%;
+
         .avatarContainer {
             height: 1.2rem;
             width: 1.2rem;
@@ -27,23 +28,26 @@
         align-items: flex-start;
         max-height: 5rem;
         overflow: hidden;
-        
+
         .screenshot {
-            max-height: 4.75rem;
-            max-width: 4.75rem;
-           
-            img {
-                margin-left: .25rem;
-                height: 4.75rem;
-                width: 4.75rem;
-            }
+            flex-basis: 4.75rem;
+            flex-grow: 0;
+            flex-shrink: 0;
+            height: 4.75rem;
+            margin-left: .25rem;
         }
+
         .text {
+            flex-basis: auto;
+            flex-grow: 1;
+            flex-shrink: 1;
             max-height: 5rem;
             overflow: hidden;
+
             .title {
                 color: black;
             }
+
             .content {
                 overflow: hidden;
                 width: 100%;

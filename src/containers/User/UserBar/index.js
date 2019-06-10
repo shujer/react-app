@@ -1,6 +1,7 @@
 import React from 'react'
 import Level from '@components/Level'
 import ShortStr from '@components/ShortStr'
+import LazyImg from '@components/LazyImg'
 import emptyAvatar from '@assets/icons/profile/empty_avatar_user.png'
 import './style.less'
 
@@ -9,7 +10,7 @@ const UserBar = ({user}) => {
     <div className="userBar">
       <div className="cover" />
       <div className="avatarImg">
-        <img src={user.avatarLarge || emptyAvatar} alt="avatarImg" />
+        <LazyImg src={user.avatarLarge} alternate={emptyAvatar} />
       </div>
       <div className="bar">
         <div className="barTitle">

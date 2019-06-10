@@ -173,10 +173,12 @@ class Explore extends Component {
               <PullUpRefresh onRefresh={() => {}} useBodyScroll>
                 {this.props.entryList.map(item => (
                   <List.Item key={item.title}>
-                    <h2>{item.title}</h2>
-                    <small>{`${item.likeCount || 0}人赞${' · ' +
-                      item.user.username || ''}${' · ' +
-                      getTimefromNow(item.createAt) || ''}`}</small>
+                    <div>
+                      <h2 className="explore-title">{item.title}</h2>
+                      <small>{`${item.likeCount || 0}人赞${' · ' +
+                        item.user.username || ''}${' · ' +
+                        getTimefromNow(item.createAt) || ''}`}</small>
+                    </div>
                   </List.Item>
                 ))}
               </PullUpRefresh>

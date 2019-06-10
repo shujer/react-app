@@ -2,8 +2,10 @@ import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {LikeIcon, CommentIcon} from '@components/Icons'
 import Tags from '@components/ShortStr'
+import LazyImg from '@components/LazyImg'
 import AvatarBar from '@components/AvatarBar'
 import UserLink from '@components/AvatarBar/UserLink'
+import EmptyImage from '@assets/icons/post/entry_image_default.png'
 import './style.less'
 
 const PostItem = ({item, ...props}) => {
@@ -48,16 +50,17 @@ const PostItem = ({item, ...props}) => {
         </div>
         {screenshot ? (
           <div className="screenshot">
-            <img src={screenshot} alt="screenshot" />
+            <LazyImg src={screenshot} alternate={EmptyImage} />
           </div>
         ) : null}
       </div>
       <div className="info">
         <div>
-          <LikeIcon isLike={user.isLike || false} /> {likeCount ? likeCount : '赞'}
+          <LikeIcon isLike={user.isLike || false} />{' '}
+          {likeCount ? likeCount : '赞'}
         </div>
         <div>
-          <CommentIcon/> {commentsCount ? commentsCount : '评论'}
+          <CommentIcon /> {commentsCount ? commentsCount : '评论'}
         </div>
       </div>
     </div>

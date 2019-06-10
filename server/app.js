@@ -36,6 +36,6 @@ io.of('/feedback').on('connection', function(socket) {
   socket.on('disconnect', function() {})
 })
 
-server.listen(8989, () => {
+server.listen(8989, '0.0.0.0', () => {
   console.log('server is running at http://localhost:8989')
 })
