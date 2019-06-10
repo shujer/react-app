@@ -1,4 +1,6 @@
 import React, {useEffect} from 'react'
+import LazyImg from '@components/LazyImg'
+import EmptyImage from '@assets/icons/post/explore_post.png'
 import Swiper from 'swiper/dist/js/swiper.js'
 import 'swiper/dist/css/swiper.min.css'
 import './style.less'
@@ -19,7 +21,7 @@ export default props => {
         {items.map((item, index) => (
           <div className="swiper-slide" key={item._id}>
             <a href={item.eventUrl} title="link">
-              <img src={item.screenshot} alt="slide-img" />
+              <LazyImg src={item.screenshot} alternate={EmptyImage} />
             </a>
           </div>
         ))}

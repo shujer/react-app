@@ -2,12 +2,14 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {ShareWhiteIcon} from '@components/Icons'
 import {NavBar, Icon} from 'antd-mobile'
+import LazyImg from '@components/LazyImg'
 import ShareActionSheet from '@components/ShareActionSheet'
 import AvatarBar from '@components/AvatarBar'
 import UserLink from '@components/AvatarBar/UserLink'
 import ShortStr from '@components/ShortStr'
 import Level from '@components/Level'
 import FollowButton from '@components/FollowButton'
+import EmptyImage from '@assets/icons/post/entry_image_default.png'
 import './style.less'
 import '@assets/highlight/default.min.css'
 
@@ -37,10 +39,10 @@ class PostContainer extends Component {
   render() {
     let {user, title, screenshot} = this.state.postInfo
     return (
-      <div className="postContainer" key={title}>
+      <div className='postContainer' key={title}>
         <NavBar
-          mode="light"
-          icon={<Icon type="left" />}
+          mode='light'
+          icon={<Icon type='left' />}
           onLeftClick={() => {
             this.props.history.goBack()
           }}
@@ -52,13 +54,13 @@ class PostContainer extends Component {
           }}
           leftContent={['文章详情页']}
           rightContent={[
-            <ShareActionSheet key="1" icon={<ShareWhiteIcon />} />
+            <ShareActionSheet key='1' icon={<ShareWhiteIcon />} />
           ]}
         />
-        <div style={{paddingBottom:"43px"}}></div>
+        <div style={{paddingBottom: '43px'}} />
         <AvatarBar
-          size="medium"
-          className="avatarBar"
+          size='medium'
+          className='avatarBar'
           user={user}
           appendContent={[
             <div>
@@ -75,11 +77,15 @@ class PostContainer extends Component {
           ]}
           extraContent={[<FollowButton />]}
         />
-        <div className="postDetail">
+        <div className='postDetail'>
           <h1>{title}</h1>
-          {screenshot ? <img src={screenshot} alt="screenshot" /> : null}
+          {screenshot ? (
+            <div class='cover'>
+              <LazyImg src={screenshot} alternate={EmptyImage} />{' '}
+            </div>
+          ) : null}
           <div
-            className="content"
+            className='content'
             dangerouslySetInnerHTML={{
               __html: this.state.content
             }}
