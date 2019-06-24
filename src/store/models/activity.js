@@ -1,10 +1,6 @@
-import {Toast} from 'antd-mobile'
+import { Toast } from 'antd-mobile'
 import * as api from '@services/pin'
-
-function getBeforeRank(list) {
-  let len = list.length
-  return len >= 1 ? list[len - 1].rankIndex : ''
-}
+import { getUniqueList } from '@utils/listHelper'
 
 export default {
   namespace: 'activity',
@@ -17,8 +13,8 @@ export default {
         link: '/activity/followed',
         show: true
       },
-      {name: '推荐', title: 'all', link: '/activity/all', show: true},
-      {name: '热门', title: 'hot', link: '/activity/hot', show: true},
+      { name: '推荐', title: 'all', link: '/activity/all', show: true },
+      { name: '热门', title: 'hot', link: '/activity/hot', show: true },
       {
         name: '开源推荐',
         title: 'topic1',
@@ -62,66 +58,121 @@ export default {
         show: true
       }
     ],
-    entryList: []
+    entryList: [],
+    pageInfo: {},
+    page: 0
   },
   reducers: {
-    emptyEntryList(state, playload) {
+    resetEntryList (state, { more, entryList = [], pageInfo = {}, page = 0 }) {
       return {
         ...state,
-        entryList: []
+        pageInfo,
+        entryList:
+          more === false
+            ? [...entryList]
+            : getUniqueList([...state.entryList, ...entryList], 'objectId'),
+        page
       }
     },
-    resetEntryList(state, {entryList}) {
+    emptyEntryList (state, { category }) {
       return {
         ...state,
-        entryList
+        entryList: [],
+        pageInfo: {},
+        page: 1
       }
     }
   },
   effects: dispatch => ({
-    async getHotRecommendList(playload, state) {
-      let {
-        more,
-        params: {category}
-      } = playload
+    // 获取推荐沸点
+    async getRecommendList (playload, state) {
+      let { more } = playload
+      let after
       return new Promise((resolve, reject) => {
-        let before = more ? getBeforeRank(state.activity.entryList) : ''
+        if (more) after = state.activity.pageInfo.endCursor || ''
         api
-          .getHotRecommendList({
-            uid: state.auth.userInfo.uid,
-            token: state.auth.userInfo.token,
-            device_id: state.auth.userInfo.clientId
-          })
+          .getRecommendPins({ after })
           .then(response => {
-            let data = response.data
-            dispatch.activity.resetEntryList({entryList: data.d['list']})
-            resolve(data)
+            let {
+              data: {
+                recommendedActivityFeed: {
+                  items: { edges, pageInfo }
+                }
+              }
+            } = response.data
+            dispatch.activity.resetEntryList({
+              entryList: edges.map(entry => {
+                let item = entry.node.targets[0]
+                item.objectId = item.id
+                item.user.objectId = item.user.id
+                return item
+              }),
+              pageInfo
+            })
+            resolve(true)
           })
           .catch(err => {
             Toast.info('网络似乎出现了点问题', 1.5)
           })
       })
     },
+    // 获取热门沸点
+    async getHotList (playload, state) {
+      let { more } = playload
+      let after
+      return new Promise((resolve, reject) => {
+        if (more) after = state.activity.pageInfo.endCursor || ''
+        api
+          .getHotPins({ after })
+          .then(response => {
+            console.log(response)
+            let {
+              data: {
+                popularPinList: {
+                  items: { edges, pageInfo }
+                }
+              }
+            } = response.data
 
-    async getPinTopicList(playload, state) {
+            dispatch.activity.resetEntryList({
+              entryList: edges.map(entry => {
+                let item = entry.node
+                item.objectId = item.id
+                item.user.objectId = item.user.id
+                return item
+              }),
+              pageInfo
+            })
+            resolve(true)
+          })
+          .catch(err => {
+            Toast.info('网络似乎出现了点问题', 1.5)
+          })
+      })
+    },
+    // 获取子主题沸点
+    async getPinTopicList (playload, state) {
       let {
         more,
-        params: {id}
+        params: { id }
       } = playload
       return new Promise((resolve, reject) => {
         api
           .getPinTopicList({
             topicId: id,
-            page: 0,
+            page: state.activity.page + 1,
             pageSize: 20,
             uid: state.auth.userInfo.uid,
             token: state.auth.userInfo.token,
             device_id: state.auth.userInfo.clientId
           })
           .then(response => {
-            console.log(response)
             let data = response.data
-            dispatch.activity.resetEntryList({entryList: data.d['list']})
+            dispatch.activity.resetEntryList({
+              more,
+              entryList: data.d['list'],
+              page: state.activity.page + 1
+            })
             resolve(data)
           })
           .catch(err => {
@@ -129,20 +180,76 @@ export default {
           })
       })
     },
-    async getUserPinList(playload, state) {},
-    async getEntry(playload, state) {
+    // 获取关注沸点
+    async getFollowPins (playload, state) {
+      if (!state.auth.isLogin) {
+        Toast.info('请先登录', 1.5)
+        return
+      }
+      let { more } = playload
+      let after
+      return new Promise((resolve, reject) => {
+        if (more) after = state.activity.pageInfo.endCursor || ''
+        api
+          .getFollowPins({
+            after,
+            device_id: state.auth.userInfo.clientId,
+            token: state.auth.userInfo.token,
+            uid: state.auth.userInfo.uid
+          })
+          .then(response => {
+            let {
+              data: {
+                followingActivityFeed: {
+                  items: { edges, pageInfo }
+                }
+              }
+            } = response.data
+
+            dispatch.activity.resetEntryList({
+              entryList: edges.map(entry => {
+                let {node: {targets}} = entry;
+                if(!targets) return null;
+                let item = targets[0];
+                item.objectId = item.id
+                item.user.objectId = item.user.id
+                return item
+              }),
+              pageInfo
+            })
+            resolve(true)
+          })
+          .catch(err => {
+            console.log(err)
+            Toast.info('网络似乎出现了点问题', 1.5)
+          })
+      })
+    },
+    async getEntry (playload, state) {
       let {
         more,
-        params: {category, id}
+        params: { category, id }
       } = playload
       if (!more) {
-        await dispatch.activity.emptyEntryList()
+        // 新请求清空列表
+        await dispatch.activity.emptyEntryList({ category })
       }
-
-      if (id && category === 'topic') {
-        dispatch.activity.getPinTopicList(playload)
-      } else {
-        dispatch.activity.getHotRecommendList(playload)
+      // 选择沸点类型
+      switch (category) {
+        case 'topic':
+          if (id) dispatch.activity.getPinTopicList(playload)
+          break
+        case 'all':
+          dispatch.activity.getRecommendList(playload)
+          break
+        case 'hot':
+          dispatch.activity.getHotList(playload)
+          break
+        case 'followed':
+          dispatch.activity.getFollowPins(playload)
+          break
+        default:
+          dispatch.activity.getRecommendList(playload)
       }
     }
   }),

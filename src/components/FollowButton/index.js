@@ -65,42 +65,8 @@ let Loading = props => (
   </div>
 )
 
-class ButtonContainer extends Component {
-  state = {
-    currentState: this.props.isFollowed ? 'followed' : 'unfollowed',
-    isFollowed: this.props.isFollowed,
-    showFollowState: this.props.showFollowState || false
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.isFollowed !== this.props.isFollowed) {
-      this.setState({
-        currentState: this.props.isFollowed ? 'followed' : 'unfollowed'
-      })
-    }
-  }
-  submit = () => {
-    this.setState({
-      currentState: 'loading'
-    })
-  }
-  render() {
-    return (
-      <>
-        {(() => {
-          switch (this.state.currentState) {
-            case 'followed':
-              return <UnfollowButton submit={this.submit} />
-            case 'unfollowed':
-              return <FollowButton submit={this.submit} />
-            case 'loading':
-              return <Loading />
-            default:
-              return null
-          }
-        })()}
-      </>
-    )
-  }
+const Button = props => {
+return <div></div>
 }
 
-export default ButtonContainer
+export default Button

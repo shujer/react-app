@@ -1,7 +1,7 @@
 
 const JujinApi = {
   timeline: 'https://timeline-merger-ms.juejin.im/v1/',
-  webapi: 'https://web-api.juejin.im/',
+  webapi: 'https://web-api.juejin.im/query/',
   tag: 'https://gold-tag-ms.juejin.im/v1/',
   xiaoce: 'https://xiaoce-timeline-api-ms.juejin.im/v1/',
   post: 'https://post-storage-api-ms.juejin.im/v1/',
@@ -38,6 +38,7 @@ const proxyTable = {
     '^/api/lccro': '/',
     '^/api/shortMsg': '/',
     '^/api/sms': '/',
+    '^/api/webapi': '/'
   },
   router: function({url}) {
     return getRealApi(url)

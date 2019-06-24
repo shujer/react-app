@@ -80,7 +80,7 @@ class PostContainer extends Component {
         <div className='postDetail'>
           <h1>{title}</h1>
           {screenshot ? (
-            <div class='cover'>
+            <div className='cover'>
               <LazyImg src={screenshot} alternate={EmptyImage} />{' '}
             </div>
           ) : null}

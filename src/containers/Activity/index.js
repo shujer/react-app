@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import EntryItem from '@components/EntryItem'
@@ -17,11 +17,16 @@ class ActivityContainer extends Component {
     upRefreshing: false
   }
 
-  componentWillMount() {
+  componentDidCatch (error, info) {
+    // You can also log the error to an error reporting service
+    console.log(error, info)
+  }
+
+  componentWillMount () {
     this._onRefreshDown()
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     let category = nextProps.match.params.category
     let id = nextProps.match.params.id
     if (
@@ -30,7 +35,8 @@ class ActivityContainer extends Component {
     ) {
       this.setState(
         {
-          downRefreshing: true
+          downRefreshing: true,
+          category
         },
         () => {
           // this.props.emptyEntryList()
@@ -72,25 +78,25 @@ class ActivityContainer extends Component {
     })
   }
 
-  render() {
-    let {entryList, tabs} = this.props
+  render () {
+    let { tabs, entryList } = this.props
     let items = entryList.map((element, index) => {
       return <EntryItem item={element} key={index} type={'pin'} />
     })
     return (
-      <div className="wrap">
+      <div className='wrap'>
         <NavList
-          className="header"
+          className='header'
           tabs={tabs}
           onCaretClick={this._goToTab}
-          showCaret={true}
+          showCaret
         />
-        <div className="main scroll_content">
+        <div className='main scroll_content'>
           <PullRefresh
-            down={true}
+            down
             onDownRefresh={this._onRefreshDown}
             downRefreshing={this.state.downRefreshing}
-            up={true}
+            up
             upRefreshing={this.state.upRefreshing}
             onUpRefresh={this._onRefreshUp}
           >
@@ -107,7 +113,7 @@ const mapState = state => ({
   tabs: state.activity.tabs
 })
 
-const mapDispatch = ({activity: {getEntry}}) => ({
+const mapDispatch = ({ activity: { getEntry } }) => ({
   getEntry: playload => getEntry(playload)
 })
 
