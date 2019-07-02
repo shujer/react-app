@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default props => {
   let [style, setStyle] = useState({
@@ -13,20 +13,18 @@ export default props => {
 
   useEffect(() => {
     let isCancelled = false
-    try {
-      let image = document.createElement('img')
-      image.onload = () => {
-        if (!isCancelled) {
-          setStyle({...style, backgroundImage: `url(${props.src})`})
-        }
+    let image = document.createElement('img')
+    image.onload = () => {
+      if (!isCancelled) {
+        setStyle({ ...style, backgroundImage: `url(${props.src})` })
       }
-      image.onerror = () => {}
-      image.src = props.src
-    } catch (err) {}
+    }
+    image.onerror = () => {}
+    image.src = props.src
 
     return () => {
       isCancelled = true
     }
-  })
-  return <div style={{...style, ...props.style}} />
+  }, [props.src])
+  return <div style={{ ...style, ...props.style }} />
 }

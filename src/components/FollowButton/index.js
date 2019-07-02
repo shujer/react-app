@@ -1,12 +1,13 @@
-import React, {Component} from 'react'
-import {FollowIcon, UnFollowIcon} from '@components/Icons'
-import {Icon} from 'antd-mobile'
+import React from 'react'
+import { connect } from 'react-redux'
+import { FollowIcon, UnFollowIcon } from '@components/Icons'
+import { Icon } from 'antd-mobile'
 
-let UnfollowButton = props => (
+let FollowButton = props => (
   <div
-    className="UnfollowButton"
+    className='UnfollowButton'
     onClick={() => {
-      props.submit()
+      props.changeFollow()
     }}
     style={{
       width: '5rem',
@@ -26,11 +27,11 @@ let UnfollowButton = props => (
   </div>
 )
 
-let FollowButton = props => (
+let UnFollowButton = props => (
   <div
-    className="followButton"
+    className='followButton'
     onClick={() => {
-      props.submit()
+      props.changeFollow()
     }}
     style={{
       width: '5rem',
@@ -61,12 +62,70 @@ let Loading = props => (
       fontSize: '12px'
     }}
   >
-    <Icon type="loading" />
+    <Icon type='loading' />
   </div>
 )
 
-const Button = props => {
-return <div></div>
+class Button extends React.Component {
+  state = {
+    loading: false,
+    isFollow: false
+  }
+  changeFollow = () => {
+    this.setState({
+      loading: true
+    })
+    this.props.changeFollow({
+      followState: this.state.isFollow,
+      targetId: this.props.currentId
+    })
+    // clearTimeout(this.timer)
+    // setTimeout(() => {
+    //   if (this.state.loading) {
+    //     this.setState({
+    //       loading: false
+    //     })
+    //   }
+    // }, 5000)
+  }
+
+  static getDerivedStateFromProps (nextProps, prevState) {
+    let isFollow = nextProps.followMap[nextProps.currentId]
+    if (prevState.isFollow !== isFollow) {
+      return {
+        loading: false,
+        isFollow
+      }
+    }
+    return null
+  }
+
+  componentDidMount () {
+    this.props.checkFollow({ targetId: this.props.currentId })
+  }
+
+  render () {
+    if (this.state.loading) {
+      return <Loading />
+    }
+    return this.state.isFollow ? (
+      <FollowButton changeFollow={this.changeFollow} />
+    ) : (
+      <UnFollowButton changeFollow={this.changeFollow} />
+    )
+  }
 }
 
-export default Button
+const mapState = state => ({
+  followMap: state.user.followMap
+})
+
+const mapDispatch = ({ user: { changeFollow, checkFollow } }) => ({
+  changeFollow: playload => changeFollow(playload),
+  checkFollow: playload => checkFollow(playload)
+})
+
+export default connect(
+  mapState,
+  mapDispatch
+)(Button)

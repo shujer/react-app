@@ -1,5 +1,5 @@
 import * as api from '@services/entry'
-import {Toast} from 'antd-mobile'
+import { Toast } from 'antd-mobile'
 export default {
   namespace: 'post',
   state: {
@@ -8,19 +8,19 @@ export default {
     postInfo: {}
   },
   reducers: {
-    resetPostDetail(state, {content}) {
+    resetPostDetail (state, { content }) {
       return {
         ...state,
         content: content
       }
     },
-    resetPostInfo(state, {postInfo}) {
+    resetPostInfo (state, { postInfo }) {
       return {
         ...state.postInfo,
         postInfo
       }
     },
-    emptyPost(state, playload) {
+    emptyPost (state, playload) {
       return {
         ...state,
         content: '',
@@ -29,16 +29,13 @@ export default {
     }
   },
   effects: dispatch => ({
-    async getPostDetailAsync({id}, state) {
+    async getPostDetailAsync ({ id }, state) {
       return new Promise((resolve, reject) => {
         api
           .getPostDetail(id)
-          .then(response => {
-            let data = response.data
-            let {
-              d: {content}
-            } = data
-            dispatch.post.resetPostDetail({content})
+          .then(data => {
+            let { content } = data
+            dispatch.post.resetPostDetail({ content })
             resolve(content)
           })
           .catch(err => {
@@ -46,17 +43,15 @@ export default {
           })
       })
     },
-    async getPostAsync({id}, state) {
+    async getPostAsync ({ id }, state) {
       await dispatch.post.emptyPost()
       return new Promise((resolve, reject) => {
         api
           .getPostDetail(id, 'entry')
-          .then(({data}) => {
-            if (data.s !== 1) throw Error
-            let {d: postInfo} = data
-            dispatch.post.resetPostInfo({postInfo})
-            dispatch.post.getPostDetailAsync({id})
-            resolve(postInfo)
+          .then(data => {
+            dispatch.post.resetPostInfo({ postInfo: data })
+            dispatch.post.getPostDetailAsync({ id })
+            resolve(data)
           })
           .catch(err => {
             Toast.info('网络似乎出现了点问题', 1.5)

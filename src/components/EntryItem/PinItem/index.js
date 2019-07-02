@@ -1,22 +1,22 @@
 import React from 'react'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import AvatarBar from '@components/AvatarBar'
 import UserLink from '@components/AvatarBar/UserLink'
 import ShortStr from '@components/ShortStr'
-import {getTimefromNow} from '@utils/timeHelper'
+import { getTimefromNow } from '@utils/timeHelper'
 import FollowButton from '@components/FollowButton'
 import ShareActionSheet from '@components/ShareActionSheet'
-import {LikeIcon, CommentIcon, ShareIcon} from '@components/Icons'
-import {Icon} from 'antd-mobile'
+import { LikeIcon, CommentIcon, ShareIcon } from '@components/Icons'
+import { Icon } from 'antd-mobile'
 import './style.less'
 
-const PinItem = ({item, ...props}) => {
-  let {user} = item
+const PinItem = ({ item, ...props }) => {
+  let { user } = item
   return (
-    <div className="pinEntry">
+    <div className='pinEntry'>
       <AvatarBar
-        size="medium"
-        className="avatarBar"
+        size='medium'
+        className='avatarBar'
         user={user}
         appendContent={[
           <UserLink {...user} />,
@@ -31,19 +31,24 @@ const PinItem = ({item, ...props}) => {
           />
         ]}
         extraContent={[
-          <FollowButton style={{marginRight: '1rem'}} />,
-          <ShareActionSheet icon={<Icon key="1" type="ellipsis" size="sm" />} />
+          <FollowButton
+            style={{ marginRight: '1rem' }}
+            currentId={user.objectId}
+          />,
+          <ShareActionSheet
+            icon={<Icon key='1' type='ellipsis' size='sm' />}
+          />
         ]}
       />
       <div
-        className="content"
+        className='content'
         onClick={() => {
           props.history.push(`/pin/${item.objectId}`)
         }}
       >
-        <div className="short">{item.content}</div>
+        <div className='short'>{item.content}</div>
       </div>
-      <div className="pinfooter">
+      <div className='pinfooter'>
         <small>
           <LikeIcon isLiked={item.isLiked || false} /> {item.isLiked || '点赞'}
         </small>

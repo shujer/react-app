@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
-import EntryItem from '@components/EntryItem'
+import EntryItem from '@components/EntryItem/PinItem'
 import NavList from '@components/NavList'
 import TransitionList from '@components/TransitionList'
 import PullRefresh from '@components/PullRefresh'
@@ -17,10 +17,7 @@ class ActivityContainer extends Component {
     upRefreshing: false
   }
 
-  componentDidCatch (error, info) {
-    // You can also log the error to an error reporting service
-    console.log(error, info)
-  }
+  static getDerivedStateFromError () {}
 
   componentWillMount () {
     this._onRefreshDown()
@@ -81,7 +78,12 @@ class ActivityContainer extends Component {
   render () {
     let { tabs, entryList } = this.props
     let items = entryList.map((element, index) => {
-      return <EntryItem item={element} key={index} type={'pin'} />
+      return (
+        <EntryItem
+          item={element}
+          key={element.objectId}
+        />
+      )
     })
     return (
       <div className='wrap'>

@@ -4,6 +4,8 @@ import * as sms from './sms'
 import * as category from './category'
 import * as user from './user'
 import * as entry from './entry'
+import * as pin from './pin'
+import * as tag from './tag'
 
 export default {
   auth,
@@ -11,5 +13,7 @@ export default {
   sms,
   category,
   user,
-  entry
+  entry,
+  pin,
+  tag
 }

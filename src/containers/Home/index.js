@@ -83,7 +83,7 @@ class HomeContainer extends Component {
         return val
       })
     let items = entryList.map((element, index) => {
-      return <EntryItem item={element} key={index} />
+      return <EntryItem item={element} key={element.objectId} />
     })
     return (
       <div className='wrap'>

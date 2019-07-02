@@ -49,7 +49,9 @@ export function get (url, { params = {}, ...res } = {}) {
     responseType: 'json',
     ...res
   })
-    .then(response => (response.data.d ? response.data.d : response.data))
+    .then(response =>
+      response.data && response.data.d ? response.data.d : response.data
+    )
     .catch(err => {
       console.log(err)
     })

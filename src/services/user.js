@@ -1,11 +1,11 @@
-import {get} from '@utils/request'
+import { get } from '@utils/request'
 
 const COLS =
   'viewedEntriesCount|role|totalCollectionsCount|allowNotification|subscribedTagsCount|appliedEditorAt|email|followersCount|postedEntriesCount|latestCollectionUserNotification|commentedEntriesCount|weeklyEmail|collectedEntriesCount|postedPostsCount|username|latestLoginedInAt|totalHotIndex|blogAddress|selfDescription|latestCheckedNotificationAt|emailVerified|totalCommentsCount|installation|blacklist|weiboId|mobilePhoneNumber|apply|followeesCount|deviceType|editorType|jobTitle|company|latestVoteLikeUserNotification|authData|avatarLarge|mobilePhoneVerified|objectId|createdAt|updatedAt'
 /**
  * 获取系统未读通知
  */
-export async function getUnreadSystemNotificationNum({uid, token}) {
+export async function getUnreadSystemNotificationNum ({ uid, token }) {
   return get(`/api/notification/getUnreadSystemNotificationNum`, {
     params: {
       uid,
@@ -17,7 +17,7 @@ export async function getUnreadSystemNotificationNum({uid, token}) {
 /**
  * 获取其他用户的信息
  */
-export async function getMultiUser({
+export async function getMultiUser ({
   ids,
   uid = '',
   device_id = '',
@@ -38,7 +38,7 @@ export async function getMultiUser({
 /**
  * 获取关注者
  */
-export async function getUserFollowInfo(uid) {
+export async function getUserFollowInfo (uid) {
   return get(`/api/follow/getUserFollowInfo`, {
     params: {
       src: 'mobile',
@@ -50,7 +50,7 @@ export async function getUserFollowInfo(uid) {
 /**
  * 获取通知数目
  */
-export async function getUserNotificationNum() {
+export async function getUserNotificationNum () {
   return get(`/api/ufp/getUserNotificationNum`, {
     params: {
       src: 'mobile'
@@ -61,7 +61,7 @@ export async function getUserNotificationNum() {
 /**
  * 获取用户动态
  */
-export async function getUserActivity(uid, before) {
+export async function getUserActivity (uid, before) {
   return get(`/api/ufp/getUserLog`, {
     params: {
       src: 'web',
@@ -74,12 +74,15 @@ export async function getUserActivity(uid, before) {
 /**
  * 是否关注用户
  */
-export async function checkisFollow(currentUid, targetUids) {
+export async function checkisFollow ({ token, clientId, uid, targetUids }) {
   return get(`/api/follow/isCurrentUserFollowed`, {
     params: {
       src: 'mobile',
-      currentUid,
-      targetUids
+      token,
+      clientId,
+      uid,
+      currentUid: uid,
+      targetUids: targetUids
     }
   })
 }
@@ -87,10 +90,19 @@ export async function checkisFollow(currentUid, targetUids) {
 /**
  * 关注用户
  */
-export async function UserFollow(followee, follower) {
-  return get(`/follow/follow`, {
+export async function UserFollow ({
+  token,
+  clientId: device_id,
+  uid,
+  followee,
+  follower
+}) {
+  return get(`/api/follow/follow`, {
     params: {
       src: 'mobile',
+      token,
+      device_id,
+      uid,
       followee,
       follower
     }
@@ -102,10 +114,19 @@ export async function UserFollow(followee, follower) {
  * @param {string} followee 被关注者
  * @param {string} follower 关注者
  */
-export async function UserUnFollow(followee, follower) {
+export async function UserUnFollow ({
+  token,
+  clientId: device_id,
+  uid,
+  followee,
+  follower
+}) {
   return get(`/api/follow/unfollow`, {
     params: {
-      src: 'web',
+      src: 'mobile',
+      token,
+      device_id,
+      uid,
       followee,
       follower
     }

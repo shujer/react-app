@@ -1,5 +1,5 @@
 import { Toast } from 'antd-mobile'
-import * as api from '@services/pin'
+import api from '@services/api'
 import { getUniqueList } from '@utils/listHelper'
 
 export default {
@@ -90,7 +90,7 @@ export default {
       let after
       return new Promise((resolve, reject) => {
         if (more) after = state.activity.pageInfo.endCursor || ''
-        api
+        api.pin
           .getRecommendPins({ after })
           .then(data => {
             let {
@@ -109,7 +109,6 @@ export default {
               }),
               pageInfo
             })
-            resolve(true)
           })
           .catch(err => {
             Toast.info('网络似乎出现了点问题', 1.5)
@@ -122,7 +121,7 @@ export default {
       let after
       return new Promise((resolve, reject) => {
         if (more) after = state.activity.pageInfo.endCursor || ''
-        api
+        api.pin
           .getHotPins({ after })
           .then(data => {
             let {
@@ -142,7 +141,6 @@ export default {
               }),
               pageInfo
             })
-            resolve(true)
           })
           .catch(err => {
             Toast.info('网络似乎出现了点问题', 1.5)
@@ -156,7 +154,7 @@ export default {
         params: { id }
       } = playload
       return new Promise((resolve, reject) => {
-        api
+        api.pin
           .getPinTopicList({
             topicId: id,
             page: state.activity.page + 1,
@@ -171,7 +169,6 @@ export default {
               entryList: data['list'],
               page: state.activity.page + 1
             })
-            resolve(data)
           })
           .catch(err => {
             Toast.info('网络似乎出现了点问题', 1.5)
@@ -188,7 +185,7 @@ export default {
       let after
       return new Promise((resolve, reject) => {
         if (more) after = state.activity.pageInfo.endCursor || ''
-        api
+        api.pin
           .getFollowPins({
             after,
             device_id: state.auth.userInfo.clientId,
@@ -223,7 +220,6 @@ export default {
                 }),
               pageInfo
             })
-            resolve(true)
           })
           .catch(err => {
             console.log(err)
