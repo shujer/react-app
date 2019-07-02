@@ -75,7 +75,7 @@ class PostContainer extends Component {
               len={15}
             />
           ]}
-          extraContent={[<FollowButton />]}
+          extraContent={[<FollowButton currentId={user ? user.objectId: ''} />]}
         />
         <div className='postDetail'>
           <h1>{title}</h1>
