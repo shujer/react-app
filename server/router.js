@@ -5,7 +5,7 @@ var crypto = require('crypto')
 var querystring = require('querystring')
 var fetch = require('node-fetch')
 var md5 = crypto.createHash('md5')
-const router = new Router({prefix: '/api'})
+const router = new Router({ prefix: '/api' })
 
 router.get('/404', async (ctx, next) => {
   ctx.response.body = '<h1>404 Not Found</h1>'
@@ -31,7 +31,7 @@ router.get('/multi_user', async (ctx, next) => {
       })
     ctx.response.body = body
   } catch (err) {
-    ctx.response.body = {s: 4, m: '请求失败', d: null}
+    ctx.response.body = { s: 4, m: '请求失败', d: null }
   }
 })
 
@@ -64,7 +64,7 @@ router.get('/oauth/github/authorize', async (ctx, next) => {
   }
   let query = querystring.stringify(params)
   let url = `${Config.GITHUB.authorize_url}?${query}`
-  ctx.body = {url}
+  ctx.body = { url }
 })
 
 router.get('/oauth/github/callback', async (ctx, next) => {
@@ -80,7 +80,7 @@ router.get('/oauth/github/callback', async (ctx, next) => {
     },
     body: JSON.stringify(params)
   })
-    .then(res => res.text()) //二进制传文本
+    .then(res => res.text()) // 二进制传文本
     .then(body => {
       let args = body.split('&')
       let arg = args[0].split('=')
@@ -94,7 +94,7 @@ router.get('/oauth/github/callback', async (ctx, next) => {
     })
 })
 
-function generateRandCode() {
+function generateRandCode () {
   let code = []
   for (let i = 0; i < 4; i++) {
     code.push(Math.floor(Math.random(10) * 10))
@@ -103,7 +103,7 @@ function generateRandCode() {
 }
 
 router.post('/smsverif', async (ctx, next) => {
-  let {phoneNumber} = await parse.json(ctx.req)
+  let { phoneNumber } = await parse.json(ctx.req)
   let code = generateRandCode()
   let content = `【掘金技术社区】您好，您的验证码是${code}。如非本人操作，请忽略短信。`
   var pass = md5.update(Config.SMS.password).digest('hex')
@@ -122,9 +122,9 @@ router.post('/smsverif', async (ctx, next) => {
     })
       .then(res => res.json())
       .then(json => console.log(json))
-    ctx.response.body = {s: 1, m: '验证码发送成功', d: code}
+    ctx.response.body = { s: 1, m: '验证码发送成功', d: code }
   } catch (err) {
-    ctx.response.body = {s: 1, m: '验证码发送失败', d: ''}
+    ctx.response.body = { s: 1, m: '验证码发送失败', d: '' }
   }
 })
 

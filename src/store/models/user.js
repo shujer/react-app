@@ -30,9 +30,8 @@ export default {
             uid: state.auth.userInfo.uid,
             device_id: state.auth.userInfo.clientId
           })
-          .then(response => {
-            let data = response.data
-            let user = data.d[ids]
+          .then(data => {
+            let user = data[ids]
             dispatch.user.setUser({user})
             resolve(user)
           })

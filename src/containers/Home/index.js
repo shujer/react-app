@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import withTabBarBasicLayout from '@layouts/withTabBarBasicLayout'
 import EntryItem from '@components/EntryItem'
@@ -14,12 +14,12 @@ class HomeContainer extends Component {
     upRefreshing: false
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this._onRefreshDown()
     this.props.getTabListAsync()
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     let category = nextProps.match.params.category
     if (category !== this.props.match.params.category) {
       this.setState(
@@ -32,6 +32,10 @@ class HomeContainer extends Component {
         }
       )
     }
+  }
+
+  componentDidCatch () {
+    this.setState({ hasError: true })
   }
 
   _onRefreshUp = () => {
@@ -66,11 +70,11 @@ class HomeContainer extends Component {
     })
   }
 
-  render() {
-    let {entryList, tabList} = this.props
+  render () {
+    let { entryList, tabList } = this.props
     const tabs = [
-      {name: '首页', title: 'all', show: true},
-      {name: '关注', title: 'following', show: true},
+      { name: '首页', title: 'all', show: true },
+      { name: '关注', title: 'following', show: true },
       ...tabList
     ]
       .filter(val => val.show === true)
@@ -82,19 +86,19 @@ class HomeContainer extends Component {
       return <EntryItem item={element} key={index} />
     })
     return (
-      <div className="wrap">
+      <div className='wrap'>
         <NavList
-          className="header"
+          className='header'
           tabs={tabs}
           onCaretClick={this._goToTab}
-          showCaret={true}
+          showCaret
         />
-        <div className="main scroll_content">
+        <div className='main scroll_content'>
           <PullRefresh
-            down={true}
+            down
             onDownRefresh={this._onRefreshDown}
             downRefreshing={this.state.downRefreshing}
-            up={true}
+            up
             upRefreshing={this.state.upRefreshing}
             onUpRefresh={this._onRefreshUp}
           >
@@ -112,7 +116,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = ({
-  home: {getTabListAsync, getEntryByListAsync, emptyEntryList}
+  home: { getTabListAsync, getEntryByListAsync, emptyEntryList }
 }) => ({
   getTabListAsync: () => getTabListAsync(),
   getEntryByListAsync: playload => getEntryByListAsync(playload),

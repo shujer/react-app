@@ -92,14 +92,14 @@ export default {
         if (more) after = state.activity.pageInfo.endCursor || ''
         api
           .getRecommendPins({ after })
-          .then(response => {
+          .then(data => {
             let {
               data: {
                 recommendedActivityFeed: {
                   items: { edges, pageInfo }
                 }
               }
-            } = response.data
+            } = data
             dispatch.activity.resetEntryList({
               entryList: edges.map(entry => {
                 let item = entry.node.targets[0]
@@ -124,15 +124,14 @@ export default {
         if (more) after = state.activity.pageInfo.endCursor || ''
         api
           .getHotPins({ after })
-          .then(response => {
-            console.log(response)
+          .then(data => {
             let {
               data: {
                 popularPinList: {
                   items: { edges, pageInfo }
                 }
               }
-            } = response.data
+            } = data
 
             dispatch.activity.resetEntryList({
               entryList: edges.map(entry => {
@@ -166,11 +165,10 @@ export default {
             token: state.auth.userInfo.token,
             device_id: state.auth.userInfo.clientId
           })
-          .then(response => {
-            let data = response.data
+          .then(data => {
             dispatch.activity.resetEntryList({
               more,
-              entryList: data.d['list'],
+              entryList: data['list'],
               page: state.activity.page + 1
             })
             resolve(data)
@@ -197,24 +195,32 @@ export default {
             token: state.auth.userInfo.token,
             uid: state.auth.userInfo.uid
           })
-          .then(response => {
+          .then(data => {
             let {
               data: {
                 followingActivityFeed: {
                   items: { edges, pageInfo }
                 }
               }
-            } = response.data
+            } = data
 
             dispatch.activity.resetEntryList({
-              entryList: edges.map(entry => {
-                let {node: {targets}} = entry;
-                if(!targets) return null;
-                let item = targets[0];
-                item.objectId = item.id
-                item.user.objectId = item.user.id
-                return item
-              }),
+              entryList: edges
+                .filter(
+                  entry =>
+                    entry.node.targets[0] &&
+                    entry.node.targets[0].user &&
+                    entry.node.targets[0].user.id
+                )
+                .map(entry => {
+                  let {
+                    node: { targets }
+                  } = entry
+                  let item = targets[0]
+                  item.objectId = item.id
+                  item.user.objectId = item.user.id
+                  return item
+                }),
               pageInfo
             })
             resolve(true)
