@@ -2,7 +2,8 @@ import React from 'react'
 import Loadable from 'react-loadable'
 import HomeLoading from '@components/Loading/Home'
 import TabPicker from '@containers/TabPicker'
-import {Icon} from 'antd-mobile'
+import TopicPicker from '@containers/TopicPicker'
+import { Icon } from 'antd-mobile'
 
 let Loading = props => (
   <div
@@ -13,7 +14,7 @@ let Loading = props => (
       transform: 'translate3d(-50%, 0, 0)'
     }}
   >
-    <Icon type="loading" />
+    <Icon type='loading' />
   </div>
 )
 
@@ -27,12 +28,12 @@ const routes = [
     path: '/timeline/:category',
     exact: true,
     component: Home,
-    meta: {role: ['auth', 'guest']}
+    meta: { role: ['auth', 'guest'] }
   },
   {
     path: '/auth',
     exact: true,
-    meta: {role: ['guest']},
+    meta: { role: ['guest'] },
     component: Loadable({
       loader: () => import('@containers/Auth'),
       loading: () => <Loading />
@@ -41,7 +42,7 @@ const routes = [
   {
     path: '/register',
     exact: true,
-    meta: {role: ['guest']},
+    meta: { role: ['guest'] },
     component: Loadable({
       loader: () => import('@containers/Register'),
       loading: () => <Loading />
@@ -54,11 +55,11 @@ const routes = [
       loader: () => import('@containers/Settings'),
       loading: () => <Loading />
     }),
-    meta: {role: ['auth','guest']}
+    meta: { role: ['auth', 'guest'] }
   },
   {
     path: '/post/:id',
-    meta: {role: ['auth', 'guest']},
+    meta: { role: ['auth', 'guest'] },
     component: Loadable({
       loader: () => import('@containers/Post'),
       loading: () => <Loading />
@@ -66,7 +67,7 @@ const routes = [
   },
   {
     path: '/postdata/:id',
-    meta: {role: ['auth', 'guest']},
+    meta: { role: ['auth', 'guest'] },
     component: Loadable({
       loader: () => import('@containers/PostData'),
       loading: () => <Loading />
@@ -74,7 +75,7 @@ const routes = [
   },
   {
     path: '/pin/:id',
-    meta: {role: ['auth', 'guest']},
+    meta: { role: ['auth', 'guest'] },
     component: Loadable({
       loader: () => import('@containers/Pin'),
       loading: () => <Loading />
@@ -82,16 +83,22 @@ const routes = [
   },
   {
     path: '/topic/:id',
-    meta: {role: ['auth', 'guest']},
+    meta: { role: ['auth', 'guest'] },
     component: Loadable({
       loader: () => import('@containers/Topic'),
       loading: () => <Loading />
     })
   },
-  {path: '/recommended', component: TabPicker, meta: {role: ['auth', 'guest']}},
+  { path: '/recommended', component: TabPicker, meta: { role: ['auth', 'guest'] } },
   {
-    path: '/activity/:category/:id?', //id参数可选
-    meta: {role: ['auth', 'guest']},
+    path: '/topicList/recommended',
+    exact: true,
+    component: TopicPicker,
+    meta: { role: ['auth', 'guest'] }
+  },
+  {
+    path: '/activity/:category/:id?', // id参数可选
+    meta: { role: ['auth', 'guest'] },
     component: Loadable({
       loader: () => import('@containers/Activity'),
       loading: () => <Loading />
@@ -99,7 +106,7 @@ const routes = [
   },
   {
     path: '/explore',
-    meta: {role: ['auth', 'guest']},
+    meta: { role: ['auth', 'guest'] },
     component: Loadable({
       loader: () => import('@containers/Explore'),
       loading: () => <Loading />
@@ -107,7 +114,7 @@ const routes = [
   },
   {
     path: '/search',
-    meta: {role: ['auth', 'guest']},
+    meta: { role: ['auth', 'guest'] },
     component: Loadable({
       loader: () => import('@containers/Search'),
       loading: () => <Loading />
@@ -115,7 +122,7 @@ const routes = [
   },
   {
     path: '/feedback',
-    meta: {role: ['auth', 'guest']},
+    meta: { role: ['auth', 'guest'] },
     component: Loadable({
       loader: () => import('@containers/Feedback'),
       loading: () => <Loading />
@@ -128,7 +135,7 @@ const routes = [
       loader: () => import('@containers/Xiaoce'),
       loading: () => <Loading />
     }),
-    meta: {role: ['auth','guest']}
+    meta: { role: ['auth', 'guest'] }
   },
   {
     path: '/profile',
@@ -137,12 +144,12 @@ const routes = [
       loader: () => import('@containers/Profile'),
       loading: () => <Loading />
     }),
-    meta: {role: ['auth','guest']}
+    meta: { role: ['auth', 'guest'] }
   },
 
   {
     path: '/user/:id',
-    meta: {role: ['auth', 'guest']},
+    meta: { role: ['auth', 'guest'] },
     component: Loadable({
       loader: () => import('@containers/User'),
       loading: () => <Loading />
@@ -150,7 +157,7 @@ const routes = [
     routes: [
       {
         path: '/user/:id/:tag',
-        meta: {role: ['auth', 'guest']},
+        meta: { role: ['auth', 'guest'] },
         component: Loadable({
           loader: () => import('@containers/User'),
           loading: () => <Loading />
@@ -160,7 +167,7 @@ const routes = [
   },
   {
     path: '/joinus',
-    meta: {role: ['auth', 'guest']},
+    meta: { role: ['auth', 'guest'] },
     component: Loadable({
       loader: () => import('@containers/JoinUs'),
       loading: () => <Loading />

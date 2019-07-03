@@ -17,10 +17,9 @@ class ActivityContainer extends Component {
     upRefreshing: false
   }
 
-  static getDerivedStateFromError () {}
-
   componentWillMount () {
     this._onRefreshDown()
+    this.props.getTopicListAsync()
   }
 
   componentWillReceiveProps (nextProps) {
@@ -71,25 +70,20 @@ class ActivityContainer extends Component {
 
   _goToTab = () => {
     this.props.history.push({
-      pathname: '/recommended'
+      pathname: '/topicList/recommended'
     })
   }
 
   render () {
-    let { tabs, entryList } = this.props
+    let { topicList, entryList } = this.props
     let items = entryList.map((element, index) => {
-      return (
-        <EntryItem
-          item={element}
-          key={element.objectId}
-        />
-      )
+      return <EntryItem item={element} key={element.objectId} />
     })
     return (
       <div className='wrap'>
         <NavList
           className='header'
-          tabs={tabs}
+          tabs={topicList.filter(tab => tab.show)}
           onCaretClick={this._goToTab}
           showCaret
         />
@@ -112,11 +106,12 @@ class ActivityContainer extends Component {
 
 const mapState = state => ({
   entryList: state.activity.entryList,
-  tabs: state.activity.tabs
+  topicList: state.activity.topicList
 })
 
-const mapDispatch = ({ activity: { getEntry } }) => ({
-  getEntry: playload => getEntry(playload)
+const mapDispatch = ({ activity: { getEntry, getTopicListAsync} }) => ({
+  getEntry: playload => getEntry(playload),
+  getTopicListAsync: () => getTopicListAsync()
 })
 
 export default connect(

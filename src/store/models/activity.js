@@ -1,4 +1,5 @@
 import { Toast } from 'antd-mobile'
+import { loadData, saveData } from '@utils/localstorageHelper'
 import * as api from '@services/pin'
 import { getUniqueList } from '@utils/listHelper'
 
@@ -6,7 +7,7 @@ export default {
   namespace: 'activity',
   state: {
     name: 'activity',
-    tabs: [
+    topicList: [
       {
         name: '关注',
         title: 'following',
@@ -81,10 +82,28 @@ export default {
         pageInfo: {},
         page: 1
       }
+    },
+    resetTopicList (state, { topicList }) {
+      return {
+        ...state,
+        topicList: topicList || state.topicList
+      }
     }
   },
   effects: dispatch => ({
-    // 获取推荐沸点
+    async getTopicListAsync (playload, state) {
+      let topicList = loadData('topicList')
+      if (topicList === null) {
+        saveData('topicList', state.activity.topicList)
+      } else {
+        dispatch.activity.resetTopicList({ topicList })
+      }
+    },
+    async resetTopicListAsync (playload, state) {
+      saveData('topicList', playload.topicList)
+      dispatch.activity.resetTopicList(playload)
+    },
+    // 获取推荐沸点列表
     async getRecommendList (playload, state) {
       let { more } = playload
       let after

@@ -150,3 +150,17 @@ export async function getPinById ({ msgId }) {
     }
   })
 }
+
+/**
+ * 获取话题
+ */
+export async function getTopic ({ clientId: device_id, token, uid }) {
+  return get('/api/shortMsg/topicList/recommend', {
+    params: {
+      src: 'mobile',
+      token,
+      uid,
+      device_id
+    }
+  })
+}
