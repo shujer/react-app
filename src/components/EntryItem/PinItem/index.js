@@ -8,7 +8,7 @@ import ShortStr from '@components/ShortStr'
 import { getTimefromNow } from '@utils/timeHelper'
 import FollowButton from '@components/FollowButton'
 import ShareActionSheet from '@components/ShareActionSheet'
-import { LikeIcon, CommentIcon, ShareIcon } from '@components/Icons'
+import { CommentIcon, ShareIcon } from '@components/Icons'
 import { Icon } from 'antd-mobile'
 import './style.less'
 

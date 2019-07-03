@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { stringify } from 'qs'
-import { Toast } from 'antd-mobile'
 
 axios.defaults.baseURL = 'http://localhost:3000/'
 axios.defaults.headers.post['Content-Type'] =

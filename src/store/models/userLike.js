@@ -19,10 +19,7 @@ export default {
       let { userInfo, isLogin } = state.auth
       if (!isLogin || state.userLike.likeMap[targetId] !== undefined) return
       api
-        .checkisLike({
-          ...userInfo,
-          entryId: targetId
-        })
+        .checkisLike({ ...userInfo, entryId: targetId })
         .then(({ like }) => {
           dispatch.userLike.updateLike({ like: { [targetId]: like } })
         })
@@ -37,28 +34,18 @@ export default {
       if (!isLogin) return
       if (likeState) {
         api
-          .UserUnLike({
-            ...userInfo,
-            entryId: targetId
-          })
+          .UserUnLike({ ...userInfo, entryId: targetId })
           .then(res => {
             dispatch.userLike.updateLike({ like: { [targetId]: false } })
           })
-          .catch(err => {
-            dispatch.userLike.updateLike({ like: { [targetId]: true } })
-          })
+          .catch(err => {})
       } else {
         api
-          .UserLike({
-            ...userInfo,
-            entryId: targetId
-          })
+          .UserLike({ ...userInfo, entryId: targetId })
           .then(res => {
             dispatch.userLike.updateLike({ like: { [targetId]: true } })
           })
-          .catch(err => {
-            dispatch.userLike.updateLike({ like: { [targetId]: false } })
-          })
+          .catch(err => {})
       }
     }
   }),

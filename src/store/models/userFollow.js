@@ -19,10 +19,7 @@ export default {
       let { userInfo, isLogin } = state.auth
       if (!isLogin || state.userFollow.followMap[targetId] !== undefined) return
       api
-        .checkisFollow({
-          ...userInfo,
-          targetUids: targetId
-        })
+        .checkisFollow({ ...userInfo, targetUids: targetId })
         .then(follow => {
           dispatch.userFollow.updateFollow({ follow })
         })
@@ -50,11 +47,7 @@ export default {
           })
       } else {
         api
-          .UserFollow({
-            ...userInfo,
-            followee: targetId,
-            follower: userInfo.uid
-          })
+          .UserFollow({ ...userInfo, followee: targetId, follower: userInfo.uid })
           .then(res => {
             dispatch.userFollow.updateFollow({ follow: { [targetId]: true } })
           })

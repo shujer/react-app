@@ -33,11 +33,6 @@ class HomeContainer extends Component {
       )
     }
   }
-
-  componentDidCatch () {
-    this.setState({ hasError: true })
-  }
-
   _onRefreshUp = () => {
     this.props
       .getEntryByListAsync({

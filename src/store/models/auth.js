@@ -50,8 +50,8 @@ export default {
     setUser (state, { userDetail, userInfo }) {
       return {
         ...state,
-        userDetail,
-        userInfo
+        userDetail: userDetail || {},
+        userInfo: userInfo || {}
       }
     },
     setLoginState (state, { isLogin }) {

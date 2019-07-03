@@ -1,41 +1,41 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {List, WhiteSpace} from 'antd-mobile'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { List, WhiteSpace } from 'antd-mobile'
 import Tabs from '@components/Tabs'
 import UserBar from './UserBar'
 import NavBar from './NavBar'
 import './style.less'
 
 class User extends Component {
-  componentWillMount() {
+  componentWillMount () {
     let {
       match: {
-        params: {id}
+        params: { id }
       }
     } = this.props
-    this.props.getUserInfo({ids: id})
+    this.props.getUserInfo({ ids: id })
   }
 
-  render() {
-    let {user} = this.props
+  render () {
+    let { user } = this.props
     const tabs = [
-      {tag: 'activities', title: '动态'},
-      {tag: 'posts', title: '专栏' + (user.postedPostsCount || 0)},
-      {tag: 'pins', title: '沸点' + (user.pinCount || 0)},
-      {tag: 'shares', title: '分享' + (user.postedEntriesCount || 0)},
-      {tag: 'more', title: '更多'}
+      { tag: 'activities', title: '动态' },
+      { tag: 'posts', title: '专栏' + (user.postedPostsCount || 0) },
+      { tag: 'pins', title: '沸点' + (user.pinCount || 0) },
+      { tag: 'shares', title: '分享' + (user.postedEntriesCount || 0) },
+      { tag: 'more', title: '更多' }
     ]
     return (
-      <div className="wrap RightNavBar">
+      <div className='wrap RightNavBar'>
         <NavBar user={user} />
         <UserBar user={user} />
         <WhiteSpace />
-        <Tabs tabs={tabs} mode="light">
-          <div className="activity scroll_content ">尚未完善</div>
-          <div className="article scroll_content ">尚未完善</div>
-          <div className="pin scroll_content ">尚未完善</div>
-          <div className="share scroll_content ">尚未完善</div>
-          <div className="more scroll_content" style={{height: '800px'}}>
+        <Tabs tabs={tabs} mode='light'>
+          <div className='activity scroll_content '>尚未完善</div>
+          <div className='article scroll_content '>尚未完善</div>
+          <div className='pin scroll_content '>尚未完善</div>
+          <div className='share scroll_content '>尚未完善</div>
+          <div className='more scroll_content' style={{ height: '800px' }}>
             <List>
               <List.Item>
                 <div>赞过的文章</div>
@@ -53,8 +53,8 @@ class User extends Component {
             <WhiteSpace />
             <List>
               <List.Item>
-                <div style={{display:"flex", alignItems:"center"}}>
-                  <i className="juejin-icon-md profile-blog"/>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <i className='juejin-icon-md profile-blog' />
                   {user.blogAddress}
                 </div>
               </List.Item>
@@ -70,7 +70,7 @@ const mapState = state => ({
   user: state.user.user
 })
 
-const mapDispatch = ({user: {getUserInfo}}) => ({
+const mapDispatch = ({ user: { getUserInfo } }) => ({
   getUserInfo: playload => getUserInfo(playload)
 })
 
