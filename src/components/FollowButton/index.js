@@ -79,6 +79,18 @@ class Button extends React.Component {
       followState: this.state.isFollow,
       targetId: this.props.currentId
     })
+    clearTimeout(this.timer)
+    this.timer = setTimeout(() => {
+      if (this.state.loading) {
+        this.setState({
+          loading: false
+        })
+      }
+    }, 3000)
+  }
+
+  componentWillUnmount () {
+    clearTimeout(this.timer)
   }
 
   static getDerivedStateFromProps (nextProps, prevState) {

@@ -9,7 +9,7 @@ export default {
     updateLike (state, { like }) {
       return {
         ...state,
-        likeMap: { ...state.followMap, ...like }
+        likeMap: { ...state.likeMap, ...like }
       }
     }
   },
@@ -19,47 +19,45 @@ export default {
       let { userInfo, isLogin } = state.auth
       if (!isLogin || state.userLike.likeMap[targetId] !== undefined) return
       api
-        .checkisFollow({
+        .checkisLike({
           ...userInfo,
-          targetUids: targetId
+          entryId: targetId
         })
-        .then(like => {
-          dispatch.userLike.updateLike({ like })
+        .then(({ like }) => {
+          dispatch.userLike.updateLike({ like: { [targetId]: like } })
         })
         .catch(err => {
           console.log(err)
         })
     },
 
-    async changeFollow (playload, state) {
-      let { followState, targetId } = playload
+    async changeLike (playload, state) {
+      let { likeState, targetId } = playload
       let { userInfo, isLogin } = state.auth
       if (!isLogin) return
-      if (followState) {
+      if (likeState) {
         api
-          .UserUnFollow({
+          .UserUnLike({
             ...userInfo,
-            followee: targetId,
-            follower: userInfo.uid
+            entryId: targetId
           })
           .then(res => {
             dispatch.userLike.updateLike({ like: { [targetId]: false } })
           })
           .catch(err => {
-            console.log(err)
+            dispatch.userLike.updateLike({ like: { [targetId]: true } })
           })
       } else {
         api
-          .UserFollow({
+          .UserLike({
             ...userInfo,
-            followee: targetId,
-            follower: userInfo.uid
+            entryId: targetId
           })
           .then(res => {
             dispatch.userLike.updateLike({ like: { [targetId]: true } })
           })
           .catch(err => {
-            console.log(err)
+            dispatch.userLike.updateLike({ like: { [targetId]: false } })
           })
       }
     }

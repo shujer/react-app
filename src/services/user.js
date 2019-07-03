@@ -1,4 +1,4 @@
-import { get } from '@utils/request'
+import { get, put, delete_with_params } from '@utils/request'
 
 const COLS =
   'viewedEntriesCount|role|totalCollectionsCount|allowNotification|subscribedTagsCount|appliedEditorAt|email|followersCount|postedEntriesCount|latestCollectionUserNotification|commentedEntriesCount|weeklyEmail|collectedEntriesCount|postedPostsCount|username|latestLoginedInAt|totalHotIndex|blogAddress|selfDescription|latestCheckedNotificationAt|emailVerified|totalCommentsCount|installation|blacklist|weiboId|mobilePhoneNumber|apply|followeesCount|deviceType|editorType|jobTitle|company|latestVoteLikeUserNotification|authData|avatarLarge|mobilePhoneVerified|objectId|createdAt|updatedAt'
@@ -129,6 +129,48 @@ export async function UserUnFollow ({
       uid,
       followee,
       follower
+    }
+  })
+}
+
+/**
+ * 点赞文章
+ */
+export async function UserLike ({ entryId, clientId, token, uid }) {
+  return put(`/api/like/user/like/entry/${entryId}`,  {
+    headers: {
+      'X-Juejin-Src': 'mobile',
+      'X-Juejin-Client': clientId,
+      'X-Juejin-Token': token,
+      'X-Juejin-Uid': uid
+    }
+  })
+}
+
+/**
+ * 取消点赞
+ * */
+export async function UserUnLike ({ entryId, clientId, token, uid }) {
+  return delete_with_params(`/api/like/user/like/entry/${entryId}`, {
+    headers: {
+      'X-Juejin-Src': 'web',
+      'X-Juejin-Client': clientId,
+      'X-Juejin-Token': token,
+      'X-Juejin-Uid': uid
+    }
+  })
+}
+
+/**
+ * 检查是否点赞
+ */
+export async function checkisLike ({ entryId, clientId, token, uid }) {
+  return get(`/api/like/user/like/entry/${entryId}`, {
+    headers: {
+      'X-Juejin-Src': 'mobile',
+      'X-Juejin-Client': clientId,
+      'X-Juejin-Token': token,
+      'X-Juejin-Uid': uid
     }
   })
 }

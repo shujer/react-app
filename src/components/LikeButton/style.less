@@ -1,0 +1,34 @@
+// https://www.cnblogs.com/lhb25/p/loading-spinners-animated-with-css3.html
+.spinner {
+    width: 24px;
+    height: 24px;
+    margin: 5px auto;
+    background-color: #37C700;
+    border-radius: 100%;
+    -webkit-animation: scaleout .5s infinite ease-in;
+    animation: scaleout .5s infinite ease-in;
+}
+
+@-webkit-keyframes scaleout {
+    0% {
+        -webkit-transform: scale(0.0)
+    }
+
+    100% {
+        -webkit-transform: scale(1.0);
+        opacity: 0;
+    }
+}
+
+@keyframes scaleout {
+    0% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    }
+
+    100% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+        opacity: 0;
+    }
+}

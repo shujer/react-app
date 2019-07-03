@@ -71,13 +71,18 @@ export function post (url, { data = {}, ...res } = {}, retry = false) {
     })
 }
 
-export function put (url, { ...res } = {}, retry = false) {
+export function put (url, {...res } = {}) {
   return fetch(url, {
     method: 'put',
+    retry: 0,
     ...res
   })
-    .then(data => data)
-    .catch(err => ({ err }))
+    .then(response =>
+      response.data && response.data.d ? response.data.d : response.data
+    )
+    .catch(err => {
+      console.log(err)
+    })
 }
 
 export function delete_with_params (url, { params = {}, ...res } = {}) {
@@ -87,8 +92,12 @@ export function delete_with_params (url, { params = {}, ...res } = {}) {
     retry: 0,
     ...res
   })
-    .then(({ data }) => data)
-    .catch(err => ({ err }))
+    .then(response =>
+      response.data && response.data.d ? response.data.d : response.data
+    )
+    .catch(err => {
+      console.log(err)
+    })
 }
 /**
  * retry使用指南：默认config={retry:4,...res}，如果不需要重试请显式指明retry=0

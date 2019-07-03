@@ -1,5 +1,5 @@
 import React from 'react'
-import LikeImg from '@assets/icons/pin/user_liked_pin.png'
+import LikeImg from '@assets/icons/pin/pin_like_detail.png'
 import UnLikeImg from '@assets/icons/pin/pin_unlike_detail.png'
 import SharePinImg from '@assets/icons/pin/pin_share_detail.png'
 import CommentImg from '@assets/icons/comment/ic_comment_border.png'
@@ -77,8 +77,8 @@ export const ArrowIcon = props => {
 }
 
 export const LikeIcon = props => {
-  let {isLiked, style} = props
-  let src = isLiked ? LikeImg : UnLikeImg
+  let {isLike, style} = props
+  let src = isLike ? LikeImg : UnLikeImg
   return (
     <img src={src} alt="" {...style} width="14" height="14" align="center" />
   )

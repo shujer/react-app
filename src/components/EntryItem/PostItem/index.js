@@ -1,6 +1,7 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
-import {LikeIcon, CommentIcon} from '@components/Icons'
+import {CommentIcon} from '@components/Icons'
+import LikeButton from '@components/LikeButton'
 import Tags from '@components/ShortStr'
 import LazyImg from '@components/LazyImg'
 import AvatarBar from '@components/AvatarBar'
@@ -13,11 +14,11 @@ const PostItem = ({item, ...props}) => {
     title,
     content,
     commentsCount,
-    likeCount,
     originalUrl,
     screenshot,
     tags,
-    user
+    user,
+    objectId
   } = item
   let extraContent = (
     <Tags
@@ -56,8 +57,7 @@ const PostItem = ({item, ...props}) => {
       </div>
       <div className="info">
         <div>
-          <LikeIcon isLike={user.isLike || false} />{' '}
-          {likeCount ? likeCount : '赞'}
+          <LikeButton currentId={objectId}/>
         </div>
         <div>
           <CommentIcon /> {commentsCount ? commentsCount : '评论'}
