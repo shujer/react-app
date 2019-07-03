@@ -3,22 +3,9 @@ export default {
   namespace: 'user',
   state: {
     name: 'user',
-    user: {},
-    followMap: {}
+    user: {}
   },
   reducers: {
-    setUser (state, { user }) {
-      return {
-        ...state,
-        user
-      }
-    },
-    emptyUser (state, playload) {
-      return {
-        ...state,
-        user: {}
-      }
-    },
     updateFollow (state, { follow }) {
       return {
         ...state,
@@ -44,55 +31,6 @@ export default {
           })
           .catch(err => {})
       })
-    },
-    async checkFollow (playload, state) {
-      let { targetId } = playload
-      let { userInfo, isLogin } = state.auth
-      if (!isLogin || state.user.followMap[targetId] !== undefined) return
-      api
-        .checkisFollow({
-          ...userInfo,
-          targetUids: targetId
-        })
-        .then(follow => {
-          dispatch.user.updateFollow({ follow })
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-
-    async changeFollow (playload, state) {
-      let { followState, targetId } = playload
-      let { userInfo, isLogin } = state.auth
-      if (!isLogin) return
-      if (followState) {
-        api
-          .UserUnFollow({
-            ...userInfo,
-            followee: targetId,
-            follower: userInfo.uid
-          })
-          .then(res => {
-            dispatch.user.updateFollow({ follow: { [targetId]: false } })
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      } else {
-        api
-          .UserFollow({
-            ...userInfo,
-            followee: targetId,
-            follower: userInfo.uid
-          })
-          .then(res => {
-            dispatch.user.updateFollow({ follow: { [targetId]: true } })
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      }
     }
   }),
   subscriptions: {}

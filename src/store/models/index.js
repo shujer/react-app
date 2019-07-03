@@ -5,6 +5,7 @@ import xiaoce from './xiaoce'
 import user from './user'
 import activity from './activity'
 import pin from './pin'
+import userFollow from './userFollow'
 
 export default {
   home,
@@ -13,5 +14,6 @@ export default {
   pin,
   xiaoce,
   user,
-  activity
+  activity,
+  userFollow
 }

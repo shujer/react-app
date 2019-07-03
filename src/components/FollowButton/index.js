@@ -79,14 +79,6 @@ class Button extends React.Component {
       followState: this.state.isFollow,
       targetId: this.props.currentId
     })
-    // clearTimeout(this.timer)
-    // setTimeout(() => {
-    //   if (this.state.loading) {
-    //     this.setState({
-    //       loading: false
-    //     })
-    //   }
-    // }, 5000)
   }
 
   static getDerivedStateFromProps (nextProps, prevState) {
@@ -117,10 +109,10 @@ class Button extends React.Component {
 }
 
 const mapState = state => ({
-  followMap: state.user.followMap
+  followMap: state.userFollow.followMap
 })
 
-const mapDispatch = ({ user: { changeFollow, checkFollow } }) => ({
+const mapDispatch = ({ userFollow: { changeFollow, checkFollow } }) => ({
   changeFollow: playload => changeFollow(playload),
   checkFollow: playload => checkFollow(playload)
 })
