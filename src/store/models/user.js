@@ -6,10 +6,16 @@ export default {
     user: {}
   },
   reducers: {
-    updateFollow (state, { follow }) {
+    emptyUser (state, playload) {
       return {
         ...state,
-        followMap: { ...state.followMap, ...follow }
+        user: {}
+      }
+    },
+    setUser (state, { user }) {
+      return {
+        ...state,
+        user
       }
     }
   },
