@@ -18,8 +18,27 @@ npm run dev:server
 # 启动前端
 npm run start
 ```
+#### 已完成
+- 首页列表展示 √
+- 沸点列表展示 √
+- 小册列表展示 √
+- 用户个人页面及其他用户页面 √
+- 客服回复 √
+- 搜索 ×
+- 分享 ×
+- 首页及沸点展示标签 √
+- 文章详情页 √
+- 沸点详情页 √
+- 话题页面 √
+- 评论功能 ×
+- 登录/鉴权/退出登录 √
+- 注册 ×
+- 用户关注 √
+- 用户喜欢 ×
+- 小册购买 ×
 
-#### [已完成页面](<(https://github.com/SusieChang/react-app/tree/master./doc/%E6%95%88%E6%9E%9C%E5%9B%BE)>)
+
+#### [部分效果展示](<(https://github.com/SusieChang/react-app/tree/master./doc/%E6%95%88%E6%9E%9C%E5%9B%BE)>)
 
 <table width="100%">
     <tr>
@@ -46,6 +65,9 @@ npm run start
     <tr>
         <td width="33%" height="100%">
             <img src="./doc/效果图/explore.gif" alt="img" />
+        </td>
+        <td width="33%" height="100%">
+            <img src="./doc/效果图/follow.gif" alt="img" />
         </td>
     </tr>
 </table>
