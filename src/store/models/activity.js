@@ -1,5 +1,5 @@
 import { Toast } from 'antd-mobile'
-import api from '@services/api'
+import * as api from '@services/pin'
 import { getUniqueList } from '@utils/listHelper'
 
 export default {
@@ -90,7 +90,7 @@ export default {
       let after
       return new Promise((resolve, reject) => {
         if (more) after = state.activity.pageInfo.endCursor || ''
-        api.pin
+        api
           .getRecommendPins({ after })
           .then(data => {
             let {
@@ -121,7 +121,7 @@ export default {
       let after
       return new Promise((resolve, reject) => {
         if (more) after = state.activity.pageInfo.endCursor || ''
-        api.pin
+        api
           .getHotPins({ after })
           .then(data => {
             let {
@@ -154,7 +154,7 @@ export default {
         params: { id }
       } = playload
       return new Promise((resolve, reject) => {
-        api.pin
+        api
           .getPinTopicList({
             topicId: id,
             page: state.activity.page + 1,
@@ -185,7 +185,7 @@ export default {
       let after
       return new Promise((resolve, reject) => {
         if (more) after = state.activity.pageInfo.endCursor || ''
-        api.pin
+        api
           .getFollowPins({
             after,
             device_id: state.auth.userInfo.clientId,

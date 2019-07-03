@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {ShareWhiteIcon} from '@components/Icons'
-import {NavBar, Icon} from 'antd-mobile'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { ShareWhiteIcon } from '@components/Icons'
+import { NavBar, Icon } from 'antd-mobile'
 import LazyImg from '@components/LazyImg'
 import ShareActionSheet from '@components/ShareActionSheet'
 import AvatarBar from '@components/AvatarBar'
@@ -18,10 +18,10 @@ class PostContainer extends Component {
     content: '',
     postInfo: {}
   }
-  componentDidMount() {
-    this.props.getPostAsync({id: this.props.match.params.id})
+  componentDidMount () {
+    this.props.getPostAsync({ id: this.props.match.params.id })
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.content !== '') {
       this.setState({
         content: nextProps.content
@@ -33,11 +33,11 @@ class PostContainer extends Component {
       })
     }
   }
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.props.emptyPost()
   }
-  render() {
-    let {user, title, screenshot} = this.state.postInfo
+  render () {
+    let { user, title, screenshot } = this.state.postInfo
     return (
       <div className='postContainer' key={title}>
         <NavBar
@@ -57,7 +57,7 @@ class PostContainer extends Component {
             <ShareActionSheet key='1' icon={<ShareWhiteIcon />} />
           ]}
         />
-        <div style={{paddingBottom: '43px'}} />
+        <div style={{ paddingBottom: '43px' }} />
         <AvatarBar
           size='medium'
           className='avatarBar'
@@ -67,7 +67,7 @@ class PostContainer extends Component {
               <UserLink {...user} />
               <Level
                 level={user ? user.level : 0}
-                style={{height: '12px', marginLeft: '.5rem'}}
+                style={{ height: '12px', marginLeft: '.5rem' }}
               />
             </div>,
             <ShortStr
@@ -75,7 +75,9 @@ class PostContainer extends Component {
               len={15}
             />
           ]}
-          extraContent={[<FollowButton currentId={user ? user.objectId: ''} />]}
+          extraContent={[
+            <FollowButton currentId={user ? user.objectId : ''} />
+          ]}
         />
         <div className='postDetail'>
           <h1>{title}</h1>
@@ -101,7 +103,7 @@ const mapState = state => ({
   postInfo: state.post.postInfo
 })
 
-const mapDispatch = ({post: {getPostAsync, emptyPost}}) => ({
+const mapDispatch = ({ post: { getPostAsync, emptyPost } }) => ({
   getPostAsync: playload => getPostAsync(playload),
   emptyPost: () => emptyPost
 })

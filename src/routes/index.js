@@ -80,6 +80,14 @@ const routes = [
       loading: () => <Loading />
     })
   },
+  {
+    path: '/topic/:id',
+    meta: {role: ['auth', 'guest']},
+    component: Loadable({
+      loader: () => import('@containers/Topic'),
+      loading: () => <Loading />
+    })
+  },
   {path: '/recommended', component: TabPicker, meta: {role: ['auth', 'guest']}},
   {
     path: '/activity/:category/:id?', //id参数可选

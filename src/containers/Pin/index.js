@@ -1,56 +1,63 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import withNavBarRightLayout from '@layouts/withNavBarRightLayout'
 import AvatarBar from '@components/AvatarBar'
 import UserLink from '@components/AvatarBar/UserLink'
 import ShortStr from '@components/ShortStr'
-import {getTimefromNow} from '@utils/timeHelper'
+import TagLink from '@components/Tag'
+import { getTimefromNow } from '@utils/timeHelper'
 import FollowButton from '@components/FollowButton'
 import './style.less'
 
 @withNavBarRightLayout('沸点详情页')
 class PostContainer extends Component {
-  state = {
-    content: '',
-    item: {}
+  componentDidMount () {
+    this.props.getPinById({ id: this.props.match.params.id })
   }
-  render() {
-    let {user, title} = this.state.item
+  componentWillUnmount () {
+    this.props.emptyPin()
+  }
+
+  render () {
+    let { user, detail } = this.props
     return (
-      <div className="postContainer content" key={title}>
+      <div className='pinContainer content' key={detail.objectId}>
         <AvatarBar
-          size="medium"
-          className="avatarBar"
+          size='medium'
+          className='avatarBar'
           user={user}
           appendContent={[
             <UserLink {...user} />,
             <ShortStr
-            str={
-              user
-                ? `${user.jobTitle}${' @ ' + user.company || ''} · ${getTimefromNow(
-                    this.state.item.createdAt
-                  )}`
-                : ''
-            }
-            len={15}
-          />
+              str={
+                user
+                  ? `${user.jobTitle}${' @ ' + user.company ||
+                      ''} · ${getTimefromNow(detail.createdAt)}`
+                  : ''
+              }
+            />
           ]}
-          extraContent={[<FollowButton />]}
+          extraContent={[
+            <FollowButton currentId={user ? user.objectId : ''} />
+          ]}
         />
-        详情
+        <div className='pinContent'>{detail.content}</div>
+        {detail.topic ? (
+          <TagLink title={detail.topic.title} id={detail.topic.objectId} />
+        ) : null}
       </div>
     )
   }
 }
 
 const mapState = state => ({
-  content: state.post.content,
-  postInfo: state.post.postInfo
+  user: state.pin.user,
+  detail: state.pin.detail
 })
 
-const mapDispatch = ({post: {getPostAsync, emptyPost}}) => ({
-  getPostAsync: playload => getPostAsync(playload),
-  emptyPost: () => emptyPost
+const mapDispatch = ({ pin: { getPinById, emptyPin } }) => ({
+  getPinById: playload => getPinById(playload),
+  emptyPin: () => emptyPin
 })
 
 export default connect(

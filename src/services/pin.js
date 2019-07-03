@@ -138,3 +138,15 @@ export async function getUserPinList (currentUid, uid, before, limit = 20) {
     }
   })
 }
+
+/**
+ * 获取沸点具体内容
+ */
+export async function getPinById ({ msgId }) {
+  return get(`/api/shortMsg/getByID`, {
+    params: {
+      src: 'mobile',
+      msgId
+    }
+  })
+}

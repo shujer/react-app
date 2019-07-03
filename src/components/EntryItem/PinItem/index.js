@@ -2,6 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import AvatarBar from '@components/AvatarBar'
 import UserLink from '@components/AvatarBar/UserLink'
+import TagLink from '@components/Tag'
 import ShortStr from '@components/ShortStr'
 import { getTimefromNow } from '@utils/timeHelper'
 import FollowButton from '@components/FollowButton'
@@ -48,6 +49,7 @@ const PinItem = ({ item, ...props }) => {
       >
         <div className='short'>{item.content}</div>
       </div>
+      {item.topic ?  <TagLink title={item.topic.title} id ={item.topic.id} />: null}
       <div className='pinfooter'>
         <small>
           <LikeIcon isLiked={item.isLiked || false} /> {item.isLiked || '点赞'}
