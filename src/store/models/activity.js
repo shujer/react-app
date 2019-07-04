@@ -224,9 +224,7 @@ export default {
               entryList: edges
                 .filter(
                   entry =>
-                    entry.node.targets[0] &&
-                    entry.node.targets[0].user &&
-                    entry.node.targets[0].user.id
+                    entry.node.action === 'LIKE_PIN'
                 )
                 .map(entry => {
                   let {

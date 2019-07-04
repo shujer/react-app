@@ -1,16 +1,22 @@
 .commentContent {
-    margin-left: 2.8rem;
-    font-size: 1rem;
+  white-space: pre-wrap;
+  margin-left: 2rem;
+  small {
+    color: #000;
+  }
 }
 
-.replyBox {
-    background-color: @fill-grey;
+.commentInfo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 5.5rem;
+  img {
+    width: 1rem;
+    height: 1rem;
+  }
 }
 
-.replyContent {
-    padding: .2rem .2rem;
-    color: #68737f;
-    .replierScreenName {
-        color: black;
-    }
+.replyContainer {
+  background-color: @comment-text-bg;
 }

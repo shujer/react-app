@@ -7,6 +7,8 @@ import ShortStr from '@components/ShortStr'
 import TagLink from '@components/Tag'
 import { getTimefromNow } from '@utils/timeHelper'
 import FollowButton from '@components/FollowButton'
+import CommentList from '@components/CommentList'
+import {WhiteSpace } from 'antd-mobile'
 import './style.less'
 
 @withNavBarRightLayout('沸点详情页')
@@ -21,30 +23,39 @@ class PostContainer extends Component {
   render () {
     let { user, detail } = this.props
     return (
-      <div className='pinContainer content' key={detail.objectId}>
-        <AvatarBar
-          size='medium'
-          className='avatarBar'
-          user={user}
-          appendContent={[
-            <UserLink {...user} />,
-            <ShortStr
-              str={
-                user
-                  ? `${user.jobTitle}${' @ ' + user.company ||
-                      ''} · ${getTimefromNow(detail.createdAt)}`
-                  : ''
-              }
-            />
-          ]}
-          extraContent={[
-            <FollowButton currentId={user ? user.objectId : ''} />
-          ]}
-        />
-        <div className='pinContent'>{detail.content}</div>
-        {detail.topic ? (
-          <TagLink title={detail.topic.title} id={detail.topic.objectId} />
-        ) : null}
+      <div className='content' key={detail.objectId}>
+        <div className='pinContainer'>
+          <AvatarBar
+            size='medium'
+            className='avatarBar'
+            user={user}
+            appendContent={[
+              <UserLink {...user} />,
+              <ShortStr
+                str={
+                  user
+                    ? `${user.jobTitle}${' @ ' + user.company ||
+                        ''} · ${getTimefromNow(detail.createdAt)}`
+                    : ''
+                }
+              />
+            ]}
+            extraContent={[
+              <FollowButton currentId={user ? user.objectId : ''} />
+            ]}
+          />
+          <div className='pinContent'>
+            <div>{detail.content}</div>
+            {detail.topic ? (
+              <TagLink title={detail.topic.title} id={detail.topic.objectId} />
+            ) : null}
+          </div>
+        </div>
+
+        <WhiteSpace />
+        <div className='commentList'>
+          <CommentList />
+        </div>
       </div>
     )
   }
