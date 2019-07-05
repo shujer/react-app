@@ -1,8 +1,28 @@
-import {post, get, delete_with_params} from '@utils/request'
+import { post, get, request } from '@utils/request'
+/**
+ * 获取评论
+ */
+export async function getTopicCommentById ({ pageSize, pageNum, entryId }) {
+  return get(`/api/pincomment/${entryId}`, {
+    headers: {
+      'X-Juejin-Src': 'mobile'
+    },
+    params: {
+      pageSize,
+      pageNum
+    }
+  })
+}
+
 /**
  * 添加评论
  */
-export async function addComment({respUser,targetId,content,targetType = 'entry'}) {
+export async function addComment ({
+  respUser,
+  targetId,
+  content,
+  targetType = 'entry'
+}) {
   return post('/api/comment', {
     data: {
       respUser,
@@ -15,8 +35,14 @@ export async function addComment({respUser,targetId,content,targetType = 'entry'
 /**
  * 删除评论
  */
-export async function deleteComment({id, targetId, targetType = 'entry', firstComment}) {
-  return delete_with_params(`/api/comment/${id}`, {
+export async function deleteComment ({
+  id,
+  targetId,
+  targetType = 'entry',
+  firstComment
+}) {
+  return request(`/api/comment/${id}`, {
+    method: 'DELETE',
     params: {
       targetId,
       targetType,
@@ -27,7 +53,13 @@ export async function deleteComment({id, targetId, targetType = 'entry', firstCo
 /**
  * 添加回复
  */
-export async function addReply({commentId, uid, targetId, content, targetType = 'entry'}) {
+export async function addReply ({
+  commentId,
+  uid,
+  targetId,
+  content,
+  targetType = 'entry'
+}) {
   return post(`/api/comment/`, {
     data: {
       firstComment: commentId,
@@ -39,12 +71,3 @@ export async function addReply({commentId, uid, targetId, content, targetType = 
     }
   })
 }
-
-// export async function addReply({entryId, targetId, targetType = 'entry'}) {
-//   return get(`/comments/entry/${entryId}/comment/5cc994306fb9a0025787fd50?pageNum=1&pageSize=10`, {
-//     params: {
-//       targetId,
-//       targetType
-//     }
-//   })
-// }

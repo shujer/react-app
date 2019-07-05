@@ -7,6 +7,7 @@ import activity from './activity'
 import pin from './pin'
 import userFollow from './userFollow'
 import userLike from './userLike'
+import comment from './comment'
 
 export default {
   home,
@@ -17,5 +18,6 @@ export default {
   user,
   activity,
   userFollow,
-  userLike
+  userLike,
+  comment
 }

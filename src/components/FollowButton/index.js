@@ -93,9 +93,9 @@ class Button extends React.Component {
     clearTimeout(this.timer)
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
-    let isFollow = nextProps.followMap[nextProps.currentId]
-    if (prevState.isFollow !== isFollow) {
+  static getDerivedStateFromProps (props, state) {
+    let isFollow = props.followMap[props.currentId]
+    if (state.isFollow !== isFollow) {
       return {
         loading: false,
         isFollow

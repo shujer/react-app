@@ -8,13 +8,19 @@ import TagLink from '@components/Tag'
 import { getTimefromNow } from '@utils/timeHelper'
 import FollowButton from '@components/FollowButton'
 import CommentList from '@components/CommentList'
-import {WhiteSpace } from 'antd-mobile'
+import { WhiteSpace } from 'antd-mobile'
 import './style.less'
 
 @withNavBarRightLayout('沸点详情页')
 class PostContainer extends Component {
+  state = {
+    id: this.props.match.params.id
+  }
+
   componentDidMount () {
-    this.props.getPinById({ id: this.props.match.params.id })
+    if (this.state.id) {
+      this.props.getPinById({ id: this.state.id })
+    }
   }
   componentWillUnmount () {
     this.props.emptyPin()
@@ -23,7 +29,7 @@ class PostContainer extends Component {
   render () {
     let { user, detail } = this.props
     return (
-      <div className='content' key={detail.objectId}>
+      <div className='content' key={this.state.id}>
         <div className='pinContainer'>
           <AvatarBar
             size='medium'
@@ -54,7 +60,7 @@ class PostContainer extends Component {
 
         <WhiteSpace />
         <div className='commentList'>
-          <CommentList />
+          <CommentList entryId={this.state.id} />
         </div>
       </div>
     )

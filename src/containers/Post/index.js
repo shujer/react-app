@@ -15,31 +15,20 @@ import '@assets/highlight/default.min.css'
 
 class PostContainer extends Component {
   state = {
-    content: '',
-    postInfo: {}
+    id: this.props.match.params.id
   }
   componentDidMount () {
-    this.props.getPostAsync({ id: this.props.match.params.id })
-  }
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.content !== '') {
-      this.setState({
-        content: nextProps.content
-      })
-    }
-    if (nextProps.postInfo.user) {
-      this.setState({
-        postInfo: nextProps.postInfo
-      })
+    if (this.state.id) {
+      this.props.getPostAsync({ id: this.state.id })
     }
   }
   componentWillUnmount () {
     this.props.emptyPost()
   }
   render () {
-    let { user, title, screenshot } = this.state.postInfo
+    let { user, title, screenshot } = this.props.postInfo
     return (
-      <div className='postContainer' key={title}>
+      <div className='postContainer' key={this.state.id}>
         <NavBar
           mode='light'
           icon={<Icon type='left' />}
@@ -89,7 +78,7 @@ class PostContainer extends Component {
           <div
             className='content'
             dangerouslySetInnerHTML={{
-              __html: this.state.content
+              __html: this.props.content
             }}
           />
         </div>

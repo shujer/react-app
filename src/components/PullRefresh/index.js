@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import RefreshLoading from '@components/RefreshLoading'
 import PropTypes from 'prop-types'
@@ -18,7 +18,7 @@ class PullDownRefresh extends Component {
     useBodyScroll: this.props.useBodyScroll || false
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.downRefreshing !== this.state.downRefreshing) {
       this.setState({
         downRefreshing: nextProps.downRefreshing
@@ -31,7 +31,7 @@ class PullDownRefresh extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     let scrollContainer
     if (this.state.useBodyScroll) {
       var isCSS1Compat = (document.compatMode || '') === 'CSS1Compat'
@@ -88,10 +88,12 @@ class PullDownRefresh extends Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <>
-        {this.state.downRefreshing ? <RefreshLoading orient="down" /> : null}
+        {this.state.downRefreshing || this.props.children.length === 0 ? (
+          <RefreshLoading orient='down' />
+        ) : null}
         <div
           ref={el => (this.scrollContent = el)}
           onTouchStart={this.handleTouchStart}
@@ -101,7 +103,7 @@ class PullDownRefresh extends Component {
           {this.props.children}
         </div>
         {this.state.up && this.state.upRefreshing ? (
-          <RefreshLoading orient="up" />
+          <RefreshLoading orient='up' />
         ) : null}
       </>
     )

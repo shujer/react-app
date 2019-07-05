@@ -50,10 +50,12 @@ const PinItem = ({ item, ...props }) => {
       >
         <div className='short'>{item.content}</div>
       </div>
-      {item.topic ?  <TagLink title={item.topic.title} id ={item.topic.id} />: null}
+      {item.topic ? (
+        <TagLink title={item.topic.title} id={item.topic.id} />
+      ) : null}
       <div className='pinfooter'>
         <small>
-          <LikeButton currentId={item.objectId}/>
+          <LikeButton currentId={item.objectId} />
         </small>
         <small
           onClick={() => {

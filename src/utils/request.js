@@ -8,7 +8,7 @@ axios.defaults.headers.post['Content-Type'] =
  * 超时请求方案：https://github.com/axios/axios/issues/164#issuecomment-327837467
  */
 axios.defaults.timeout = 4000
-axios.defaults.retry = 1
+axios.defaults.retry = 2
 axios.defaults.retryDelay = 1500
 axios.interceptors.response.use(undefined, function axiosRetryInterceptor (err) {
   var config = err.config
@@ -73,21 +73,6 @@ export function post (url, { data = {}, ...res } = {}, retry = false) {
 export function put (url, {...res } = {}) {
   return fetch(url, {
     method: 'put',
-    retry: 0,
-    ...res
-  })
-    .then(response =>
-      response.data && response.data.d ? response.data.d : response.data
-    )
-    .catch(err => {
-      console.log(err)
-    })
-}
-
-export function delete_with_params (url, { params = {}, ...res } = {}) {
-  return axios({
-    method: 'delete',
-    url: `${url}?${stringify(params)}`,
     retry: 0,
     ...res
   })

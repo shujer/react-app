@@ -1,4 +1,4 @@
-import { get, put, delete_with_params } from '@utils/request'
+import { get, put, request } from '@utils/request'
 
 const COLS =
   'viewedEntriesCount|role|totalCollectionsCount|allowNotification|subscribedTagsCount|appliedEditorAt|email|followersCount|postedEntriesCount|latestCollectionUserNotification|commentedEntriesCount|weeklyEmail|collectedEntriesCount|postedPostsCount|username|latestLoginedInAt|totalHotIndex|blogAddress|selfDescription|latestCheckedNotificationAt|emailVerified|totalCommentsCount|installation|blacklist|weiboId|mobilePhoneNumber|apply|followeesCount|deviceType|editorType|jobTitle|company|latestVoteLikeUserNotification|authData|avatarLarge|mobilePhoneVerified|objectId|createdAt|updatedAt'
@@ -150,8 +150,9 @@ export async function UserLike ({ entryId, clientId, token, uid }) {
 /**
  * 取消点赞
  * */
-export async function UserUnLike ({ entryId, clientId, token, uid }) {
-  return delete_with_params(`/api/like/user/like/entry/${entryId}`, {
+export async function UserUnLike ({ entryId, clientId, token, uid }){
+  return request(`/api/like/user/like/entry/${entryId}`, {
+    method:'DELETE',
     headers: {
       'X-Juejin-Src': 'web',
       'X-Juejin-Client': clientId,
