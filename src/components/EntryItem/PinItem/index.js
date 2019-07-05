@@ -29,7 +29,7 @@ const PinItem = ({ item, ...props }) => {
                     ''} · ${getTimefromNow(item.createdAt)}`
                 : ''
             }
-            len={15}
+            len={20}
           />
         ]}
         extraContent={[

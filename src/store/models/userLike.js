@@ -1,4 +1,6 @@
 import * as api from '@services/user'
+import {Toast} from 'antd-mobile'
+
 export default {
   namespace: 'userLike',
   state: {
@@ -31,7 +33,10 @@ export default {
     async changeLike (playload, state) {
       let { likeState, targetId } = playload
       let { userInfo, isLogin } = state.auth
-      if (!isLogin) return
+      if (!isLogin) {
+        Toast.info('请先登录', 1.5)
+        return
+      }
       if (likeState) {
         api
           .UserUnLike({ ...userInfo, entryId: targetId })

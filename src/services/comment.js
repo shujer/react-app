@@ -2,7 +2,7 @@ import { post, get, request } from '@utils/request'
 /**
  * 获取评论
  */
-export async function getTopicCommentById ({ pageSize, pageNum, entryId }) {
+export async function getTopicCommentById ({ pageSize = 4, pageNum, entryId }) {
   return get(`/api/pincomment/${entryId}`, {
     headers: {
       'X-Juejin-Src': 'mobile'

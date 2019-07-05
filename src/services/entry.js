@@ -1,4 +1,4 @@
-import {get, post} from '@utils/request'
+import { get, post } from '@utils/request'
 
 const queryIds = {
   all: '21207e9ddb1de777adeaca7a2fb38030',
@@ -25,7 +25,7 @@ const categoryIds = {
  * @param {string} category 列表类型
  * @param {number} before 上次请求的rankIndex
  */
-export async function getEntry({limit = 20, category = 'all', before = ''}) {
+export async function getEntry ({ limit = 20, category = 'all', before = '' }) {
   let categoryId = categoryIds[category]
   return get(`/api/timeline/get_entry_by_rank`, {
     params: {
@@ -43,7 +43,7 @@ export async function getEntry({limit = 20, category = 'all', before = ''}) {
  * @param {string} category 列表类型
  * @param {array} tags 选择的标签
  */
-export async function getEntryByQuery({
+export async function getEntryByQuery ({
   after = '',
   category = 'all',
   tags = []
@@ -62,7 +62,7 @@ export async function getEntryByQuery({
         category: categoryId,
         tags
       },
-      extensions: {query: {id: queryIds[id]}}
+      extensions: { query: { id: queryIds[id] } }
     },
     headers: {
       'X-Agent': 'Juejin/Mobile'
@@ -75,7 +75,7 @@ export async function getEntryByQuery({
  * @param {string} postId 文章id
  * @param {string} type：entryView获取文章内容，entry获取文章信息
  */
-export async function getPostDetail(postId, type = 'entryView') {
+export async function getPostDetail (postId, type = 'entryView') {
   return get(`/api/post/getDetailData`, {
     params: {
       src: 'mobile',
@@ -89,7 +89,7 @@ export async function getPostDetail(postId, type = 'entryView') {
  * 获取文章相关列表
  * @param {string} entryId 文章id
  */
-export async function getRelatedEntry(entryId) {
+export async function getRelatedEntry (entryId) {
   return get(`/api/timeline/get_related_entry`, {
     params: {
       src: 'mobile',
@@ -103,7 +103,7 @@ export async function getRelatedEntry(entryId) {
  * 获取标签相关列表
  * @param {array} tagIds 标签id
  */
-export async function getRecommendEntryByTagIds(tagIds) {
+export async function getRecommendEntryByTagIds (tagIds) {
   return get(`/api/post/getRecommendEntryByTagIds`, {
     params: {
       src: 'mobile',
@@ -120,7 +120,7 @@ export async function getRecommendEntryByTagIds(tagIds) {
  * @param {string} token 当前用户token
  * @param {string} uid 当前用户uid
  */
-export async function getXiaoce({
+export async function getXiaoce ({
   pageNum = 1,
   alias = '',
   client_id = '',
@@ -146,7 +146,7 @@ export async function getXiaoce({
  * @param {string} before
  * @param {number} limit
  */
-export async function getEventList({
+export async function getEventList ({
   pageNum,
   orderType = 'startTime',
   pageSize = 20,
@@ -161,6 +161,19 @@ export async function getEventList({
       pageSize,
       showBanner,
       bannerStartTime
+    }
+  })
+}
+
+export async function getCommentById ({ pageSize = 4, createAt = '', entryId }) {
+  return get(`/api/postcomment/entry/${entryId}`, {
+    headers: {
+      'X-Juejin-Src': 'mobile'
+    },
+    params: {
+      pageSize,
+      createAt,
+      rankType: 'new'
     }
   })
 }

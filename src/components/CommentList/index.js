@@ -14,13 +14,11 @@ const Reply = ({ reply, respUser }) => {
   return (
     <div className='replyContainer'>
       <div className='replyContent'>
-        <small>
-          <strong>
-            {userInfo.username}
-            {respUser === userId ? '(作者)' : null}：
-          </strong>
-          {content}
-        </small>
+        <strong>
+          {userInfo.username}
+          {respUser === userId ? '(作者)' : null}：
+        </strong>
+        {content}
       </div>
     </div>
   )
@@ -51,7 +49,7 @@ const Comment = ({ comment }) => {
                     ''} · ${getTimefromNow(createdAt)}`
                 : ''
             }
-            len={18}
+            len={17}
           />
         ]}
         extraContent={[
@@ -64,7 +62,7 @@ const Comment = ({ comment }) => {
         ]}
       />
       <div className='commentContent'>
-        <small> {content}</small>
+        <div> {content}</div>
         {topComment ? (
           <div>
             {topComment.map(item => (

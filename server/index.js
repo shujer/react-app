@@ -4,6 +4,9 @@ const proxy = require('koa-server-http-proxy')
 const proxyTable = require('./proxy')
 // const cors = require('@koa/cors')
 
+const port = process.env.PORT || 8989;
+const host = process.env.host || 'localhost';
+
 const app = new Koa()
 const server = require('http').Server(app.callback())
 const io = require('socket.io')(server)
@@ -36,6 +39,6 @@ io.of('/feedback').on('connection', function(socket) {
   socket.on('disconnect', function() {})
 })
 
-server.listen(8989, '0.0.0.0', () => {
-  console.log('server is running at http://localhost:8989')
+server.listen(port, host, () => {
+  console.log(`server is running at http://${host}:${port}`)
 })

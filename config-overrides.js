@@ -4,8 +4,6 @@ const {
   addWebpackAlias,
   addLessLoader,
   addDecoratorsLegacy,
-  overrideDevServer,
-  watchAll,
   useBabelRc
 } = require('customize-cra')
 const path = require('path')
@@ -35,6 +33,5 @@ module.exports = {
     addDecoratorsLegacy({
       legacy: true
     })
-  ),
-  devServer: overrideDevServer(watchAll())
+  )
 }

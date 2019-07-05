@@ -44,6 +44,7 @@ class PostContainer extends Component {
                         ''} · ${getTimefromNow(detail.createdAt)}`
                     : ''
                 }
+                len={25}
               />
             ]}
             extraContent={[

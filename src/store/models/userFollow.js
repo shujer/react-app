@@ -1,4 +1,6 @@
 import * as api from '@services/user'
+import {Toast} from 'antd-mobile'
+
 export default {
   namespace: 'userFollow',
   state: {
@@ -17,7 +19,9 @@ export default {
     async checkFollow (playload, state) {
       let { targetId } = playload
       let { userInfo, isLogin } = state.auth
-      if (!isLogin || state.userFollow.followMap[targetId] !== undefined) return
+      if (!isLogin || state.userFollow.followMap[targetId] !== undefined) {
+        return;
+      }
       api
         .checkisFollow({ ...userInfo, targetUids: targetId })
         .then(follow => {
@@ -31,7 +35,10 @@ export default {
     async changeFollow (playload, state) {
       let { followState, targetId } = playload
       let { userInfo, isLogin } = state.auth
-      if (!isLogin) return
+      if (!isLogin)  {
+        Toast.info('请先登录', 1.5);
+        return
+      }
       if (followState) {
         api
           .UserUnFollow({

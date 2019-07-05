@@ -4,8 +4,8 @@ import './style.less'
 
 const AvatarBar = ({user, appendContent, extraContent, size}) => {
   let style = {
-    height: '1.2rem',
-    width: '1.2rem'
+    height: '1.6rem',
+    width: '1.6rem'
   }
   if (size && size === 'medium') {
     style = {

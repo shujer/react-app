@@ -36,7 +36,7 @@
     "swiper": "^4.5.0"
   },
   "scripts": {
-    "dev:server": "cross-env NODE_ENV=development nodemon server/app.js",
+    "dev:server": "cross-env NODE_ENV=production nodemon server/index.js",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-scripts test",
@@ -45,12 +45,14 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": []
+  },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/plugin-proposal-decorators": "^7.3.0",
@@ -66,7 +68,8 @@
     "react-app-rewired": "^2.1.0",
     "redux-devtools": "^3.5.0",
     "redux-logger": "^3.0.6",
-    "style-loader": "^0.23.1"
+    "style-loader": "^0.23.1",
+    "terser": "3.16.1"
   },
   "theme": {
     "@brand-primary": "#007FFE",

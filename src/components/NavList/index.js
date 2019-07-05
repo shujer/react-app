@@ -37,7 +37,7 @@ const NavList = props => {
             style={{
               width: width + '%',
               transform: `translate3d(${selectedIndex * 100}%,0,0)`,
-              transition: 'transform 200ms ease-in-out'
+              transition: 'transform 100ms ease-out'
             }}
           />
         </div>
