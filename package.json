@@ -16,7 +16,7 @@
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",
     "koa-server-http-proxy": "^0.1.0",
-    "node-fetch": "^2.3.0",
+    "node-fetch": "^2.6.1",
     "rc-form": "^2.4.3",
     "react": "^16.8.4",
     "react-beautiful-dnd": "^10.0.4",
