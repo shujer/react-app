@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.2.9",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "co-body": "^6.0.0",
     "connected-react-router": "^6.3.2",
     "crypto": "^1.0.1",
